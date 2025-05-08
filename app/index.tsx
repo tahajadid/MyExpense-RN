@@ -1,12 +1,26 @@
 import { colors } from "@/constants/theme";
-import React from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import { Image, StyleSheet, View } from 'react-native';
 
 const index = () => {
-  return (
-    <View style={styles.conatinaer}>
-      <Text>index</Text>
-    </View>
+
+    // navigate to welcome page after 2s
+    const router = useRouter();
+    useEffect(() =>{
+        setTimeout(()=>{
+            router.push("/(auth)/welcome");
+        },2000)
+    },[])
+
+    return (
+        <View style={styles.conatinaer}>
+        <Image
+            source={require('../assets/images/onboardingTwo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+        />
+        </View>
   )
 }
 
@@ -19,4 +33,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: colors.neutral900,
     },
+    logo: {
+        aspectRatio: 1,
+        height: "20%",
+    }
 })
