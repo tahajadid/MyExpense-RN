@@ -53,7 +53,7 @@ const welcome = () => {
                 entering={FadeInDown.duration(1000).delay(200).springify().damping(12)}
                 style={styles.buttomContainer}>
                     <Button>
-                        <Typo size={26} fontWeight={"600"} color={colors.neutral900}> Go start</Typo>
+                        <Typo size={22} fontWeight={"600"} color={colors.neutral900}> Go start</Typo>
                     </Button>
                 </Animated.View>
             </View>
@@ -69,10 +69,12 @@ const styles = StyleSheet.create({
         paddingTop: spacingY._7,
     },
     welcomeImage: {
-        width: "100%",
-        height: verticalScale(300),
+        width: "80%",
+        height: verticalScale(280),
         alignSelf: "center",
         marginTop: verticalScale(100),
+        marginRight: spacingX._40,
+        marginLeft: spacingX._40
     },
         loginButton: {
         alignSelf: "flex-end",
@@ -86,9 +88,9 @@ const styles = StyleSheet.create({
         gap: spacingY._20,
         shadowColor: "white",
         shadowOffset: { width: 0, height: -1},
-        elevation: 10,
-        shadowRadius: 25,
-        shadowOpacity: 0.15,
+        elevation: 100,
+        shadowRadius: 5,
+        shadowOpacity: 0.35,
     },
     buttomContainer:{
         width: "100%",
