@@ -10,21 +10,28 @@ import * as Icons from 'phosphor-react-native';
 import React, { useRef, useState } from 'react';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 
-const login = () => {
+const RegisterUser = () => {
 
     const emailRef = useRef("");
+    const profileNameRef = useRef("");
     const passswordRef = useRef("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const [password, setPassword] = useState('');
 
     const handleSubmit = async () => {
-        if(!password || !emailRef.current){
-            Alert.alert("Login","Please fill the fields !")
+        if(!password || !emailRef.current || !profileNameRef.current){
+            Alert.alert("Register","Please fill the fields !")
             return;
         }
-        console.log("email : ",emailRef.current)
-        console.log("password : ",password)
+        
+        /*
+        setIsLoading(true);
+        const response = await registerUser(emailRef.current,password,profileNameRef.current);
+        setIsLoading(false);
+        console.log("register result :",response)
+
+        */
     };
 
   return (
@@ -36,10 +43,10 @@ const login = () => {
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._20}}>
                 <Typo size={30} fontWeight={"800"}>
-                    Hey,
+                    Create,
                 </Typo>
                 <Typo size={30} fontWeight={"800"}>
-                    Welcome Back
+                    Your Profile
                 </Typo>
             </View>
 
@@ -47,8 +54,21 @@ const login = () => {
 
             <View style={styles.form}>
                 <Typo>
-                    Login now to track every expenses
+                    Create an account track every expense
                 </Typo>
+
+                {/** profile Input */}
+                <Input
+                    placeholder='Enter your profile id'
+                    onChangeText={(value) => (profileNameRef.current = value)}
+                    icon={
+                        <Icons.User
+                            size={verticalScale(26)}
+                            color={colors.neutral300}
+                            weight='fill'
+                        />
+                    }
+                />
 
 
                 {/** email adress Input */}
@@ -79,15 +99,9 @@ const login = () => {
                     }
                 />
 
-                <Pressable>
-                    <Typo style={styles.forgetPassword}>
-                        Forget Password ?
-                    </Typo>
-                </Pressable>
-
                 <Button loading={isLoading} onPress={handleSubmit}>
                     <Typo style={styles.submitButton}>
-                        Login
+                        Sign Up
                     </Typo>
                 </Button>
 
@@ -96,24 +110,22 @@ const login = () => {
             {/** footer */}
             <View style={styles.footer}>
                 <Typo style={styles.footerText}>
-                    Don't have an account?
+                    Already have an account?
                 </Typo>
-                <Pressable onPress={() => router.push("/(auth)/registerUser")}>
+                <Pressable onPress={() => router.push("/(auth)/login")}>
                     <Typo style={styles.underlinedText}>
-                        Sign up
+                        Login
                     </Typo>
                 </Pressable>
             </View>
 
-
         </View>
-        
 
     </ScreenWrapper>
   )
-}
+};
 
-export default login;
+export default RegisterUser;
 
 const styles = StyleSheet.create({ 
     container: { 
