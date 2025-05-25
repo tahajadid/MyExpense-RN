@@ -15,12 +15,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+            console.log("firebase user: ", firebaseUser)
             if(firebaseUser){
                 setUser({
                     uid: firebaseUser?.uid,
                     email: firebaseUser?.email,
                     name: firebaseUser?.displayName
                 });
+                updateUserData(firebaseUser.uid)
                 router.replace("/(tabs)")
             }else{
                 setUser(null);
@@ -39,6 +41,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             return { success: true };
         } catch(error: any) {
             let msg = error.message;
+            console.log("error message : ", msg);
+            // check for a code error
+            if(msg.includes("(auth/invalid-credential)")){
+                msg =  "Wrong email or password";
+            } else if(msg.includes("(auth/invalid-email)")){
+                msg =  "This email have not an account";
+            }
             return { success: false, msg };
         }
     };
@@ -55,6 +64,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             return { success: true };
         } catch(error: any) {
             let msg = error.message;
+            if(msg.includes("(auth/email-already-in-use)")){
+                msg =  "This email is already in use";
+            }
             return { success: false, msg };
         }
     };
