@@ -1,7 +1,7 @@
 import { colors, spacingY } from '@/constants/theme';
 import { verticalScale } from '@/utils/styling';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { Text } from '@react-navigation/elements';
+import * as Icons from "phosphor-react-native";
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function CustomTabs({ 
@@ -10,6 +10,36 @@ export default function CustomTabs({
     navigation 
 } : BottomTabBarProps) {
 
+    const tabbarIcons: any = {
+        index: (isFocused: Boolean) => (
+            <Icons.House 
+            size={verticalScale(30)}
+            weight={isFocused? "fill" : "regular"}
+            color={isFocused? colors.primary : colors.neutral400}
+            />
+        ),
+        statistics: (isFocused: Boolean) => (
+            <Icons.ChartBar 
+            size={verticalScale(30)}
+            weight={isFocused? "fill" : "regular"}
+            color={isFocused? colors.primary : colors.neutral400}
+            />
+        ),
+        wallet: (isFocused: Boolean) => (
+            <Icons.Wallet 
+            size={verticalScale(30)}
+            weight={isFocused? "fill" : "regular"}
+            color={isFocused? colors.primary : colors.neutral400}
+            />
+        ),
+        profile: (isFocused: Boolean) => (
+            <Icons.User 
+            size={verticalScale(30)}
+            weight={isFocused? "fill" : "regular"}
+            color={isFocused? colors.primary : colors.neutral400}
+            />
+        )
+    } 
   return (
     <View style={styles.tabbar}>
       {state.routes.map((route, index) => {
@@ -52,9 +82,9 @@ export default function CustomTabs({
             onLongPress={onLongPress}
             style={styles.tabbarItem}
           >
-            <Text style={{ color: isFocused ? colors.primary : colors.white }}>
-              {label}
-            </Text>
+            {
+                tabbarIcons[route.name] &&  tabbarIcons[route.name](isFocused)
+            }
           </TouchableOpacity>
         );
       })}
@@ -77,5 +107,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flex: 1
+    },
+    Icon : {
+        
     }
 });
