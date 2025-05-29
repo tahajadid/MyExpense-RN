@@ -1,15 +1,50 @@
+import Header from '@/components/Header';
 import ScreenWrapper from '@/components/ScreenWrapper';
+import Typo from '@/components/Typo';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
+import { useAuth } from '@/contexts/authContext';
+import { getProfileImage } from '@/services/imageService';
 import { verticalScale } from '@/utils/styling';
+import { Image } from "expo-image";
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const Profile = () => {
-  return (
-    <ScreenWrapper>
-      <Text>P</Text>
-    </ScreenWrapper>
-  )
+    const {user} = useAuth()
+
+    return (
+        <ScreenWrapper>
+        <View style={styles.container}> 
+            {/** Header */}
+            <Header title='Profile'
+                style={{marginVertical: spacingY._10}}
+            />
+
+            {/** User Info */}
+            <View style={styles.userInfo}>
+                {/** Avatar */}
+                <View>
+                    <Image 
+                        source={getProfileImage(user?.image)}
+                        style={styles.avatar}
+                        contentFit="cover"
+                        transition={100}
+                    />
+                </View>
+                {/** Name & Mail */}
+                <View style={styles.nameContainer}>
+                    <Typo size={24} fontWeight={"800"} color={colors.neutral200}>
+                        {user?.name}
+                    </Typo>
+                    <Typo size={16} fontWeight={"300"} color={colors.neutral400}>
+                        {user?.email }
+                    </Typo>
+                </View>
+
+            </View>
+        </View>
+        </ScreenWrapper>
+    )
 }
 
 export default Profile;
@@ -34,7 +69,7 @@ const styles = StyleSheet.create({
         height: verticalScale(135),
         width: verticalScale(135),
         borderRadius: 200,
-        // overflow: "hidden",
+        overflow: "hidden",
         // position: "relative",
     },
     editIcon: {
