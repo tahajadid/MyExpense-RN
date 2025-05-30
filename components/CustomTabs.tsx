@@ -41,7 +41,7 @@ export default function CustomTabs({
         )
     } 
   return (
-    <View style={styles.tabbar}>
+        <View style={styles.tabbar}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label : any =
@@ -89,6 +89,7 @@ export default function CustomTabs({
         );
       })}
     </View>
+
   );
 };
 
@@ -96,8 +97,10 @@ const styles = StyleSheet.create({
     tabbar : {
         flexDirection: 'row',
         width:"100%",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
         height: Platform.OS == "ios" ? verticalScale(73) : verticalScale(55),
-        backgroundColor: "space-around",
+        backgroundColor: colors.neutral500,
         alignItems: "center",
         borderTopColor: colors.neutral700,
         borderTopWidth: 1,
@@ -106,6 +109,8 @@ const styles = StyleSheet.create({
         marginBottom: Platform.OS == "ios" ? spacingY._10 : spacingY._5,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: colors.neutral500,
+        borderTopColor: colors.neutral900,
         flex: 1
     },
     Icon : {
