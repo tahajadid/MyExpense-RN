@@ -14,7 +14,6 @@ import { Alert, Pressable, StyleSheet, View } from 'react-native';
 const login = () => {
 
     const emailRef = useRef("");
-    const passswordRef = useRef("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const [password, setPassword] = useState('');
@@ -27,7 +26,7 @@ const login = () => {
             return;
         }
         setIsLoading(true);
-        const res = await loginUser(emailRef.current, passswordRef.current);
+        const res = await loginUser(emailRef.current, password);
         setIsLoading(false);
         if(!res.success){
             Alert.alert("Login : ", res.msg)

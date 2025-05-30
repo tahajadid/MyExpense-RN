@@ -1,16 +1,73 @@
 import Header from '@/components/Header';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
+import { auth } from '@/config/firebase';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import { getProfileImage } from '@/services/imageService';
+import { accountOptionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { Image } from "expo-image";
+import { signOut } from 'firebase/auth';
+import * as Icons from "phosphor-react-native";
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInUp } from 'react-native-reanimated';
 
 const Profile = () => {
     const {user} = useAuth()
+
+    const accountOptions: accountOptionType[] = [
+        {
+            title: "Edit Profile",
+            icon: (<Icons.GearSix size={26} color={colors.white} weight="fill"/>),
+            routeName:"/(modals)/profileModal",
+            bgColor:"#6366f1"
+        },
+        {
+            title: "Settings Profile",
+            icon: (<Icons.Lock size={26} color={colors.white} weight="fill"/>),
+            //routeName:"/(modals)/profileModal",
+            bgColor:"#059669"
+        },
+        {
+            title: "Privacy Policy",
+            icon: (<Icons.Lock size={26} color={colors.white} weight="fill"/>),
+            //routeName:"/(modals)/profileModal",
+            bgColor:colors.neutral600
+        },
+        {
+            title: "Logout",
+            icon: (<Icons.Power size={26} color={colors.white} weight="fill"/>),
+            //routeName:"/(modals)/profileModal",
+            bgColor:"#e11d48"
+        }
+    ]
+
+    const handleLogout = async () => {
+        await signOut(auth);
+    };
+
+    const showLogoutAlert = () => {
+        Alert.alert("Confirm", "Are you sure you want to logout?", [
+            {
+                text: "Cancel",
+                onPress: ()=> console.log("cancel logout"),
+                style: "cancel"
+            },
+            {
+                text: "Logout",
+                onPress: () => handleLogout(),
+                style: "destructive"
+            }
+        ])
+    }
+
+    const handlePress = (item: accountOptionType) => {
+        if(item.title == "Logout"){
+            showLogoutAlert()
+        }
+    }
 
     return (
         <ScreenWrapper>
@@ -41,6 +98,40 @@ const Profile = () => {
                     </Typo>
                 </View>
 
+            </View>
+
+            {/** Account options */}
+            <View style={styles.accountOptions}>
+                {accountOptions.map((item, index) => {
+                    return(
+                        <Animated.View
+                        key={index.toString()}
+                        entering={
+                            FadeInUp.delay(index * 50).springify().damping(14)}
+                        style={styles.listItem}>
+                            <TouchableOpacity style={styles.flexRow} onPress={()=>handlePress(item)}>
+                                {/** icon */}
+                                <View style={[
+                                    styles.listIcon,
+                                    {
+                                        backgroundColor: item?.bgColor
+                                    }
+                                ]}>
+                                    {item.icon && item.icon} 
+                                </View>
+                                <Typo size={16} style={{flex : 1}} fontWeight={"500"}>
+                                    {item.title}
+                                </Typo>
+                                <Icons.CaretRight
+                                size={verticalScale(20)}
+                                weight="bold"
+                                color={colors.white}
+                                />
+                            </TouchableOpacity>
+                        </Animated.View>
+                    )
+                    })
+                }
             </View>
         </View>
         </ScreenWrapper>
