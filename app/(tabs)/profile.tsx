@@ -8,6 +8,7 @@ import { getProfileImage } from '@/services/imageService';
 import { accountOptionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { Image } from "expo-image";
+import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import * as Icons from "phosphor-react-native";
 import React from 'react';
@@ -16,7 +17,8 @@ import Animated, { FadeInUp } from 'react-native-reanimated';
 
 const Profile = () => {
     const {user} = useAuth()
-
+    const rouetr = useRouter();
+    
     const accountOptions: accountOptionType[] = [
         {
             title: "Edit Profile",
@@ -66,6 +68,10 @@ const Profile = () => {
     const handlePress = (item: accountOptionType) => {
         if(item.title == "Logout"){
             showLogoutAlert()
+        }
+
+        if(item.routeName){
+            rouetr.push(item.routeName)
         }
     }
 
