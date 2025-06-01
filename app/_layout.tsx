@@ -2,11 +2,24 @@ import { AuthProvider } from '@/contexts/authContext';
 import { Stack } from 'expo-router';
 import React from 'react';
 
+const StackLayout= () =>{
+    return(
+      <Stack screenOptions={{ headerShown: false}}>
+          <Stack.Screen
+            name="(modals)/profileModal"
+            options={{
+              presentation:"modal"
+            }}
+          />
+      </Stack>
+    )
+}
+
 // This is the root layout file
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }} />
+      <StackLayout />
     </AuthProvider>
   );
 }
