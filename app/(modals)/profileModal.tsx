@@ -1,14 +1,44 @@
-import ScreenWrapper from '@/components/ScreenWrapper';
+import BackButton from '@/components/BackButton';
+import Header from '@/components/Header';
+import ModalWrapper from '@/components/ModalWrapper';
 import { colors, spacingX, spacingY } from '@/constants/theme';
+import { getProfileImage } from '@/services/imageService';
 import { scale, verticalScale } from '@/utils/styling';
+import { Image } from 'expo-image';
+import * as Icons from "phosphor-react-native";
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
-
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, View } from 'react-native-reanimated/lib/typescript/Animated';
 const ProfileModal = () => {
   return (
-    <ScreenWrapper>
-      <Text>profileModal</Text>
-    </ScreenWrapper>
+    <ModalWrapper>
+        {/** Header */}
+        <View style={styles.container}>
+            <Header 
+            title="Update profile information" 
+            leftIcon={<BackButton/>}
+            style={{ marginBottom: spacingY._10 }}/>
+        </View>
+
+        {/** Form */}
+        <ScrollView contentContainerStyle={styles.form}>
+            <View style={styles.avatarContainer}>
+                <Image style={styles.avatar}
+                    source={getProfileImage(null)}
+                    contentFit="cover"
+                    transition={100}
+                />
+
+                <TouchableOpacity style={styles.editIcon}>
+                    <Icons.Pencil
+                        size={verticalScale(20)}
+                        color={colors.neutral800}
+                    />
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
+
+    </ModalWrapper>
   )
 }
 
