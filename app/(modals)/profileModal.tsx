@@ -1,15 +1,57 @@
 import BackButton from '@/components/BackButton';
+import Button from '@/components/Button';
 import Header from '@/components/Header';
+import Input from '@/components/Input';
 import ModalWrapper from '@/components/ModalWrapper';
+import Typo from '@/components/Typo';
 import { colors, spacingX, spacingY } from '@/constants/theme';
+import { useAuth } from '@/contexts/authContext';
 import { getProfileImage } from '@/services/imageService';
+import { updateUser } from '@/services/userService';
+import { UserDataType } from '@/types';
 import { scale, verticalScale } from '@/utils/styling';
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 import * as Icons from "phosphor-react-native";
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { ScrollView, View } from 'react-native-reanimated/lib/typescript/Animated';
+import React, { useEffect, useState } from 'react';
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 const ProfileModal = () => {
+
+    const {user, updateUserData} = useAuth();
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+    const [userData, setUserData] = useState<UserDataType>({
+        name: "",
+        image: null
+    });
+
+    useEffect(()=>{
+        setUserData({
+            name : user?.name || "",
+            image : user?.image || null
+        })
+    },[user]);
+
+    const onSubmit = async () => {
+        let {name, image} = userData;
+        if(!name.trim()){
+            Alert.alert("User","Please enter the new name")
+            return;
+        }
+
+        setLoading(true);
+        const respose = await updateUser(user?.uid as string, userData);
+        setLoading(false)
+
+        if(respose.success){
+            // data is updated
+            updateUserData(user?.uid as string)
+            router.back();
+        } else {
+            Alert.alert("User","There is a probleme")
+        }
+    };
+
   return (
     <ModalWrapper>
         {/** Header */}
@@ -36,6 +78,23 @@ const ProfileModal = () => {
                     />
                 </TouchableOpacity>
             </View>
+
+            <View>
+                <Typo color={colors.neutral200}>Name</Typo>
+                <Input
+                    placeholder="name"
+                    value={userData.name}
+                    onChangeText={(value) => {
+                        setUserData({...userData, name: value})
+                    }}
+                />
+            </View>
+
+            <View style={styles.footer}>
+                <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
+                    <Typo color={colors.black} fontWeight={"700"}  >Update information</Typo>
+                </Button>
+            </View>©
         </ScrollView>
 
     </ModalWrapper>
