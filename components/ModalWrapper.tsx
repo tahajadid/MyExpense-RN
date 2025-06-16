@@ -3,18 +3,19 @@ import { ModalWrapperProps } from '@/types';
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 
-const isIos = Platform.OS == "ios";
+const isIos = Platform.OS == 'ios';
+
 const ModalWrapper = ({
     style,
     children,
     bg = colors.neutral800
 }: ModalWrapperProps) => {
   return (
-    <View style={[style && style, styles.container, {backgroundColor: bg} ]}>
+    <View style={[styles.container, {backgroundColor: bg}, style ]}>
         {children}
     </View>
   )
-}
+};
 
 export default ModalWrapper;
 

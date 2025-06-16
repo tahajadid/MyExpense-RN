@@ -54,49 +54,46 @@ const ProfileModal = () => {
 
   return (
     <ModalWrapper>
-        {/** Header */}
         <View style={styles.container}>
-            <Header 
-            title="Update profile information" 
+            <Header title="Update profile information"
             leftIcon={<BackButton/>}
             style={{ marginBottom: spacingY._10 }}/>
-        </View>
 
-        {/** Form */}
-        <ScrollView contentContainerStyle={styles.form}>
-            <View style={styles.avatarContainer}>
-                <Image style={styles.avatar}
-                    source={getProfileImage(null)}
-                    contentFit="cover"
-                    transition={100}
-                />
-
-                <TouchableOpacity style={styles.editIcon}>
-                    <Icons.Pencil
-                        size={verticalScale(20)}
-                        color={colors.neutral800}
+            {/** Form */}
+            <ScrollView contentContainerStyle={styles.form}>
+                <View style={styles.avatarContainer}>
+                    <Image style={styles.avatar}
+                        source={getProfileImage(null)}
+                        contentFit="cover"
+                        transition={100}
                     />
-                </TouchableOpacity>
-            </View>
 
-            <View>
-                <Typo color={colors.neutral200}>Name</Typo>
-                <Input
-                    placeholder="name"
-                    value={userData.name}
-                    onChangeText={(value) => {
-                        setUserData({...userData, name: value})
-                    }}
-                />
-            </View>
+                    <TouchableOpacity style={styles.editIcon}>
+                        <Icons.Pencil
+                            size={verticalScale(20)}
+                            color={colors.neutral800}
+                        />
+                    </TouchableOpacity>
+                </View>
 
-            <View style={styles.footer}>
-                <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
-                    <Typo color={colors.black} fontWeight={"700"}  >Update information</Typo>
-                </Button>
-            </View>©
-        </ScrollView>
+                <View>
+                    <Typo color={colors.neutral200}>Name</Typo>
+                    <Input
+                        placeholder="name"
+                        value={userData.name}
+                        onChangeText={(value) => {
+                            setUserData({...userData, name: value})
+                        }}
+                    />
+                </View>
 
+                <View style={styles.footer}>
+                    <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
+                        <Typo color={colors.black} fontWeight={"700"}>Update information</Typo>
+                    </Button>
+                </View>
+            </ScrollView>
+        </View>
     </ModalWrapper>
   )
 }

@@ -79,7 +79,7 @@ const Profile = () => {
         <ScreenWrapper>
         <View style={styles.container}> 
             {/** Header */}
-            <Header title='Profile'
+            <Header title="Profile"
                 style={{marginVertical: spacingY._10}}
             />
 

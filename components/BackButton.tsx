@@ -4,24 +4,31 @@ import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import { CaretLeft } from 'phosphor-react-native';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const BackButton = ({
     style,
     iconSize = 30,
 }: BackButtonProps) => {
     const router = useRouter();
-  return (
-    <TouchableOpacity onPress={() => {router.back()}} 
-        style={[style, styles.button]}>
+    const scaledSize = verticalScale(iconSize);
+    
+    const IconComponent = () => (
         <CaretLeft
-            size={verticalScale(iconSize)}
+            size={scaledSize}
             color={colors.white}
-            weight='bold'
         />
-    </TouchableOpacity>
-  )
-}
+    );
+    
+    return (
+        <TouchableOpacity onPress={() => {router.back()}} 
+            style={[style, styles.button]}>
+            <View>
+                <IconComponent />
+            </View>
+        </TouchableOpacity>
+    )
+};
 
 export default BackButton;
 
