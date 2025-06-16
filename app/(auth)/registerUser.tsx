@@ -34,7 +34,7 @@ const RegisterUser = () => {
         
         const response = await registerUser(emailRef.current,password,profileNameRef.current);
         
-        console.log("register result :",response)
+        //console.log("register result :",response)
         
         setIsLoading(false);
 
