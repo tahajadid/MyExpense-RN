@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         width: "100%",
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        height: Platform.OS == "ios" ? verticalScale(73) : verticalScale(55),
+        height: Platform.OS == "ios" ? verticalScale(80) : verticalScale(60),
         backgroundColor: colors.neutral500,
         alignItems: "center",
         borderTopColor: colors.neutral700,
