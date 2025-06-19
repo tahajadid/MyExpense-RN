@@ -11,7 +11,7 @@ const ModalWrapper = ({
     bg = colors.neutral800
 }: ModalWrapperProps) => {
   return (
-    <View style={[styles.container, {backgroundColor: bg}, style ]}>
+    <View style={[styles.container, {backgroundColor: bg}, style && style ]}>
         {children}
     </View>
   )
