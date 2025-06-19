@@ -76,7 +76,7 @@ const ProfileModal = () => {
                     </TouchableOpacity>
                 </View>
 
-                <View>
+                <View style={styles.inputContainer}>
                     <Typo color={colors.neutral200}>Name</Typo>
                     <Input
                         placeholder="name"
@@ -86,13 +86,13 @@ const ProfileModal = () => {
                         }}
                     />
                 </View>
-
-                <View style={styles.footer}>
-                    <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
-                        <Typo color={colors.black} fontWeight={"700"}>Update information</Typo>
-                    </Button>
-                </View>
             </ScrollView>
+        </View>
+
+        <View style={styles.footer}>
+            <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
+                <Typo color={colors.black} fontWeight={"700"}>Update information</Typo>
+            </Button>
         </View>
     </ModalWrapper>
   )
@@ -103,8 +103,13 @@ export default ProfileModal;
 const styles = StyleSheet.create({
     container: { 
         flex: 1,
-        justifyContent: "space-between",
-        paddingHorizontal: spacingY._20,
+        justifyContent: 'space-between',
+        paddingHorizontal: spacingX._20,
+    },
+    separator: {
+        height: 1,
+        backgroundColor: '#333',
+        marginHorizontal: 16,
     },
     footer: {
         alignItems: "center",
