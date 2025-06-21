@@ -38,10 +38,9 @@ const walletModal = () => {
         
     }
 
-
     const onSubmit = async () => {
         let {name, image} = wallet;
-        if(!name.trim()){
+        if(!name.trim() || !image){
             Alert.alert("User","Please enter the new name")
             return;
         }
