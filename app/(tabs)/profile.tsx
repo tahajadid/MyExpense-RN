@@ -22,13 +22,13 @@ const Profile = () => {
     const accountOptions: accountOptionType[] = [
         {
             title: "Edit Profile",
-            icon: (<Icons.GearSix size={26} color={colors.neutral900} weight="fill"/>),
+            icon: (<Icons.User size={26} color={colors.neutral900} weight="fill"/>),
             routeName:"/(modals)/profileModal",
             bgColor:colors.primary
         },
         {
             title: "Settings Profile",
-            icon: (<Icons.Lock size={26} color={colors.neutral900} weight="fill"/>),
+            icon: (<Icons.GearSix size={26} color={colors.neutral900} weight="fill"/>),
             //routeName:"/(modals)/profileModal",
             bgColor:colors.primary
         },
