@@ -7,10 +7,10 @@ import ModalWrapper from '@/components/ModalWrapper';
 import Typo from '@/components/Typo';
 import { colors, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
-import { updateUser } from '@/services/userService';
+import { createOrUpdateWallet } from '@/services/walletService';
 import { WalletType } from '@/types';
 import { scale, verticalScale } from '@/utils/styling';
-import * as ImagePicker from 'expo-image-picker';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -24,35 +24,25 @@ const walletModal = () => {
         image: null
     });
 
-    const onPickImage = async () => {
-        const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ["images"],
-            allowsEditing: true,
-            aspect: [4,3],
-            quality: 0.5,
-        })
-
-        if(!result.canceled){
-            // setUserData({...userData, image: result.assets[0]})
-        }
-        
-    }
-
     const onSubmit = async () => {
         let {name, image} = wallet;
         if(!name.trim() || !image){
-            Alert.alert("User","Please enter the new name")
+            Alert.alert("Wallet","Please enter the new name")
             return;
         }
 
+        const data: WalletType = {
+            name,
+            image,
+            uid: user?.uid
+        };
         setLoading(true);
-        const respose = await updateUser(user?.uid as string, wallet);
+        const respose = await createOrUpdateWallet(data);
         setLoading(false)
 
         if(respose.success){
             // data is updated
-            updateUserData(user?.uid as string)
-            //router.back();
+            router.back();
         } else {
             Alert.alert("User","There is a probleme")
         }

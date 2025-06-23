@@ -9,6 +9,7 @@ export const uploadFileToCloudinary = async (
     fodlerName: string
 ): Promise<ResponseType> => {
     try{
+        if(!file) return {success: true, data: null}
         if(typeof file == 'string'){
             return {success: true, data : false};
         }
