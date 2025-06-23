@@ -10,8 +10,8 @@ import { useAuth } from '@/contexts/authContext';
 import { createOrUpdateWallet } from '@/services/walletService';
 import { WalletType } from '@/types';
 import { scale, verticalScale } from '@/utils/styling';
-import { router } from 'expo-router';
-import React, { useState } from 'react';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
 
@@ -19,10 +19,26 @@ const walletModal = () => {
 
     const {user, updateUserData} = useAuth();
     const [loading, setLoading] = useState(false);
+    
     const [wallet, setWallet] = useState<WalletType>({
         name: "",
         image: null
     });
+
+    const router = useRouter();
+    
+    const oldWallet: {name: string, image:string, id:string} = useLocalSearchParams();
+    console.log("oldWallet : ", oldWallet)
+
+    useEffect( () => {
+        if(oldWallet?.id) {
+            setWallet({
+                name: oldWallet?.name,
+                image: oldWallet?.image
+            })
+        }
+    },[])
+
 
     const onSubmit = async () => {
         let {name, image} = wallet;
@@ -36,6 +52,9 @@ const walletModal = () => {
             image,
             uid: user?.uid
         };
+
+        if(oldWallet?.id) data.id = oldWallet?.id
+        
         setLoading(true);
         const respose = await createOrUpdateWallet(data);
         setLoading(false)
@@ -51,7 +70,7 @@ const walletModal = () => {
   return (
     <ModalWrapper>
         <View style={styles.container}>
-            <Header title="New Wallet"
+            <Header title={oldWallet?.id ? "Update Wallet" : "New Wallet"}
             leftIcon={<BackButton/>}
             style={{ marginBottom: spacingY._10 }}/>
 
@@ -81,7 +100,7 @@ const walletModal = () => {
 
         <View style={styles.footer}>
             <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
-                <Typo color={colors.black} fontWeight={"700"}>Add Wallet information</Typo>
+                <Typo color={colors.black} fontWeight={"700"}>{oldWallet?.id ? "Update" : "New Wallet"}</Typo>
             </Button>
         </View>
     </ModalWrapper>
