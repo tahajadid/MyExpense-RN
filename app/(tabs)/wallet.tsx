@@ -1,5 +1,7 @@
+import Loading from '@/components/Loading';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
+import WalletListItem from '@/components/WalletListItem';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useFetchData from '@/hooks/useFetchData';
@@ -9,7 +11,7 @@ import { useRouter } from 'expo-router';
 import { orderBy, where } from 'firebase/firestore';
 import * as Icons from 'phosphor-react-native';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Wallet = () => {
 
@@ -22,10 +24,11 @@ const Wallet = () => {
     ]
   );
 
-  console.log("wallet lemght : ", wallets.length)
-
-  const getBalance = () => {
-    return 23344;
+  const calculateTotalBalance = () => {
+    return wallets.reduce((total,item)=>{
+      total = total + (item?.amount || 0);
+      return total;
+    }, 0)
   }
 
   return (
@@ -35,7 +38,7 @@ const Wallet = () => {
         <View style={styles.balanceView}>
           <View style={{alignItems: "center"}}>
             <Typo size={45} fontWeight={"500"}>
-              ${getBalance()?.toFixed(2)}
+              ${calculateTotalBalance().toFixed(2)}
             </Typo>
             <Typo size={16} color={colors.neutral300}>
               Total Balance
@@ -59,6 +62,19 @@ const Wallet = () => {
           </View>
 
           {/* wallet list */}
+
+          {loading && <Loading/>}
+          <FlatList
+            data={wallets}
+            renderItem={ ({ item , index}) => {
+              return(
+                <WalletListItem item={item} index={index} router={router} />
+              );
+            }}
+            contentContainerStyle={styles.listStyle}
+          />
+
+      
         </View>
 
 
