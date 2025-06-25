@@ -10,7 +10,7 @@ const HomeCard = () => {
   return (
     <ImageBackground 
         source={require("../assets/images/card.png")}
-        resizeMode='stretch'
+        contentFit='fill'
         style={styles.bgImage}>
         <View style={styles.container}>
             <View>
@@ -31,6 +31,53 @@ const HomeCard = () => {
                     $522.43
                 </Typo>
             </View>
+
+            {/** total expenses and incomes */}
+            <View style={styles.stats}>
+                {/** income */}
+                <View style={{ gap: verticalScale(5)}}>
+                    <View style={styles.incomeExpense}>
+                        <View style={styles.statsIcon}>
+                            <Icons.ArrowDown 
+                                size={verticalScale(15)}
+                                color={colors.black}
+                                weight='bold'
+                            />
+                        </View>
+                        <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+                            Income
+                        </Typo>
+                    </View>
+                    <View style={{alignSelf: "center"}}>
+                        <Typo size={17} color={colors.green} fontWeight={"600"}>
+                            $ 9118
+                        </Typo>
+                    </View>
+                </View>
+
+                {/** expense */}
+                <View style={{ gap: verticalScale(5)}}>
+                    <View style={styles.incomeExpense}>
+                        <View style={styles.statsIcon}>
+                            <Icons.ArrowUp 
+                                size={verticalScale(15)}
+                                color={colors.black}
+                                weight='bold'
+                            />
+                        </View>
+                        <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+                            Expense
+                        </Typo>
+                    </View>
+                    <View style={{alignSelf: "center"}}>
+                        <Typo size={17} color={colors.rose} fontWeight={"600"}>
+                            $ 9118
+                        </Typo>
+                    </View>
+                </View>
+
+
+            </View>
         </View>
     </ImageBackground>
   )
@@ -40,7 +87,7 @@ export default HomeCard
 
 const styles = StyleSheet.create({
     bgImage: {
-        height: scale(210),
+        height: scale(220),
         width: "100%"
     },
     container: {
