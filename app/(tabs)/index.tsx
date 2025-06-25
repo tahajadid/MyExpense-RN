@@ -1,5 +1,6 @@
 import HomeCard from '@/components/HomeCard';
 import ScreenWrapper from '@/components/ScreenWrapper';
+import TransactionList from '@/components/TransactionList';
 import Typo from '@/components/Typo';
 import { colors, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
@@ -18,10 +19,10 @@ const Home = () => {
           {/** Header */}
           <View style={styles.header}>
             <View style={{ gap: 4}}>
-            <Typo size={16} color={colors.neutral400}>
-              Hello,
-            </Typo>
-            <Typo size={20} fontWeight={"500"}>{user?.name}</Typo>
+              <Typo size={16} color={colors.neutral400}>
+                Hello,
+              </Typo>
+              <Typo size={20} fontWeight={"500"}>{user?.name}</Typo>
             </View>
           <TouchableOpacity style={styles.searchIcon}>
             <Icons.MagnifyingGlass 
@@ -30,19 +31,25 @@ const Home = () => {
               weight='bold'
             />
           </TouchableOpacity>
-          </View>
-      </View>
-
-      {/** Scroll view */}
-      <ScrollView 
-        contentContainerStyle={styles.scrollViewStyle}
-        showsVerticalScrollIndicator={false}
-      >
-        {/** Cards */}
-        <View>
-            <HomeCard />
         </View>
-      </ScrollView>
+
+        {/** Scroll view */}
+        <ScrollView 
+          contentContainerStyle={styles.scrollViewStyle}
+          showsVerticalScrollIndicator={false}
+        >
+          {/** Cards */}
+          <View>
+              <HomeCard />
+          </View>
+
+          <TransactionList 
+            data={[]}
+            loading={false}
+            emptyListMessage="No transactions added yet"
+            title="Recent transactions"/>
+        </ScrollView>
+      </View>
     </ScreenWrapper>
   )
 }

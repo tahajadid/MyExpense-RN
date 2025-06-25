@@ -23,6 +23,7 @@ export const colors = {
     neutral700: "#404040",
     neutral800: "#262626",
     neutral900: "#171717",
+    brightOrange: "#FFAC1C",
 };
 
 
