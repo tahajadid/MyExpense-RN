@@ -35,7 +35,7 @@ export const incomeCategory: CategoryType = {
     bgColor: "#16a34a"
 }
 
-export const transactionType = [
-    {Label: "Expense", value: "expense"},
-    {Label: "Income", value: "income"},
+export const transactionTypes = [
+    {label: "Expense", value: "expense"},
+    {label: "Income", value: "income"},
 ]
