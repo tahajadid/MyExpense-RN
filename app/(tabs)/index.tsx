@@ -1,3 +1,4 @@
+import Button from '@/components/Button';
 import HomeCard from '@/components/HomeCard';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import TransactionList from '@/components/TransactionList';
@@ -5,6 +6,7 @@ import Typo from '@/components/Typo';
 import { colors, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import { verticalScale } from '@/utils/styling';
+import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -12,6 +14,7 @@ import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 const Home = () => {
 
   const {user} = useAuth();
+  const router = useRouter();
 
   return (
     <ScreenWrapper>
@@ -44,11 +47,20 @@ const Home = () => {
           </View>
 
           <TransactionList 
-            data={[]}
+            data={[1, 2, 3]}
             loading={false}
             emptyListMessage="No transactions added yet"
             title="Recent transactions"/>
         </ScrollView>
+        <Button 
+        style={styles.floatingButton}
+        onPress={()=> router.push('/(modals)/profileModal')}
+        >
+          <Icons.Plus 
+          size={verticalScale(24)}
+          color={colors.black}
+          weight="bold" />
+        </Button>
       </View>
     </ScreenWrapper>
   )

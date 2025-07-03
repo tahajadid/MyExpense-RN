@@ -4,6 +4,7 @@ import { verticalScale } from '@/utils/styling'
 import { FlashList } from "@shopify/flash-list"
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import Loading from './Loading'
 import TransactionItem from './TransactionItem'
 import Typo from './Typo'
 
@@ -32,13 +33,18 @@ const TransactionList = ({
                 )}
             />
         </View>
-
         {
             !loading && data.length == 0 && (
                 <Typo
                     size={15} color={colors.neutral400}
                     style={styles.emptyListMessage}
-                >{emptyListMessage}</Typo>
+                >{emptyListMessage}
+                </Typo>
+            )
+        }
+        {
+            loading && (
+                <View style={{top : verticalScale(20)}}><Loading/></View>
             )
         }
     </View>
