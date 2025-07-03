@@ -54,7 +54,7 @@ const Home = () => {
         </ScrollView>
         <Button 
         style={styles.floatingButton}
-        onPress={()=> router.push('/(modals)/profileModal')}
+        onPress={()=> router.push("/(modals)/transactionModal")}
         >
           <Icons.Plus 
           size={verticalScale(24)}
