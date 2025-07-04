@@ -10,6 +10,7 @@ import { expenseCategories, transactionTypes } from '@/constants/mockData';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useFetchData from '@/hooks/useFetchData';
+import { createOrUpdateTransaction } from '@/services/transactionService';
 import { deleteWallet } from '@/services/walletService';
 import { TransactionType, WalletType } from '@/types';
 import { scale, verticalScale } from '@/utils/styling';
@@ -69,6 +70,34 @@ const TransactionModal = () => {
     };
     
     const onSubmit = async () => {
+        const {type, amount, description, category, date, walletId, image} = transaction
+        if(!walletId || !date || !amount || (type == "expense" && ! category)){
+            Alert.alert("Transaction","Please fill all the fields")
+
+        }
+
+        let transactionDta: TransactionType = {
+            type,
+            amount,
+            description,
+            category,
+            date,
+            walletId,
+            image,
+            uid : user?.uid
+        }
+
+        setLoading(true);
+        const resp = await createOrUpdateTransaction(transactionDta);
+
+        setLoading(false);
+        if(resp.success){
+            router.back()
+        }else{
+            Alert.alert("Transaction",resp.msg)
+        }
+
+
     };
     
 
@@ -298,6 +327,7 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#333',
         marginHorizontal: 16,
+        marginTop: 12
     },
     footer: {
         alignItems: "center",
