@@ -194,29 +194,29 @@ const TransactionModal = () => {
 
 
                 {/** Category type dropDown */}
-                {transaction.type== "expense" && (
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16}>Expense Category</Typo>
-                    <Dropdown
-                        style={styles.dropdownContainer}
-                        placeholder={"Select category"}
-                        placeholderStyle={{color:colors.white}}
-                        selectedTextStyle={styles.dropdownSelectedText}
-                        iconStyle={styles.dropdownIcon}
-                        data={Object.values(expenseCategories)}
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        itemTextStyle={styles.dropdownItemText}
-                        itemContainerStyle={styles.dropdownItemContainer}
-                        containerStyle={styles.dropdownListContainer}
-                        activeColor={colors.neutral700}
-                        value={transaction.category}
-                        onChange={(item) => {
-                            setTransaction({...transaction, walletId: item.value || ""})
-                        }}
-                        />
-                </View>
+                {transaction.type == "expense" && (
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200} size={16}>Expense Category</Typo>
+                        <Dropdown
+                            style={styles.dropdownContainer}
+                            placeholder={"Select category"}ß
+                            placeholderStyle={{color:colors.white}}
+                            selectedTextStyle={styles.dropdownSelectedText}
+                            iconStyle={styles.dropdownIcon}
+                            data={Object.values(expenseCategories)}
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            itemTextStyle={styles.dropdownItemText}
+                            itemContainerStyle={styles.dropdownItemContainer}
+                            containerStyle={styles.dropdownListContainer}
+                            activeColor={colors.neutral700}
+                            value={transaction.category}
+                            onChange={(item) => {
+                                setTransaction({...transaction, category: item.value || ""})
+                            }}
+                            />
+                    </View>
                 )}
 
                 {/** date picker */}
