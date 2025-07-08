@@ -18,7 +18,7 @@ import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/dat
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { orderBy, where } from 'firebase/firestore';
 import * as Icons from 'phosphor-react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, Platform, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -53,6 +53,7 @@ const TransactionModal = () => {
     const oldTransaction: {name: string, image:string, id:string} = useLocalSearchParams();
     console.log("oldTransaction : ", oldTransaction)
 
+    /*
     useEffect( () => {
         if(oldTransaction?.id) {
             setTransaction({
@@ -61,6 +62,7 @@ const TransactionModal = () => {
             })
         }
     },[])
+    */
 
 
     const onDateChange = (event: DateTimePickerEvent, selectedDate : any) => {
