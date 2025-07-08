@@ -31,8 +31,8 @@ const HomeCard = () => {
             totals.income = totals.balance + Number(item.totalIncome);
             totals.expenses = totals.balance + Number(item.totalExpense);
             return totals;
-        }, {balance: 0, income: 0, expenses: 0} )
-    }
+        }, {balance: 0, income: 0, expenses: 0} );
+    };
     
     return (
     <ImageBackground 
