@@ -1,6 +1,9 @@
 import { firestore } from "@/config/firebase";
+import { colors } from "@/constants/theme";
 import { ResponseType, TransactionType, WalletType } from "@/types";
-import { collection, deleteDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { getLastMonths, getLatSevenDays } from "@/utils/common";
+import { scale } from "@/utils/styling";
+import { Timestamp, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { uploadFileToCloudinary } from "./imageService";
 import { createOrUpdateWallet } from "./walletService";
 
@@ -267,6 +270,145 @@ export const deleteTransaction = async (id: string, walletId: string) => {
         return {success: true}
     }catch(err:any) {
         console.log("error deleting transaction : ",err)
+        return {success: false, msg: err}
+    }
+}
+
+// get the weekly stats
+export const fetchWeeklyStats = async (
+    uid: string
+) : Promise<ResponseType> => {
+    try {
+        const db = firestore
+        const today = new Date();
+        const sevenDaysAgo = new Date(today);
+        sevenDaysAgo.setDate(today.getDate() - 7)
+
+        const transactionQuery = query(
+            collection(db, "transactions"),
+            where("date",">=",Timestamp.fromDate(sevenDaysAgo)),
+            where("date","<=",Timestamp.fromDate(today)),
+            orderBy("date","desc"),
+            where("uid","==",uid)
+        )
+
+        const querySnapshot = await getDocs(transactionQuery)
+        const weeklyData = getLatSevenDays();
+        const transactions: TransactionType[] = [];
+
+        
+        querySnapshot.forEach((doc) => {
+            const transaction = doc.data() as TransactionType;
+
+            transaction.id = doc.id;
+            transactions.push(transaction);
+
+            const transactionDateoNE = (transaction.date as Timestamp)
+
+            const transactionDate = (transaction.date as Timestamp)
+                .toDate()
+                .toISOString()
+                .split("T")[0]
+
+                const dayData = weeklyData.find((day) => day.date == transactionDate)
+
+                if(dayData){
+                    if(transaction.type == "income"){
+                        dayData.income += transaction.amount;
+                    } else {
+                        dayData.expense += transaction.amount;
+                    }
+                }
+        });
+
+        const stats = weeklyData.flatMap((day) => 
+            [
+                {
+                    value: day.income,
+                    label: day.day,
+                    spacing: scale(4),
+                    labelWidth: scale(30),
+                    frontColor: colors.primary
+                },
+                { value : day.expense, frontColor: colors.rose}
+            ]
+        );
+
+        return {success: true, data:{stats, transactions}}
+    }catch(err:any) {
+        console.log("error fetch weekly stats : ",err)
+        return {success: false, msg: err}
+    }
+}
+
+
+// get the monthly stats
+export const fetchMonthlyStats = async (
+    uid: string
+) : Promise<ResponseType> => {
+    try {
+        const db = firestore
+        const today = new Date();
+        const twelveMonthsAgo = new Date(today);
+        twelveMonthsAgo.setMonth(today.getMonth() - 7)
+
+        const transactionQuery = query(
+            collection(db, "transactions"),
+            where("date",">=",Timestamp.fromDate(twelveMonthsAgo)),
+            where("date","<=",Timestamp.fromDate(today)),
+            orderBy("date","desc"),
+            where("uid","==",uid)
+        )
+
+        const querySnapshot = await getDocs(transactionQuery)
+        const monthlyData = getLastMonths();
+        const transactions: TransactionType[] = [];
+
+        
+        querySnapshot.forEach((doc) => {
+            const transaction = doc.data() as TransactionType;
+
+            transaction.id = doc.id;
+            transactions.push(transaction);
+
+            const transactionDate = (transaction.date as Timestamp).toDate()
+
+            const monthName = transactionDate.toLocaleString("default", {
+                month: "short"
+            })
+
+            const shortYear = transactionDate.getFullYear().toString().slice(-2)
+
+            const monthData = monthlyData.find((month)=> month.month ===`${monthName} ${shortYear}`)
+
+
+            if(monthData){
+                if(transaction.type == "income"){
+                    monthData.income += transaction.amount;
+                } else {
+                    monthData.expense += transaction.amount;
+                }
+            }
+        });
+
+        // reformat monthlyData for the bar chart with income and expense entries for each month
+
+        const stats = monthlyData.flatMap((month) => 
+            [
+                {
+                    value: month.income,
+                    label: month.month,
+                    spacing: scale(4),
+                    labelWidth: scale(30),
+                    frontColor: colors.primary
+                },
+                { value : month.expense, frontColor: colors.rose}
+            ]
+        );
+
+        return {success: true, data:{stats, transactions}}
+    }catch(err:any) {
+        console.log("error fetch weekly stats : ",err)
         return {success: false, msg: err}
     }
 }

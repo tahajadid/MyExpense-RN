@@ -1,18 +1,29 @@
 import Header from '@/components/Header';
+import Loading from '@/components/Loading';
 import ScreenWrapper from '@/components/ScreenWrapper';
+import TransactionList from '@/components/TransactionList';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
+import { useAuth } from '@/contexts/authContext';
+import { fetchMonthlyStats, fetchWeeklyStats } from '@/services/transactionService';
 import { scale, verticalScale } from '@/utils/styling';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { BarChart } from "react-native-gifted-charts";
 
+/*
 const barData = [
   {
     value: 40,
     label: "Mon",
     spacing: scale(4),
-    frontColor: colors.primary
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+    topLabelComponent: ()=> (
+      <Typo size={10} style={{ marginBottom: 4 }} fontWeight={"bold"}>
+        50
+      </Typo>
+    )
   },
   {
     value: 40,
@@ -26,6 +37,10 @@ const barData = [
     frontColor: colors.primary
   },
   {
+    value: 20,
+    frontColor: colors.rose
+  },
+  {
     value: 75,
     label: "Wed",
     spacing: scale(4),
@@ -33,20 +48,30 @@ const barData = [
     frontColor: colors.primary
   },
   {
-    value: 25,
+    value: 22,
     frontColor: colors.rose
   },
   {
     value: 38,
     label: "Thu",
     spacing: scale(4),
+    labelWidth: scale(30),
     frontColor: colors.primary
+  },
+  {
+    value: 75,
+    frontColor: colors.rose
   },
   {
     value: 38,
     label: "Fri",
     spacing: scale(4),
+    labelWidth: scale(30),
     frontColor: colors.primary
+  },
+  {
+    value: 15,
+    frontColor: colors.rose
   },
   {
     value: 15,
@@ -63,16 +88,60 @@ const barData = [
     frontColor: colors.primary
   },
 ]
+*/
 
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const {user} = useAuth();
+  const [chartData, setChartData] = useState([]);
+  const [chartLoading, setChartLoading] = useState(false);
+  const [transactions, setTransactions] = useState([])
 
-  const [chartData, setChartData] = useState(barData);
+  useEffect(()=> {
+    if(activeIndex==0){
+      getWeeklyStats();
+    }
+    if(activeIndex==1){
+      getMonthlyStats();
+    }
+    if(activeIndex==1){
+      getYearlyStats();
+    }
+  },[activeIndex])
+
+  // get days statistics
+  const getWeeklyStats = async ()=> {
+    setChartLoading(true);
+    let res = await fetchWeeklyStats(user?.uid as string)
+    setChartLoading(false);
+    if(res.success){
+      setChartData(res?.data?.stats);
+      setTransactions(res?.data?.transactions);
+    } else {
+      Alert.alert("Error",res.msg)
+    }
+  }
+  // get months statistics
+  const getMonthlyStats = async ()=> {
+    setChartLoading(true);
+    let res = await fetchMonthlyStats(user?.uid as string)
+    setChartLoading(false);
+    if(res.success){
+      setChartData(res?.data?.stats);
+      setTransactions(res?.data?.transactions);
+    } else {
+      Alert.alert("Error",res.msg)
+    }
+  }
+
+  // get years statistics
+  const getYearlyStats = async ()=> {
+  }
 
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <View>
+        <View style={styles.header}>
           <Header title='Statistics'/>
         </View>
 
@@ -103,14 +172,46 @@ const Statistics = () => {
           <View style={styles.chartContainer}>
             {
               chartData.length>0 ? (
-                <BarChart data={chartData}/>
+                <BarChart 
+                data={chartData}
+                barWidth={scale(12)}
+                spacing={[1,2].includes(activeIndex) ? scale(25) : scale(16)}
+                roundedTop
+                roundedBottom
+                hideRules
+                yAxisLabelPrefix='$'
+                yAxisThickness={0}
+                xAxisThickness={0}
+                yAxisLabelWidth={[1,2].includes(activeIndex) ? scale(38) : scale(35)}
+                yAxisTextStyle={{ color : colors.neutral350 }}
+                xAxisLabelTextStyle={{
+                  color: colors.neutral350,
+                  fontSize: verticalScale(12)
+                }}
+                noOfSections={3}
+                minHeight={5}
+                maxValue={100}
+                />
               ) : (
                 <View style={styles.noChart}/>
               )
             }
+            { chartLoading && (
+              <View style={styles.chartLoadingContainer}>
+                  <Loading color={colors.neutral100} />
+              </View>
+            )}
+
           </View>
 
-
+            {/** transaction list */}
+            <View>
+              <TransactionList 
+                title='Transactions'
+                emptyListMessage='No transactions found'
+                data={transactions}
+              />
+            </View>
         </ScrollView>
       </View>
     </ScreenWrapper>
