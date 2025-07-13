@@ -4,7 +4,7 @@ import ScreenWrapper from '@/components/ScreenWrapper';
 import TransactionList from '@/components/TransactionList';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
-import { fetchMonthlyStats, fetchWeeklyStats } from '@/services/transactionService';
+import { fetchMonthlyStats, fetchWeeklyStats, fetchYearlyStats } from '@/services/transactionService';
 import { scale, verticalScale } from '@/utils/styling';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import React, { useEffect, useState } from 'react';
@@ -104,7 +104,7 @@ const Statistics = () => {
     if(activeIndex==1){
       getMonthlyStats();
     }
-    if(activeIndex==1){
+    if(activeIndex==2){
       getYearlyStats();
     }
   },[activeIndex])
@@ -121,6 +121,7 @@ const Statistics = () => {
       Alert.alert("Error",res.msg)
     }
   }
+
   // get months statistics
   const getMonthlyStats = async ()=> {
     setChartLoading(true);
@@ -136,6 +137,15 @@ const Statistics = () => {
 
   // get years statistics
   const getYearlyStats = async ()=> {
+    setChartLoading(true);
+    let res = await fetchYearlyStats(user?.uid as string)
+    setChartLoading(false);
+    if(res.success){
+      setChartData(res?.data?.stats);
+      setTransactions(res?.data?.transactions);
+    } else {
+      Alert.alert("Error",res.msg)
+    }
   }
 
   return (
@@ -190,7 +200,6 @@ const Statistics = () => {
                 }}
                 noOfSections={3}
                 minHeight={5}
-                maxValue={100}
                 />
               ) : (
                 <View style={styles.noChart}/>
