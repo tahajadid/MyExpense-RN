@@ -102,24 +102,19 @@ const styles = StyleSheet.create({
     tabbar: {
         flexDirection: 'row',
         width: "100%",
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
         height: Platform.OS == "ios" ? verticalScale(80) : verticalScale(60),
         backgroundColor: colors.neutral500,
         alignItems: "center",
-        borderTopColor: colors.neutral700,
-        borderTopWidth: 1,
         overflow: 'hidden',
     },
     tabbarItem: {
-        marginBottom: Platform.OS == "ios" ? spacingY._10 : spacingY._5,
+        marginBottom: Platform.OS == "ios" ? spacingY._15 : spacingY._5,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: colors.neutral500,
         borderTopColor: colors.neutral900,
         flex: 1
-    },
-    Icon: {
-        
     }
 });
