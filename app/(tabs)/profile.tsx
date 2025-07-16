@@ -3,10 +3,12 @@ import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
 import { auth } from '@/config/firebase';
 import { colors, radius, spacingX, spacingY } from '@/constants/theme';
+import { useTheme } from '@/constants/ThemeContext';
 import { useAuth } from '@/contexts/authContext';
 import { getProfileImage } from '@/services/imageService';
 import { accountOptionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
+import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { Image } from "expo-image";
 import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
@@ -18,6 +20,7 @@ import Animated, { FadeInUp } from 'react-native-reanimated';
 const Profile = () => {
     const {user} = useAuth()
     const rouetr = useRouter();
+    const { mode, setMode } = useTheme();
     
     const accountOptions: accountOptionType[] = [
         {
@@ -74,6 +77,15 @@ const Profile = () => {
             rouetr.push(item.routeName)
         }
     }
+
+    const getSegmentIndex = () => {
+        switch (mode) {
+            case 'light': return 0;
+            case 'dark': return 1;
+            case 'system': return 2;
+            default: return 2;
+        }
+    };
 
     return (
         <ScreenWrapper>
@@ -138,6 +150,23 @@ const Profile = () => {
                     )
                     })
                 }
+            </View>
+
+            <View style={styles.themeSection}>
+                <Typo size={18} fontWeight="600">Theme</Typo>
+                <SegmentedControl
+                    values={["Light", "Dark", "System"]}
+                    selectedIndex={getSegmentIndex()}
+                    onChange={(event) => {
+                        const index = event.nativeEvent.selectedSegmentIndex;
+                        const modes = ['light', 'dark', 'system'] as const;
+                        setMode(modes[index]);
+                    }}
+                    tintColor={colors.primary}
+                    backgroundColor={colors.neutral800}
+                    appearance='dark'
+                    style={styles.segmentStyle}
+                />
             </View>
         </View>
         </ScreenWrapper>
@@ -205,5 +234,29 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: spacingX._10,
     },
-
+    themeSection: {
+        marginTop: spacingY._20,
+        gap: spacingY._10,
+    },
+    segmentStyle: {
+        marginTop: spacingY._10,
+    },
+    themeButton: {
+        backgroundColor: colors.neutral800,
+        paddingVertical: spacingY._15,
+        paddingHorizontal: spacingX._20,
+        borderRadius: radius._10,
+    },
+    activeThemeButton: {
+        backgroundColor: colors.primary,
+    },
+    themeButtonContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: spacingX._10,
+    },
+    themeButtons: {
+        flexDirection: 'row',
+        gap: spacingX._10,
+    },
 });
