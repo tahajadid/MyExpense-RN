@@ -27,6 +27,7 @@ export const colors = {
 };
 
 export const lightTheme = {
+    // primary colors
     screenBackground: "#F8F8F8",
     primary: "#121212",
     primaryLight: "#0ea5e9",
@@ -34,11 +35,11 @@ export const lightTheme = {
     text: "#fff",
     textLight: "#e5e5e5",
     textLighter: "#d4d4d4",
-    white: "#fff",
-    black: "#000",
     rose: "#ef4444",
     redClose: "#c85250",
     green: "#16a34a",
+
+    // common colors
     neutral50: "#fafafa",
     neutral100: "#f5f5f5",
     neutral200: "#e5e5e5",
@@ -50,10 +51,13 @@ export const lightTheme = {
     neutral700: "#404040",
     neutral800: "#262626",
     neutral900: "#ffffff",
+    white: "#fff",
+    black: "#000",
     brightOrange: "#FFAC1C",
   };
   
   export const darkTheme = {
+    // primary colors
     screenBackground: "#171717",
     primary: "#a3e635",
     primaryLight: "#0ea5e9",
@@ -61,11 +65,11 @@ export const lightTheme = {
     text: "#fff",
     textLight: "#e5e5e5",
     textLighter: "#d4d4d4",
-    white: "#fff",
-    black: "#000",
     rose: "#ef4444",
     redClose: "#c85250",
     green: "#16a34a",
+
+     // common colors
     neutral50: "#fafafa",
     neutral100: "#f5f5f5",
     neutral200: "#e5e5e5",
@@ -77,6 +81,8 @@ export const lightTheme = {
     neutral700: "#404040",
     neutral800: "#262626",
     neutral900: "#171717",
+    white: "#fff",
+    black: "#000",
     brightOrange: "#FFAC1C",
   };
 
