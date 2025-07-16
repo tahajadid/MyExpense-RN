@@ -15,7 +15,7 @@ const index = () => {
     */
 
     return (
-        <View style={styles.conatinaer}>
+        <View style={styles.conatiner}>
         <Image
             source={require('../assets/images/onboardingTwo.png')}
             style={styles.logo}
@@ -28,7 +28,7 @@ const index = () => {
 export default index;
 
 const styles = StyleSheet.create({  
-    conatinaer: {
+    conatiner: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
