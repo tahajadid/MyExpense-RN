@@ -19,7 +19,7 @@ import Animated, { FadeInUp } from 'react-native-reanimated';
 
 const Profile = () => {
     const {user} = useAuth()
-    const rouetr = useRouter();
+    const router = useRouter();
     const { mode, setMode } = useTheme();
     
     const accountOptions: accountOptionType[] = [
@@ -30,15 +30,9 @@ const Profile = () => {
             bgColor:colors.primary
         },
         {
-            title: "Settings Profile",
+            title: "Settings",
             icon: (<Icons.GearSix size={26} color={colors.neutral900} weight="fill"/>),
-            //routeName:"/(modals)/profileModal",
-            bgColor:colors.primary
-        },
-        {
-            title: "Privacy Policy",
-            icon: (<Icons.Lock size={26} color={colors.neutral900} weight="fill"/>),
-            //routeName:"/(modals)/profileModal",
+            routeName:"/profile/settings",
             bgColor:colors.primary
         },
         {
@@ -71,10 +65,10 @@ const Profile = () => {
     const handlePress = (item: accountOptionType) => {
         if(item.title == "Logout"){
             showLogoutAlert()
-        }
-
-        if(item.routeName){
-            rouetr.push(item.routeName)
+        } else if(item.title == "Settings"){
+            router.push('/profile/settings');
+        }else {
+            router.push(item.routeName)
         }
     }
 
