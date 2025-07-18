@@ -43,7 +43,9 @@ export default function CustomTabs({
   return (
         <View style={styles.tabbarWrapper}>
             <View style={styles.tabbar}>
-                {state.routes.map((route, index) => {
+                {state.routes
+                    .filter(route => Object.keys(tabbarIcons).includes(route.name))
+                    .map((route, index) => {
                     const { options } = descriptors[route.key];
                     const label : any =
                         options.tabBarLabel !== undefined
