@@ -15,7 +15,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import * as Icons from "phosphor-react-native";
 import React, { useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Keyboard, ScrollView, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 const ProfileModal = () => {
 
@@ -71,40 +71,42 @@ const ProfileModal = () => {
 
   return (
     <ModalWrapper>
-        <View style={styles.container}>
-            <Header title="Update profile information"
-            leftIcon={<BackButton/>}
-            style={{ marginBottom: spacingY._10 }}/>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.container}>
+                <Header title="Update profile information"
+                leftIcon={<BackButton/>}
+                style={{ marginBottom: spacingY._10 }}/>
 
-            {/** Form */}
-            <ScrollView contentContainerStyle={styles.form}>
-                <View style={styles.avatarContainer}>
-                    <Image style={styles.avatar}
-                        source={getProfileImage(userData.image)}
-                        contentFit="cover"
-                        transition={100}
-                    />
-
-                    <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
-                        <Icons.Pencil
-                            size={verticalScale(20)}
-                            color={colors.neutral800}
+                {/** Form */}
+                <ScrollView contentContainerStyle={styles.form}>
+                    <View style={styles.avatarContainer}>
+                        <Image style={styles.avatar}
+                            source={getProfileImage(userData.image)}
+                            contentFit="cover"
+                            transition={100}
                         />
-                    </TouchableOpacity>
-                </View>
 
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200}>Name</Typo>
-                    <Input
-                        placeholder="name"
-                        value={userData.name}
-                        onChangeText={(value) => {
-                            setUserData({...userData, name: value})
-                        }}
-                    />
-                </View>
-            </ScrollView>
-        </View>
+                        <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
+                            <Icons.Pencil
+                                size={verticalScale(20)}
+                                color={colors.neutral800}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200}>Name</Typo>
+                        <Input
+                            placeholder="name"
+                            value={userData.name}
+                            onChangeText={(value) => {
+                                setUserData({...userData, name: value})
+                            }}
+                        />
+                    </View>
+                </ScrollView>
+            </View>
+        </TouchableWithoutFeedback>
 
         <View style={styles.footer}>
             <Button onPress={onSubmit} loading={loading} style={{flex:1}}>

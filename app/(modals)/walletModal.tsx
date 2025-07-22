@@ -13,7 +13,7 @@ import { scale, verticalScale } from '@/utils/styling';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React, { useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, Keyboard, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 const walletModal = () => {
 
@@ -97,34 +97,36 @@ const walletModal = () => {
     
   return (
     <ModalWrapper>
-        <View style={styles.container}>
-            <Header title={oldWallet?.id ? "Update Wallet" : "New Wallet"}
-            leftIcon={<BackButton/>}
-            style={{ marginBottom: spacingY._10 }}/>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.container}>
+                <Header title={oldWallet?.id ? "Update Wallet" : "New Wallet"}
+                leftIcon={<BackButton/>}
+                style={{ marginBottom: spacingY._10 }}/>
 
-            {/** Form */}
-            <ScrollView contentContainerStyle={styles.form}>
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200}>Wallet Name</Typo>
-                    <Input
-                        placeholder="Salary"
-                        value={wallet.name}
-                        onChangeText={(value) => {
-                            setWallet({...wallet, name: value})
-                        }}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200}>Wallet Icon</Typo>
-                    {/* image input */}
-                    <ImageUpload
-                        file={wallet.image}
-                        placeholder="Upload Image" 
-                        onSelect={(file) => setWallet({...wallet, image: file})}
-                        onClear={() => setWallet({...wallet, image: null})}/>
-                </View>
-            </ScrollView>
-        </View>
+                {/** Form */}
+                <ScrollView contentContainerStyle={styles.form} keyboardShouldPersistTaps="handled">
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200}>Wallet Name</Typo>
+                        <Input
+                            placeholder="Salary"
+                            value={wallet.name}
+                            onChangeText={(value) => {
+                                setWallet({...wallet, name: value})
+                            }}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200}>Wallet Icon</Typo>
+                        {/* image input */}
+                        <ImageUpload
+                            file={wallet.image}
+                            placeholder="Upload Image" 
+                            onSelect={(file) => setWallet({...wallet, image: file})}
+                            onClear={() => setWallet({...wallet, image: null})}/>
+                    </View>
+                </ScrollView>
+            </View>
+        </TouchableWithoutFeedback>
 
         <View style={styles.footer}>
             {oldWallet?.id && !loading &&( 
