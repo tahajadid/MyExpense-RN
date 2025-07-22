@@ -18,8 +18,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { orderBy, where } from 'firebase/firestore';
 import * as Icons from 'phosphor-react-native';
 import React, { useEffect, useState } from 'react';
-import { Alert, Platform, Pressable, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Keyboard, Platform, Pressable, ScrollView, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+
 
 const TransactionModal = () => {
 
@@ -146,76 +147,24 @@ const TransactionModal = () => {
 
   return (
     <ModalWrapper>
-        <View style={styles.container}>
-            <Header title={oldTransaction?.id ? "Update Transaction" : "New Transaction"}
-            leftIcon={<BackButton/>}
-            style={{ marginBottom: spacingY._10 }}/>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={styles.container}>
+                <Header title={oldTransaction?.id ? "Update Transaction" : "New Transaction"}
+                leftIcon={<BackButton/>}
+                style={{ marginBottom: spacingY._10 }}/>
 
-            {/** Form */}
-            <ScrollView contentContainerStyle={styles.form} showsVerticalScrollIndicator={false}>
-                
-                {/** Transaction Type dropDown */}
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16}>Type</Typo>
-                    <Dropdown
-                        style={styles.dropdownContainer}
-                        // placeholderStyle={styles.dropdownPlaceholder}
-                        selectedTextStyle={styles.dropdownSelectedText}
-                        iconStyle={styles.dropdownIcon}
-                        data={transactionTypes}
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        itemTextStyle={styles.dropdownItemText}
-                        itemContainerStyle={styles.dropdownItemContainer}
-                        containerStyle={styles.dropdownListContainer}
-                        activeColor={colors.neutral700}
-                        value={transaction.type}
-                        onChange={(item) => {
-                            setTransaction({...transaction, type: item.value})
-                        }}
-                        />
-                </View>
-
-                {/** Wallet dropDown */}
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16}>Wallet</Typo>
-                    <Dropdown
-                        style={styles.dropdownContainer}
-                        placeholder={"Select wallet"}
-                        placeholderStyle={{color:colors.white}}
-                        selectedTextStyle={styles.dropdownSelectedText}
-                        iconStyle={styles.dropdownIcon}
-                        data={wallets.map((wallet) => ({
-                            label: `${wallet?.name} ($${wallet.amount})`,
-                            value: wallet?.id
-                        }))}
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        itemTextStyle={styles.dropdownItemText}
-                        itemContainerStyle={styles.dropdownItemContainer}
-                        containerStyle={styles.dropdownListContainer}
-                        activeColor={colors.neutral700}
-                        value={transaction.walletId}
-                        onChange={(item) => {
-                            setTransaction({...transaction, walletId: item.value || ""})
-                        }}
-                        />
-                </View>
-
-
-                {/** Category type dropDown */}
-                {transaction.type == "expense" && (
+                {/** Form */}
+                <ScrollView contentContainerStyle={styles.form} showsVerticalScrollIndicator={false}>
+                    
+                    {/** Transaction Type dropDown */}
                     <View style={styles.inputContainer}>
-                        <Typo color={colors.neutral200} size={16}>Expense Category</Typo>
+                        <Typo color={colors.neutral200} size={16}>Type</Typo>
                         <Dropdown
                             style={styles.dropdownContainer}
-                            placeholder={"Select category"}
-                            placeholderStyle={{color:colors.white}}
+                            // placeholderStyle={styles.dropdownPlaceholder}
                             selectedTextStyle={styles.dropdownSelectedText}
                             iconStyle={styles.dropdownIcon}
-                            data={Object.values(expenseCategories)}
+                            data={transactionTypes}
                             maxHeight={300}
                             labelField="label"
                             valueField="value"
@@ -223,97 +172,151 @@ const TransactionModal = () => {
                             itemContainerStyle={styles.dropdownItemContainer}
                             containerStyle={styles.dropdownListContainer}
                             activeColor={colors.neutral700}
-                            value={transaction.category}
+                            value={transaction.type}
                             onChange={(item) => {
-                                setTransaction({...transaction, category: item.value || ""})
+                                setTransaction({...transaction, type: item.value})
                             }}
                             />
                     </View>
-                )}
 
-                {/** date picker */}
-
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16}>Date</Typo>
-                    {!showDatePicker && (
-                        <Pressable
-                            style={styles.dateInput}
-                            onPress={()=> setShowDatePicker(true)}>
-                            <Typo size={15}>{(transaction.date as Date).toLocaleDateString()}</Typo>
-                        </Pressable>
-                    )}
-                    
-                    { showDatePicker && (
-                        <View style={Platform.OS == 'ios' && styles.iosDatePicker}>
-                            <DateTimePicker
-                                themeVariant='dark'
-                                value={transaction.date as Date}
-                                textColor={colors.white}
-                                mode="date"
-                                display={Platform.OS == 'ios' ? "spinner" : "default"}
-                                onChange={onDateChange}
+                    {/** Wallet dropDown */}
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200} size={16}>Wallet</Typo>
+                        <Dropdown
+                            style={styles.dropdownContainer}
+                            placeholder={"Select wallet"}
+                            placeholderStyle={{color:colors.white}}
+                            selectedTextStyle={styles.dropdownSelectedText}
+                            iconStyle={styles.dropdownIcon}
+                            data={wallets.map((wallet) => ({
+                                label: `${wallet?.name} ($${wallet.amount})`,
+                                value: wallet?.id
+                            }))}
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            itemTextStyle={styles.dropdownItemText}
+                            itemContainerStyle={styles.dropdownItemContainer}
+                            containerStyle={styles.dropdownListContainer}
+                            activeColor={colors.neutral700}
+                            value={transaction.walletId}
+                            onChange={(item) => {
+                                setTransaction({...transaction, walletId: item.value || ""})
+                            }}
                             />
+                    </View>
 
-                            {
-                                Platform.OS == 'ios' && (
-                                    <TouchableOpacity
-                                        style={styles.datePickerButton}
-                                        onPress={()=> setShowDatePicker(false)}
-                                    >
-                                        <Typo size={15} fontWeight={"500"}>Change</Typo>
-                                    </TouchableOpacity>
-                                )
-                            }
+
+                    {/** Category type dropDown */}
+                    {transaction.type == "expense" && (
+                        <View style={styles.inputContainer}>
+                            <Typo color={colors.neutral200} size={16}>Expense Category</Typo>
+                            <Dropdown
+                                style={styles.dropdownContainer}
+                                placeholder={"Select category"}
+                                placeholderStyle={{color:colors.white}}
+                                selectedTextStyle={styles.dropdownSelectedText}
+                                iconStyle={styles.dropdownIcon}
+                                data={Object.values(expenseCategories)}
+                                maxHeight={300}
+                                labelField="label"
+                                valueField="value"
+                                itemTextStyle={styles.dropdownItemText}
+                                itemContainerStyle={styles.dropdownItemContainer}
+                                containerStyle={styles.dropdownListContainer}
+                                activeColor={colors.neutral700}
+                                value={transaction.category}
+                                onChange={(item) => {
+                                    setTransaction({...transaction, category: item.value || ""})
+                                }}
+                                />
                         </View>
                     )}
-                </View>
 
-                {/** Amount */}
-                <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16}>Amount</Typo>
-                    <Input
-                        keyboardType='numeric'
-                        value={transaction?.amount.toString()}
-                        onChangeText={(value) => {
-                            setTransaction({...transaction, amount: Number(value.replace(/[^0-9]/g,"")),
+                    {/** date picker */}
 
-                            })
-                        }}
-                    />
-                </View>
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200} size={16}>Date</Typo>
+                        {!showDatePicker && (
+                            <Pressable
+                                style={styles.dateInput}
+                                onPress={()=> setShowDatePicker(true)}>
+                                <Typo size={15}>{(transaction.date as Date).toLocaleDateString()}</Typo>
+                            </Pressable>
+                        )}
+                        
+                        { showDatePicker && (
+                            <View style={Platform.OS == 'ios' && styles.iosDatePicker}>
+                                <DateTimePicker
+                                    themeVariant='dark'
+                                    value={transaction.date as Date}
+                                    textColor={colors.white}
+                                    mode="date"
+                                    display={Platform.OS == 'ios' ? "spinner" : "default"}
+                                    onChange={onDateChange}
+                                />
 
-                {/** Description */}
-                <View style={styles.inputContainer}>
-                    <View style={styles.flexRow}>
-                        <Typo color={colors.neutral200} size={16}>Description</Typo>
-                        <Typo color={colors.neutral500} size={14}>(optional)</Typo>
+                                {
+                                    Platform.OS == 'ios' && (
+                                        <TouchableOpacity
+                                            style={styles.datePickerButton}
+                                            onPress={()=> setShowDatePicker(false)}
+                                        >
+                                            <Typo size={15} fontWeight={"500"}>Change</Typo>
+                                        </TouchableOpacity>
+                                    )
+                                }
+                            </View>
+                        )}
                     </View>
-                    <Input
-                        value={transaction?.description}
-                        multiline
-                        containerStyle={styles.descriptionContainer}
-                        onChangeText={(value) => {
-                            setTransaction(
-                                {...transaction, description: value,
-                            })
-                        }}
-                    />
-                </View>
 
-                <View style={styles.inputContainer}>
-                    <View style={styles.flexRow}>
-                        <Typo color={colors.neutral200} size={16}>Receipt</Typo>
-                        <Typo color={colors.neutral500} size={14}>(optional)</Typo>
+                    {/** Amount */}
+                    <View style={styles.inputContainer}>
+                        <Typo color={colors.neutral200} size={16}>Amount</Typo>
+                        <Input
+                            keyboardType='numeric'
+                            value={transaction?.amount.toString()}
+                            onChangeText={(value) => {
+                                setTransaction({...transaction, amount: Number(value.replace(/[^0-9]/g,"")),
+
+                                })
+                            }}
+                        />
                     </View>
-                    {/* image input */}
-                    <ImageUpload
-                        file={transaction.image}
-                        placeholder="Upload Image" 
-                        onSelect={(file) => setTransaction({...transaction, image: file})}
-                        onClear={() => setTransaction({...transaction, image: null})}/>
-                </View>
-            </ScrollView>
-        </View>
+
+                    {/** Description */}
+                    <View style={styles.inputContainer}>
+                        <View style={styles.flexRow}>
+                            <Typo color={colors.neutral200} size={16}>Description</Typo>
+                            <Typo color={colors.neutral500} size={14}>(optional)</Typo>
+                        </View>
+                        <Input
+                            value={transaction?.description}
+                            multiline
+                            containerStyle={styles.descriptionContainer}
+                            onChangeText={(value) => {
+                                setTransaction(
+                                    {...transaction, description: value,
+                                })
+                            }}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <View style={styles.flexRow}>
+                            <Typo color={colors.neutral200} size={16}>Receipt</Typo>
+                            <Typo color={colors.neutral500} size={14}>(optional)</Typo>
+                        </View>
+                        {/* image input */}
+                        <ImageUpload
+                            file={transaction.image}
+                            placeholder="Upload Image" 
+                            onSelect={(file) => setTransaction({...transaction, image: file})}
+                            onClear={() => setTransaction({...transaction, image: null})}/>
+                    </View>
+                </ScrollView>
+            </View>
+        </TouchableWithoutFeedback>
 
         <View style={styles.footer}>
             {oldTransaction?.id && !loading &&( 
