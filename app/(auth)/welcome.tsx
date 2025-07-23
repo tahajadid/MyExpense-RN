@@ -1,7 +1,8 @@
 import Button from '@/components/Button'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import Typo from '@/components/Typo'
-import { colors, spacingX, spacingY } from '@/constants/theme'
+import { spacingX, spacingY } from '@/constants/theme'
+import useThemeColors from '@/hooks/useThemeColors'
 import { verticalScale } from '@/utils/styling'
 import { useRouter } from 'expo-router'
 import React from 'react'
@@ -10,6 +11,10 @@ import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
 
 const welcome = () => {
     const router = useRouter();
+
+    // colors hook
+    const colors = useThemeColors();
+
     return (
         <ScreenWrapper>
             <View style={styles.container}>
@@ -28,7 +33,7 @@ const welcome = () => {
                 </View>
 
                 {/* footer */}
-                <View style={styles.footer}>
+                <View style={[styles.footer, {backgroundColor: colors.neutral900}]}>
                     <Animated.View 
                     entering={FadeInDown.duration(1000).springify().damping(12)}
                     style={{alignItems: "center" }}>
@@ -55,7 +60,7 @@ const welcome = () => {
                     entering={FadeInDown.duration(1000).delay(200).springify().damping(12)}
                     style={styles.buttomContainer}>
                         <Button onPress={()=> router.push("/(auth)/registerUser")}>
-                            <Typo size={22} fontWeight={"600"} color={colors.neutral900}> Go start</Typo>
+                            <Typo size={22} fontWeight={"600"} color={colors.neutral900}>Go</Typo>
                         </Button>
                     </Animated.View>
                 </View>
@@ -83,7 +88,6 @@ const styles = StyleSheet.create({
         marginRight: spacingX._20,
         },
     footer: { 
-        backgroundColor: colors.neutral900,
         alignItems: "center",
         paddingTop: verticalScale (30),
         paddingBottom: verticalScale(45),

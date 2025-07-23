@@ -29,15 +29,12 @@ export const colors = {
 export const lightTheme = {
     // primary colors
     screenBackground: "#F8F8F8",
-    primary: "#121212",
-    primaryLight: "#0ea5e9",
-    primaryDark: "#f1f1f1",
+    primary: "#1982A1",
+    primaryLight: "#1982A1",
+    primaryDark: "#36BEDA",
     text: "#fff",
     textLight: "#e5e5e5",
     textLighter: "#d4d4d4",
-    rose: "#ef4444",
-    redClose: "#c85250",
-    green: "#16a34a",
 
     // common colors
     neutral50: "#fafafa",
@@ -51,6 +48,11 @@ export const lightTheme = {
     neutral700: "#404040",
     neutral800: "#262626",
     neutral900: "#ffffff",
+
+    // general colors
+    rose: "#ef4444",
+    redClose: "#c85250",
+    green: "#16a34a",
     white: "#fff",
     black: "#000",
     brightOrange: "#FFAC1C",
@@ -59,15 +61,13 @@ export const lightTheme = {
   export const darkTheme = {
     // primary colors
     screenBackground: "#171717",
-    primary: "#a3e635",
-    primaryLight: "#0ea5e9",
-    primaryDark: "#0369a1",
+    primary: "#36BEDA",
+    primaryLight: "#36BEDA",
+    primaryDark: "#1982A1",
     text: "#fff",
     textLight: "#e5e5e5",
     textLighter: "#d4d4d4",
-    rose: "#ef4444",
-    redClose: "#c85250",
-    green: "#16a34a",
+
 
      // common colors
     neutral50: "#fafafa",
@@ -81,6 +81,12 @@ export const lightTheme = {
     neutral700: "#404040",
     neutral800: "#262626",
     neutral900: "#171717",
+
+
+    // general colors
+    rose: "#ef4444",
+    redClose: "#c85250",
+    green: "#16a34a",
     white: "#fff",
     black: "#000",
     brightOrange: "#FFAC1C",

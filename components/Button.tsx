@@ -1,4 +1,5 @@
-import { colors, radius } from '@/constants/theme'
+import { radius } from '@/constants/theme'
+import useThemeColors from '@/hooks/useThemeColors'
 import { CustomButtonProps } from '@/types'
 import { verticalScale } from '@/utils/styling'
 import React from 'react'
@@ -12,6 +13,9 @@ const Button = ({
     children
 }: CustomButtonProps) => {
 
+    // colors hook
+    const colors = useThemeColors();
+
     if(loading){
         return(
             <View style={[styles.button, style, {backgroundColor: 'transparent'}]}>
@@ -20,7 +24,7 @@ const Button = ({
         )
     }
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
+        <TouchableOpacity onPress={onPress} style={[styles.button, style, {backgroundColor: colors.primary}]}>
             {children}
         </TouchableOpacity>
     )
@@ -30,7 +34,6 @@ export default Button
 
 const styles = StyleSheet.create({
     button:{
-        backgroundColor: colors.primary,
         borderRadius: radius._17,
         borderCurve: "continuous",
         height: verticalScale(52),
