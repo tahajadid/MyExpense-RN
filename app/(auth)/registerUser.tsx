@@ -53,10 +53,10 @@ const RegisterUser = () => {
 
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._20}}>
-                <Typo size={30} fontWeight={"800"}>
+                <Typo size={30} fontWeight={"800"}  color={colors.text}>
                     Create,
                 </Typo>
-                <Typo size={30} fontWeight={"800"}>
+                <Typo size={30} fontWeight={"800"}  color={colors.text}>
                     Your Profile
                 </Typo>
             </View>
@@ -64,7 +64,7 @@ const RegisterUser = () => {
             {/** input layout */}
 
             <View style={styles.form}>
-                <Typo>
+                <Typo  color={colors.text}>
                     Create an account track every expense
                 </Typo>
 
@@ -75,7 +75,7 @@ const RegisterUser = () => {
                     icon={
                         <Icons.User
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
@@ -89,7 +89,7 @@ const RegisterUser = () => {
                     icon={
                         <Icons.At
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
@@ -104,14 +104,14 @@ const RegisterUser = () => {
                     icon={
                         <Icons.Lock
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
                 />
 
                 <Button loading={isLoading} onPress={handleSubmit}>
-                    <Typo style={styles.submitButton} color={colors.black}>
+                    <Typo style={styles.submitButton} color={colors.neutral900}>
                         Sign Up
                     </Typo>
                 </Button>

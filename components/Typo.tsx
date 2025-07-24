@@ -12,12 +12,6 @@ const Typo = ({
     textProps = {}
 }: TypoProps) => {
 
-    /*
-    // colors hook
-    const colors = useThemeColors();
-    color = colors.text
-    */
-
     const textStyle: TextStyle = {
         fontSize: size? verticalScale(size): verticalScale(18),
         color,
