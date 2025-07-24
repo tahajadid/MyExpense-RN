@@ -170,3 +170,8 @@ export type WalletType = {
     created?: Date;
 };
 
+
+export type LoadingProps = {
+    sizeLoading?: "small" | "large";
+    colorLoader?: string;
+};

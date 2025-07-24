@@ -1,19 +1,18 @@
-import { colors } from '@/constants/theme'
-import React from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
-
+import { LoadingProps } from '@/types';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 const Loading = ({
-    sizeLoading = "large",
-    color = colors.primary
-}) => {
+  sizeLoading = "large",
+  colorLoader
+}: LoadingProps) => {
   return (
-    <View style={{flex:1, justifyContent:"center", alignItems:"center"}}>
-      <ActivityIndicator size="large" color={color} />
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size={sizeLoading} color={colorLoader} />
     </View>
   )
 }
 
-export default Loading
+export default Loading;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

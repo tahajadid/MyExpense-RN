@@ -61,7 +61,7 @@ const TransactionList = ({
         }
         {
             loading && (
-                <View style={{top : verticalScale(20)}}><Loading/></View>
+                <View style={{top : verticalScale(20)}}><Loading colorLoader={colors.primary}/></View>
             )
         }
     </View>

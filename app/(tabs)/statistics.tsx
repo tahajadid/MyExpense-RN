@@ -129,7 +129,7 @@ const Statistics = () => {
             }
             { chartLoading && (
               <View style={styles.chartLoadingContainer}>
-                  <Loading color={colors.neutral100} />
+                  <Loading colorLoader={colors.primary} />
               </View>
             )}
 

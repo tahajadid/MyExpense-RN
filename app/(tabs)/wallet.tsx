@@ -63,7 +63,7 @@ const Wallet = () => {
 
           {/* wallet list */}
 
-          {loading && <Loading/>}
+          {loading && <Loading  colorLoader={colors.brightOrange}/>}
           <FlatList
             data={wallets}
             renderItem={ ({ item , index}) => {
