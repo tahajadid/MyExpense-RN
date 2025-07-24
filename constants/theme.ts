@@ -28,7 +28,7 @@ export const colors = {
 
 export const lightTheme = {
     // primary colors
-    screenBackground: "#F8F8F8",
+    screenBackground: "#e7e7e7",
     primary: "#1982A1",
     primaryLight: "#1982A1",
     primaryDark: "#36BEDA",
@@ -87,8 +87,8 @@ export const lightTheme = {
     rose: "#ef4444",
     redClose: "#c85250",
     green: "#16a34a",
-    white: "#fff",
-    black: "#000",
+    white: "#000",
+    black: "#fff",
     brightOrange: "#FFAC1C",
   };
 
