@@ -20,7 +20,7 @@ const welcome = () => {
             <View style={styles.container}>
                 {/* login image & btn */}
                 <View>
-                    <TouchableOpacity onPress={()=> router.push("/(auth)/registerUser")} style={styles.loginButton}>
+                    <TouchableOpacity onPress={()=> router.push("/(auth)/login")} style={styles.loginButton}>
                         <Typo fontWeight={"700"}  color={colors.blueText}>Sign in</Typo>
                     </TouchableOpacity>
 
@@ -50,9 +50,6 @@ const welcome = () => {
                     style={{alignItems: "center" , gap: 2}}>
                         <Typo size={17} color={colors.blueText}>
                             Finance must be arranged
-                        </Typo>
-                        <Typo size={17} color={colors.blueText}>
-                            lifestyle
                         </Typo>
                     </Animated.View>
 
