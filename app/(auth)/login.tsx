@@ -3,8 +3,9 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
-import { colors, spacingY } from '@/constants/theme';
+import { spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
+import useThemeColors from '@/hooks/useThemeColors';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
@@ -19,7 +20,9 @@ const login = () => {
     const [password, setPassword] = useState('');
     const {login: loginUser} = useAuth();
 
-
+    // colors hook
+    const colors = useThemeColors();
+    
     const handleSubmit = async () => {
         if(!password || !emailRef.current){
             Alert.alert("Login","Please fill the fields !")
@@ -41,10 +44,10 @@ const login = () => {
 
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._20}}>
-                <Typo size={30} fontWeight={"800"}>
+                <Typo size={30} fontWeight={"800"} color={colors.text}>
                     Hey,
                 </Typo>
-                <Typo size={30} fontWeight={"800"}>
+                <Typo size={30} fontWeight={"800"} color={colors.text}>
                     Welcome Back
                 </Typo>
             </View>
@@ -52,19 +55,19 @@ const login = () => {
             {/** input layout */}
 
             <View style={styles.form}>
-                <Typo>
+                <Typo color={colors.text}>
                     Login now to track every expenses
                 </Typo>
 
 
                 {/** email adress Input */}
                 <Input
-                    placeholder='Enter your email'
+                    placeholder='Email'
                     onChangeText={(value) => (emailRef.current = value)}
                     icon={
                         <Icons.At
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
@@ -72,27 +75,27 @@ const login = () => {
 
                 {/** password Input */}
                 <Input
-                    placeholder='Enter your password'
+                    placeholder='Password'
                     secureTextEntry={true} // 🔒 This hides the input
                     value={password}
                     onChangeText={setPassword}
                     icon={
                         <Icons.Lock
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
                 />
 
                 <Pressable>
-                    <Typo style={styles.forgetPassword}>
+                    <Typo style={styles.forgetPassword} color={colors.primary}>
                         Forget Password ?
                     </Typo>
                 </Pressable>
 
                 <Button loading={isLoading} onPress={handleSubmit}>
-                    <Typo style={styles.submitButton}>
+                    <Typo style={styles.submitButton} color={colors.neutral900}>
                         Login
                     </Typo>
                 </Button>
@@ -101,11 +104,11 @@ const login = () => {
 
             {/** footer */}
             <View style={styles.footer}>
-                <Typo style={styles.footerText}>
+                <Typo style={styles.footerText} color={colors.text}>
                     Don't have an account?
                 </Typo>
                 <Pressable onPress={() => router.push("/(auth)/registerUser")}>
-                    <Typo style={styles.underlinedText}>
+                    <Typo style={styles.underlinedText} color={colors.primary}>
                         Sign up
                     </Typo>
                 </Pressable>
@@ -130,14 +133,13 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontSize: verticalScale(20),
         fontWeight: "bold",
-        color: colors.text
     },
     form: {
         gap: spacingY._20
     },
     forgetPassword:{
         fontSize: 14,
-        color: colors.text,
+        textDecorationLine: 'underline',
         alignSelf:"flex-end",
     },
     footer: { 
@@ -148,18 +150,15 @@ const styles = StyleSheet.create({
     },
     footerText: {
         textAlign:"center",
-        color: colors.text,
         fontSize: 14
     },
     underlinedText: {
         textDecorationLine: 'underline',
         fontSize: 14,
-        color: colors.primary,
         fontWeight: "700"
       },
     submitButton: {
         fontSize: 20,
-        color: colors.black,
         fontWeight: "700"
     },
 });

@@ -1,4 +1,5 @@
-import { colors, spacingY } from '@/constants/theme';
+import { spacingY } from '@/constants/theme';
+import useThemeColors from '@/hooks/useThemeColors';
 import { verticalScale } from '@/utils/styling';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import * as Icons from "phosphor-react-native";
@@ -9,6 +10,9 @@ export default function CustomTabs({
     descriptors,
     navigation 
 } : BottomTabBarProps) {
+
+    // colors hook
+    const colors = useThemeColors();
 
     const tabbarIcons: any = {
         index: (isFocused: Boolean) => (
@@ -41,8 +45,8 @@ export default function CustomTabs({
         )
     } 
   return (
-        <View style={styles.tabbarWrapper}>
-            <View style={styles.tabbar}>
+        <View style={[styles.tabbarWrapper, {backgroundColor: colors.neutral900}]}>
+            <View style={[styles.tabbar, {backgroundColor: colors.neutral500}]}>
                 {state.routes
                     .filter(route => Object.keys(tabbarIcons).includes(route.name))
                     .map((route, index) => {
@@ -83,8 +87,10 @@ export default function CustomTabs({
                             testID={options.tabBarButtonTestID}
                             onPress={onPress}
                             onLongPress={onLongPress}
-                            style={styles.tabbarItem}
-                        >
+                            style={
+                                [styles.tabbarItem,
+                                {backgroundColor: colors.neutral500, borderTopColor: colors.neutral900,}
+                                ]}>
                             {
                                 tabbarIcons[route.name] &&  tabbarIcons[route.name](isFocused)
                             }
@@ -98,7 +104,6 @@ export default function CustomTabs({
 
 const styles = StyleSheet.create({
     tabbarWrapper: {
-        backgroundColor: colors.neutral900,
         width: '100%',
     },
     tabbar: {
@@ -107,7 +112,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         height: Platform.OS == "ios" ? verticalScale(80) : verticalScale(60),
-        backgroundColor: colors.neutral500,
         alignItems: "center",
         overflow: 'hidden',
     },
@@ -115,8 +119,6 @@ const styles = StyleSheet.create({
         marginBottom: Platform.OS == "ios" ? spacingY._15 : spacingY._5,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: colors.neutral500,
-        borderTopColor: colors.neutral900,
         flex: 1
     }
 });
