@@ -1,4 +1,5 @@
 import { colors, spacingX, spacingY } from '@/constants/theme'
+import { useTheme } from '@/constants/ThemeContext'
 import { useAuth } from '@/contexts/authContext'
 import useFetchData from '@/hooks/useFetchData'
 import { WalletType } from '@/types'
@@ -11,8 +12,11 @@ import { StyleSheet, View } from 'react-native'
 import Typo from './Typo'
 
 const HomeCard = () => {
-
     const {user} = useAuth();
+    const { theme, mode } = useTheme();
+    const cardImage = theme === 'dark'
+        ? require('../assets/images/main_card_dark.png')
+        : require('../assets/images/main_card_light.png');
 
     const {
         data: wallets,
@@ -36,7 +40,7 @@ const HomeCard = () => {
     
     return (
     <ImageBackground 
-        source={require("../assets/images/card.png")}
+        source={cardImage}
         contentFit='fill'
         style={styles.bgImage}>
         <View style={styles.container}>

@@ -3,8 +3,9 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
-import { colors, spacingY } from '@/constants/theme';
+import { spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
+import useThemeColors from '@/hooks/useThemeColors';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
@@ -21,6 +22,9 @@ const RegisterUser = () => {
     const [password, setPassword] = useState('');
 
     const {register : registerUser} = useAuth();
+
+    // colors hook
+    const colors = useThemeColors();
 
     const handleSubmit = async () => {
         if(!password || !emailRef.current || !profileNameRef.current){
@@ -49,10 +53,10 @@ const RegisterUser = () => {
 
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._20}}>
-                <Typo size={30} fontWeight={"800"}>
+                <Typo size={30} fontWeight={"800"}  color={colors.text}>
                     Create,
                 </Typo>
-                <Typo size={30} fontWeight={"800"}>
+                <Typo size={30} fontWeight={"800"}  color={colors.text}>
                     Your Profile
                 </Typo>
             </View>
@@ -60,7 +64,7 @@ const RegisterUser = () => {
             {/** input layout */}
 
             <View style={styles.form}>
-                <Typo>
+                <Typo  color={colors.text}>
                     Create an account track every expense
                 </Typo>
 
@@ -71,7 +75,7 @@ const RegisterUser = () => {
                     icon={
                         <Icons.User
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
@@ -85,7 +89,7 @@ const RegisterUser = () => {
                     icon={
                         <Icons.At
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
@@ -100,14 +104,14 @@ const RegisterUser = () => {
                     icon={
                         <Icons.Lock
                             size={verticalScale(26)}
-                            color={colors.neutral300}
+                            color={colors.primary}
                             weight='fill'
                         />
                     }
                 />
 
                 <Button loading={isLoading} onPress={handleSubmit}>
-                    <Typo style={styles.submitButton}>
+                    <Typo style={styles.submitButton} color={colors.neutral900}>
                         Sign Up
                     </Typo>
                 </Button>
@@ -116,11 +120,11 @@ const RegisterUser = () => {
 
             {/** footer */}
             <View style={styles.footer}>
-                <Typo style={styles.footerText}>
+                <Typo style={styles.footerText} color={colors.text}>
                     Already have an account?
                 </Typo>
                 <Pressable onPress={() => router.push("/(auth)/login")}>
-                    <Typo style={styles.underlinedText}>
+                    <Typo style={styles.underlinedText} color={colors.primary}>
                         Login
                     </Typo>
                 </Pressable>
@@ -143,14 +147,12 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontSize: verticalScale(20),
         fontWeight: "bold",
-        color: colors.text
     },
     form: {
         gap: spacingY._20
     },
     forgetPassword:{
         fontSize: 14,
-        color: colors.text,
         alignSelf:"flex-end",
     },
     footer: { 
@@ -161,18 +163,15 @@ const styles = StyleSheet.create({
     },
     footerText: {
         textAlign:"center",
-        color: colors.text,
         fontSize: 14
     },
     underlinedText: {
         textDecorationLine: 'underline',
         fontSize: 14,
-        color: colors.primary,
         fontWeight: "700"
       },
     submitButton: {
         fontSize: 20,
-        color: colors.black,
         fontWeight: "700"
     },
 });
