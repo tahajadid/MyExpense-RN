@@ -1,11 +1,12 @@
-import Button from '@/components/Button';
+import AddButton from '@/components/AddButton';
 import HomeCard from '@/components/HomeCard';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import TransactionList from '@/components/TransactionList';
 import Typo from '@/components/Typo';
-import { colors, spacingX, spacingY } from '@/constants/theme';
+import { spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useFetchData from '@/hooks/useFetchData';
+import useThemeColors from '@/hooks/useThemeColors';
 import { TransactionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
@@ -15,6 +16,8 @@ import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Home = () => {
+  // colors hook
+  const colors = useThemeColors();
 
   const {user} = useAuth();
   const router = useRouter();
@@ -39,15 +42,15 @@ const Home = () => {
           {/** Header */}
           <View style={styles.header}>
             <View style={{ gap: 4}}>
-              <Typo size={16} color={colors.neutral400}>
+              <Typo size={16} color={colors.descriptionText}>
                 Hello,
               </Typo>
-              <Typo size={20} fontWeight={"500"}>{user?.name}</Typo>
+              <Typo size={20} fontWeight={"500"} color={colors.text}>{user?.name}</Typo>
             </View>
-          <TouchableOpacity style={styles.searchIcon}>
+          <TouchableOpacity style={[styles.searchIcon,{backgroundColor: colors.searchIconBackground} ]}>
             <Icons.MagnifyingGlass 
               size={verticalScale(22)}
-              color={colors.neutral200}
+              color={colors.searchIcon}
               weight='bold'
             />
           </TouchableOpacity>
@@ -63,21 +66,27 @@ const Home = () => {
               <HomeCard />
           </View>
 
+          {/** Transaction List */}
           <TransactionList 
             data={recentTransactions}
             loading={transactionsLoading}
             emptyListMessage="No transactions added yet"
             title="Recent transactions"/>
         </ScrollView>
-        <Button 
-        style={styles.floatingButton}
-        onPress={()=> router.push("/(modals)/transactionModal")}
-        >
-          <Icons.Plus 
-          size={verticalScale(24)}
-          color={colors.black}
-          weight="bold" />
-        </Button>
+        
+        <AddButton 
+          style={styles.floatingButton}
+          onPress={()=> router.push("./../ui/transaction/newTransaction")}>
+            <View style={styles.addRow}>
+              <Icons.Plus 
+              size={verticalScale(14)}
+              color={colors.white}
+              weight="bold" />
+              <Typo size={14} color={colors.white}>
+                Transaction
+              </Typo>
+            </View>
+        </AddButton>
       </View>
     </ScreenWrapper>
   )
@@ -98,21 +107,25 @@ const styles = StyleSheet.create({
     marginBottom: spacingY._10
   },
   searchIcon: {
-    backgroundColor: colors.neutral700,
     padding: spacingX._10,
     borderRadius: 50
   },
   floatingButton: {
-    height: verticalScale(50),
-    width: verticalScale(50),
-    borderRadius: 100,
+    height: verticalScale(40),
+    width: verticalScale(120),
+    borderRadius: 20,
     position: "absolute",
     bottom: verticalScale(30),
-    right: verticalScale(30)
+    right: verticalScale(20)
   },
   scrollViewStyle: {
     marginTop: spacingY._10,
     paddingBottom: verticalScale(100),
     gap: spacingY._25
+  },
+  addRow:{
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacingY._7
   }
 })

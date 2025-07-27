@@ -1,7 +1,8 @@
-import { colors, spacingX, spacingY } from '@/constants/theme'
 import { useTheme } from '@/constants/ThemeContext'
+import { spacingX, spacingY } from '@/constants/theme'
 import { useAuth } from '@/contexts/authContext'
 import useFetchData from '@/hooks/useFetchData'
+import useThemeColors from '@/hooks/useThemeColors'
 import { WalletType } from '@/types'
 import { scale, verticalScale } from '@/utils/styling'
 import { ImageBackground } from 'expo-image'
@@ -12,6 +13,9 @@ import { StyleSheet, View } from 'react-native'
 import Typo from './Typo'
 
 const HomeCard = () => {
+    // colors hook
+    const colors = useThemeColors();
+
     const {user} = useAuth();
     const { theme, mode } = useTheme();
     const cardImage = theme === 'dark'
@@ -47,7 +51,7 @@ const HomeCard = () => {
             <View>
                 {/** balance view */}
                 <View style={styles.totalBalanceRow}>
-                    <Typo color={colors.neutral800}
+                    <Typo color={colors.black}
                         size={17} fontWeight={"500"}>
                             Total Balance
                     </Typo>
@@ -68,14 +72,14 @@ const HomeCard = () => {
                 {/** income */}
                 <View style={{ gap: verticalScale(5)}}>
                     <View style={styles.incomeExpense}>
-                        <View style={styles.statsIcon}>
+                        <View style={[styles.statsIcon, {backgroundColor: colors.incomeIconColor}]}>
                             <Icons.ArrowDown 
                                 size={verticalScale(15)}
                                 color={colors.black}
                                 weight='bold'
                             />
                         </View>
-                        <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+                        <Typo size={16} color={colors.incomeLabelColor} fontWeight={"500"}>
                             Income
                         </Typo>
                     </View>
@@ -89,14 +93,14 @@ const HomeCard = () => {
                 {/** expense */}
                 <View style={{ gap: verticalScale(5)}}>
                     <View style={styles.incomeExpense}>
-                        <View style={styles.statsIcon}>
-                            <Icons.ArrowUp 
+                        <View style={[styles.statsIcon, {backgroundColor: colors.incomeIconColor}]}>
+                        <Icons.ArrowUp 
                                 size={verticalScale(15)}
                                 color={colors.black}
                                 weight='bold'
                             />
                         </View>
-                        <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+                        <Typo size={16} color={colors.incomeLabelColor} fontWeight={"500"}>
                             Expense
                         </Typo>
                     </View>
@@ -140,7 +144,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     statsIcon: {
-        backgroundColor: colors.neutral350,
         padding: spacingY._5,
         borderRadius: 50
     },
