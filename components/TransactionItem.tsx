@@ -1,5 +1,6 @@
 import { expenseCategories, incomeCategory } from '@/constants/mockData'
-import { colors, radius, spacingX, spacingY } from '@/constants/theme'
+import { radius, spacingX, spacingY } from '@/constants/theme'
+import useThemeColors from '@/hooks/useThemeColors'
 import { TransactionItemProps } from '@/types'
 import { verticalScale } from '@/utils/styling'
 import { Timestamp } from 'firebase/firestore'
@@ -12,6 +13,9 @@ const TransactionItem = ({
     item, index, handleClick
 }: TransactionItemProps) => {
 
+    // colors hook
+    const colors = useThemeColors();
+
     let category = item?.type == "income" ? incomeCategory : expenseCategories[item.category!]
     const ComponentIcon = category.icon;
     const date = (item?.date as Timestamp)?.toDate()?.toLocaleDateString("en-GB",{
@@ -22,7 +26,7 @@ const TransactionItem = ({
 
   return (
     <Animated.View entering={FadeInDown.delay(index * 50).springify().damping(14)}>
-        <TouchableOpacity style={styles.row} onPress={() => handleClick(item)}>
+        <TouchableOpacity style={[styles.row, {backgroundColor: colors.transactionItemBackground}]} onPress={() => handleClick(item)}>
             <View style={[styles.icon, {backgroundColor: category.bgColor}]}>
                 { ComponentIcon && (
                     <ComponentIcon
@@ -35,18 +39,18 @@ const TransactionItem = ({
             </View>
 
             <View style={styles.categoryDes}>
-                <Typo size={17}>{category.label}</Typo>
-                <Typo size={12} color={colors.neutral400} textProps={{numberOfLines: 1}}>
+                <Typo size={17} color={colors.text}>{category.label}</Typo>
+                <Typo size={12} color={colors.descriptionText} textProps={{numberOfLines: 1}}>
                     {item?.description}
                 </Typo>
             </View>
 
             <View style={styles.amountDate}>
                 <Typo fontWeight={"500"} 
-                color={item?.type == "income" ? colors.primary : colors.rose}>
+                color={item?.type == "income" ? colors.green : colors.rose}>
                     {`${item?.type== "income" ? "+ $" : "- $"}${item?.amount}`}
                 </Typo>
-                <Typo size={13} color={colors.neutral400}>{date}</Typo>
+                <Typo size={13} color={colors.descriptionText}>{date}</Typo>
             </View>
         </TouchableOpacity>
     </Animated.View>
@@ -62,7 +66,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: spacingX._12,
         marginBottom: spacingY._12,
-        backgroundColor: colors.neutral800,
         padding: spacingY._10,
         paddingHorizontal: spacingY._10,
         borderRadius: radius._17

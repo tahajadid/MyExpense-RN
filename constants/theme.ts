@@ -33,6 +33,7 @@ export const lightTheme = {
     primaryLight: "#1982A1",
     primaryDark: "#36BEDA",
     text: "#000",
+    descriptionText: "#525252",
     textLight: "#e5e5e5",
     textLighter: "#e5e5e5",
     blueText: "#1982A1",
@@ -65,7 +66,13 @@ export const lightTheme = {
     blue300 :"#2098BD",
     blue400: "#136C87",
 
-    blueGrey: "#CEE5EB"
+    blueGrey: "#CEE5EB",
+    transactionItemBackground: "#d4d4d4",
+    incomeLabelColor: "#404040",
+    incomeIconColor: "#CCCCCC",
+    searchIcon: "#e5e5e5",
+    searchIconBackground: "#a3a3a3",
+    greenAdd: "#008000"
 
   };
   
@@ -76,6 +83,7 @@ export const lightTheme = {
     primaryLight: "#30AEC7",
     primaryDark: "#1982A1",
     text: "#fff",
+    descriptionText: "#d4d4d4",
     textLight: "#e5e5e5",
     textLighter: "#d4d4d4",
     blueText: "#36BEDA",
@@ -98,8 +106,8 @@ export const lightTheme = {
     rose: "#ef4444",
     redClose: "#c85250",
     green: "#16a34a",
-    white: "#000",
-    black: "#fff",
+    white: "#fff",
+    black: "#000",
     brightOrange: "#FFAC1C",
 
     // blue color
@@ -108,7 +116,13 @@ export const lightTheme = {
     blue300 :"#87E3FF",
     blue400: "#B6E8F2",
 
-    blueGrey: "#A9E4F5"
+    blueGrey: "#A9E4F5",
+    transactionItemBackground: "#262626",
+    incomeLabelColor: "#404040",
+    incomeIconColor: "#CCCCCC",
+    searchIcon: "#e5e5e5",
+    searchIconBackground: "#404040",
+    greenAdd: "#008000"
   };
 
 

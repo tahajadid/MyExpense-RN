@@ -1,4 +1,5 @@
-import { colors, radius, spacingX, spacingY } from '@/constants/theme'
+import { radius, spacingY } from '@/constants/theme'
+import useThemeColors from '@/hooks/useThemeColors'
 import { TransactionListType, TransactionType } from '@/types'
 import { verticalScale } from '@/utils/styling'
 import { FlashList } from "@shopify/flash-list"
@@ -19,9 +20,12 @@ const TransactionList = ({
     
     const router = useRouter();
 
+    // colors hook
+    const colors = useThemeColors();
+
     const handleClick = (item: TransactionType) => {
         router.push({
-            pathname:"/(modals)/transactionModal",
+            pathname:"./../ui/transaction/newTransaction",
             params: {
                 id: item?.id,
                 type: item?.type,
@@ -39,7 +43,7 @@ const TransactionList = ({
   return (
     <View style={styles.container}>
         {title && (
-            <Typo size={20} fontWeight={"500"}>{title}</Typo>
+            <Typo size={20} fontWeight={"500"} color={colors.text}>{title}</Typo>
         )}
     
         <View style={styles.list}>
@@ -76,17 +80,6 @@ const styles = StyleSheet.create({
     },
     list:{
         minHeight: 3
-    },
-    row: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: spacingX._12,
-        marginBottom: spacingY._12,
-        backgroundColor: colors.neutral800,
-        padding: spacingY._10,
-        paddingHorizontal: spacingY._10,
-        borderRadius: radius._17
     },
     icon:{
         height: verticalScale(44),

@@ -26,13 +26,13 @@ const Profile = () => {
         {
             title: "Edit Profile",
             icon: (<Icons.User size={26} color={colors.neutral900} weight="fill"/>),
-            routeName:"/(modals)/profileModal",
+            routeName:"./../ui/profile/updateProfile",
             bgColor:colors.primary
         },
         {
             title: "Settings",
             icon: (<Icons.GearSix size={26} color={colors.neutral900} weight="fill"/>),
-            routeName:"./../profile/settings",
+            routeName:"./../ui/profile/settings",
             bgColor:colors.primary
         },
         {
@@ -66,7 +66,7 @@ const Profile = () => {
         if(item.title == "Logout"){
             showLogoutAlert()
         } else if(item.title == "Settings"){
-            router.push('./../profile/settings');
+            router.push('./../ui/profile/settings');
         }else {
             router.push(item.routeName)
         }
