@@ -72,7 +72,8 @@ export const lightTheme = {
     incomeIconColor: "#CCCCCC",
     searchIcon: "#e5e5e5",
     searchIconBackground: "#a3a3a3",
-    greenAdd: "#008000"
+    greenAdd: "#008000",
+    greenAddHover: "#8efa8e"
 
   };
   
@@ -122,7 +123,9 @@ export const lightTheme = {
     incomeIconColor: "#CCCCCC",
     searchIcon: "#e5e5e5",
     searchIconBackground: "#404040",
-    greenAdd: "#008000"
+    greenAdd: "#008000",
+    greenAddHover: "#8efa8e"
+
   };
 
 

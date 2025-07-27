@@ -18,7 +18,7 @@ const AddButton = ({
 
     if(loading){
         return(
-            <View style={[styles.button, style, {backgroundColor: 'transparent'}]}>
+            <View style={[styles.button, style, {backgroundColor:colors.greenAddHover}]}>
                 <Loading colorLoader={colors.black}/>
             </View>
         )

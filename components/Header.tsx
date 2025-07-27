@@ -1,3 +1,4 @@
+import useThemeColors from '@/hooks/useThemeColors';
 import { HeaderProps } from '@/types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -8,6 +9,9 @@ const Header = ({
     leftIcon,
     style
 }: HeaderProps) => {
+    // colors hook
+    const colors = useThemeColors();
+    
   return (
     <View style={[styles.container, style]}>
         {leftIcon && <View style={styles.leftIconStyle}>{leftIcon}</View>}
@@ -19,6 +23,7 @@ const Header = ({
                     textAlign:"center",
                     width: leftIcon ? "82%" : "100%",
                 }}
+                color={colors.primary}
             >
                 {title}
             </Typo>
