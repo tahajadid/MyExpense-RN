@@ -1,4 +1,3 @@
-import Header from '@/components/Header';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
 import { auth } from '@/config/firebase';
@@ -84,10 +83,6 @@ const Profile = () => {
     return (
         <ScreenWrapper>
         <View style={styles.container}> 
-            {/** Header */}
-            <Header title="Profile"
-                style={{marginVertical: spacingY._10}}
-            />
 
             {/** User Info */}
             <View style={styles.userInfo}>
