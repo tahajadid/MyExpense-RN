@@ -74,7 +74,7 @@ export const lightTheme = {
     searchIconBackground: "#a3a3a3",
     greenAdd: "#008000",
     greenAddHover: "#8efa8e",
-    tabBarBackground: "#a3a3a3"
+    tabBarBackground: "#404040"
   };
   
   export const darkTheme = {

@@ -19,28 +19,28 @@ export default function CustomTabs({
             <Icons.House 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral350}
+            color={isFocused? colors.white : colors.neutral400}
             />
         ),
         statistics: (isFocused: Boolean) => (
             <Icons.ChartBar 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral350}
+            color={isFocused? colors.white : colors.neutral400}
             />
         ),
         wallet: (isFocused: Boolean) => (
             <Icons.Wallet 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral350}
+            color={isFocused? colors.white : colors.neutral400}
             />
         ),
         profile: (isFocused: Boolean) => (
             <Icons.User 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral350}
+            color={isFocused? colors.white : colors.neutral400}
             />
         )
     } 
@@ -111,12 +111,12 @@ const styles = StyleSheet.create({
         width: "100%",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        height: Platform.OS == "ios" ? verticalScale(80) : verticalScale(60),
+        height: Platform.OS == "ios" ? verticalScale(85) : verticalScale(60),
         alignItems: "center",
         overflow: 'hidden',
     },
     tabbarItem: {
-        marginBottom: Platform.OS == "ios" ? spacingY._15 : spacingY._5,
+        marginBottom: Platform.OS == "ios" ? spacingY._20 : spacingY._5,
         justifyContent: "center",
         alignItems: "center",
         flex: 1
