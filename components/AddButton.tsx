@@ -1,43 +1,65 @@
-import { radius } from '@/constants/theme'
-import useThemeColors from '@/hooks/useThemeColors'
-import { CustomButtonProps } from '@/types'
-import { verticalScale } from '@/utils/styling'
-import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import Loading from './Loading'
+import useThemeColors from '@/hooks/useThemeColors';
+import { CustomButtonProps } from '@/types';
+import { verticalScale } from '@/utils/styling';
+import React from 'react';
+import {
+    Animated,
+    StyleProp,
+    StyleSheet,
+    TouchableOpacity,
+    ViewStyle
+} from 'react-native';
+import Loading from './Loading';
+
+interface AnimatedButtonProps extends CustomButtonProps {
+  animatedWidth?: Animated.AnimatedInterpolation<number>;
+}
 
 const AddButton = ({
+  style,
+  onPress,
+  loading = false,
+  children,
+  animatedWidth,
+}: AnimatedButtonProps) => {
+  const colors = useThemeColors();
+
+  const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+
+  const containerStyle: StyleProp<ViewStyle> = [
+    styles.button,
     style,
-    onPress,
-    loading=false,
-    children
-}: CustomButtonProps) => {
+    {
+      backgroundColor: colors.primary,
+      width: animatedWidth ?? verticalScale(120),
+    },
+  ];
 
-    // colors hook
-    const colors = useThemeColors();
-
-    if(loading){
-        return(
-            <View style={[styles.button, style, {backgroundColor:colors.greenAddHover}]}>
-                <Loading colorLoader={colors.black}/>
-            </View>
-        )
-    }
+  if (loading) {
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.button, style, {backgroundColor: colors.greenAdd}]}>
-            {children}
-        </TouchableOpacity>
-    )
-}
+      <Animated.View style={containerStyle}>
+        <Loading colorLoader={colors.black} />
+      </Animated.View>
+    );
+  }
+
+  return (
+    <AnimatedTouchable onPress={onPress} style={containerStyle}>
+      {children}
+    </AnimatedTouchable>
+  );
+};
 
 export default AddButton;
 
 const styles = StyleSheet.create({
-    button:{
-        borderRadius: radius._17,
-        borderCurve: "continuous",
-        height: verticalScale(48),
-        justifyContent:"center",
-        alignItems:"center"
-    }
-})
+  button: {
+    borderRadius: verticalScale(22),
+    borderCurve: 'continuous',
+    height: verticalScale(44),
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    overflow: 'hidden',
+  },
+});
