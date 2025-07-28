@@ -1,4 +1,5 @@
-import { colors, radius } from '@/constants/theme';
+import { radius } from '@/constants/theme';
+import useThemeColors from '@/hooks/useThemeColors';
 import { BackButtonProps } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
@@ -12,7 +13,9 @@ const BackButton = ({
 }: BackButtonProps) => {
     const router = useRouter();
     const scaledSize = verticalScale(iconSize);
-    
+    // colors hook
+    const colors = useThemeColors();
+
     const IconComponent = () => (
         <CaretLeft
             size={scaledSize}
@@ -22,7 +25,7 @@ const BackButton = ({
     
     return (
         <TouchableOpacity onPress={() => {router.back()}} 
-            style={[style, styles.button]}>
+            style={[style, styles.button, { backgroundColor: colors.searchIconBackground }]}>
             <View>
                 <IconComponent />
             </View>
@@ -34,7 +37,6 @@ export default BackButton;
 
 const styles = StyleSheet.create({
     button:{
-        backgroundColor: colors.neutral600,
         alignSelf:"flex-start",
         borderRadius: radius._12,
         borderCurve: "continuous",

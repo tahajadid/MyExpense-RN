@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.black
   },
   header: {
-
   },
   noChart: {
     backgroundColor: colors.black,

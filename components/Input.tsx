@@ -1,4 +1,4 @@
-import { colors, radius, spacingX } from '@/constants/theme';
+import { radius, spacingX } from '@/constants/theme';
 import useThemeColors from '@/hooks/useThemeColors';
 import { InputProps } from '@/types';
 import { verticalScale } from '@/utils/styling';
@@ -9,7 +9,7 @@ const Input = (props: InputProps) => {
     // colors hook
     const colors = useThemeColors();
     return (
-      <View style={[styles.container, props.containerStyle && props.containerStyle ]} >
+      <View style={[styles.container,{ borderColor: colors.neutral300 }, props.containerStyle && props.containerStyle ]} >
 
           {props.icon && props.icon}
 
@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
-        borderColor: colors.neutral300,
         borderRadius: radius._17,
         borderCurve: "continuous",
         paddingHorizontal: spacingX._15,

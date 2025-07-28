@@ -19,34 +19,34 @@ export default function CustomTabs({
             <Icons.House 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral400}
+            color={isFocused? colors.primary : colors.neutral350}
             />
         ),
         statistics: (isFocused: Boolean) => (
             <Icons.ChartBar 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral400}
+            color={isFocused? colors.primary : colors.neutral350}
             />
         ),
         wallet: (isFocused: Boolean) => (
             <Icons.Wallet 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral400}
+            color={isFocused? colors.primary : colors.neutral350}
             />
         ),
         profile: (isFocused: Boolean) => (
             <Icons.User 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
-            color={isFocused? colors.primary : colors.neutral400}
+            color={isFocused? colors.primary : colors.neutral350}
             />
         )
     } 
   return (
-        <View style={[styles.tabbarWrapper, {backgroundColor: colors.neutral900}]}>
-            <View style={[styles.tabbar, {backgroundColor: colors.neutral500}]}>
+        <View style={[styles.tabbarWrapper, {backgroundColor: colors.screenBackground}]}>
+            <View style={[styles.tabbar, {backgroundColor: colors.tabBarBackground}]}>
                 {state.routes
                     .filter(route => Object.keys(tabbarIcons).includes(route.name))
                     .map((route, index) => {
@@ -89,7 +89,7 @@ export default function CustomTabs({
                             onLongPress={onLongPress}
                             style={
                                 [styles.tabbarItem,
-                                {backgroundColor: colors.neutral500, borderTopColor: colors.neutral900,}
+                                {backgroundColor: colors.tabBarBackground, borderTopColor: colors.neutral900,}
                                 ]}>
                             {
                                 tabbarIcons[route.name] &&  tabbarIcons[route.name](isFocused)
