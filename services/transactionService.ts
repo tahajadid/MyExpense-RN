@@ -11,6 +11,7 @@ import { createOrUpdateWallet } from "./walletService";
 export const createOrUpdateTransaction = async (
     transactionData: Partial<TransactionType>
 ) : Promise<ResponseType> => {
+        
     try {
         const {id, type, walletId, amount, image} = transactionData;
         if(!amount || amount<=0 || !walletId || !type) {
@@ -278,6 +279,8 @@ export const deleteTransaction = async (id: string, walletId: string) => {
 export const fetchWeeklyStats = async (
     uid: string
 ) : Promise<ResponseType> => {
+
+    
     try {
         const db = firestore
         const today = new Date();
@@ -328,9 +331,9 @@ export const fetchWeeklyStats = async (
                     label: day.day,
                     spacing: scale(4),
                     labelWidth: scale(30),
-                    frontColor: colors.primary
+                    frontColor: colors.white
                 },
-                { value : day.expense, frontColor: colors.rose}
+                { value : day.expense, frontColor: colors.black}
             ]
         );
 
@@ -400,9 +403,9 @@ export const fetchMonthlyStats = async (
                     label: month.month,
                     spacing: scale(4),
                     labelWidth: scale(45),
-                    frontColor: colors.primary
+                    frontColor: colors.white
                 },
-                { value : month.expense, frontColor: colors.rose}
+                { value : month.expense, frontColor: colors.black}
             ]
         );
 
@@ -470,9 +473,9 @@ export const fetchYearlyStats = async (
                     label: year.year,
                     spacing: scale(4),
                     labelWidth: scale(35),
-                    frontColor: colors.primary
+                    frontColor: colors.white
                 },
-                { value : year.expense, frontColor: colors.rose}
+                { value : year.expense, frontColor: colors.black}
             ]
         );
 
