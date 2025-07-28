@@ -37,7 +37,7 @@ export const lightTheme = {
     textLight: "#e5e5e5",
     textLighter: "#e5e5e5",
     blueText: "#1982A1",
-
+    primarySelection: "#7cb5c2",
 
     // common colors
     neutral900: "#fafafa",
@@ -88,6 +88,7 @@ export const lightTheme = {
     textLight: "#e5e5e5",
     textLighter: "#d4d4d4",
     blueText: "#36BEDA",
+    primarySelection: "#8fccd9",
 
     // common colors
     neutral50: "#fafafa",

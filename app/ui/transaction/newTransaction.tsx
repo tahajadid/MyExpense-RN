@@ -146,20 +146,18 @@ const TransactionModal = () => {
     <ModalWrapper>
       <SafeAreaView
       style={{ flex: 1 }}
-      edges={Platform.OS === 'ios' ? ['top'] : []}
-      >
+      edges={Platform.OS === 'ios' ? ['top'] : []}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
-        >
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 30 : 0}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1 }}>
               <ScrollView
-                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: spacingX._20, paddingBottom: 100 }}
+                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: spacingX._20, paddingBottom: 20 }}
                 showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-              >
+                keyboardShouldPersistTaps="handled">
+
                 <Header
                   title={oldTransaction?.id ? "Update Transaction" : "New Transaction"}
                   leftIcon={<BackButton />}
@@ -168,19 +166,19 @@ const TransactionModal = () => {
 
                 {/* Transaction Type */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral100} size={16}>Type</Typo>
+                  <Typo color={colors.neutral100} size={16} fontWeight={"500"}>Type</Typo>
                   <Dropdown
                     style={[styles.dropdownContainer, { borderColor: colors.neutral300}]}
-                    selectedTextStyle={[styles.dropdownSelectedText, { color: colors.white}]}
+                    selectedTextStyle={[styles.dropdownSelectedText, { color: colors.text}]}
                     iconStyle={[styles.dropdownIcon,{tintColor: colors.neutral300}]}
                     data={transactionTypes}
-                    maxHeight={300}
+                    maxHeight={200}
                     labelField="label"
                     valueField="value"
-                    itemTextStyle={{ color: colors.white }}
+                    itemTextStyle={{ color: colors.text }}
                     itemContainerStyle={styles.dropdownItemContainer}
                     containerStyle={[styles.dropdownListContainer, {borderColor: colors.neutral500,shadowColor: colors.black, backgroundColor: colors.neutral900,                      }]}
-                    activeColor={colors.neutral700}
+                    activeColor={colors.primarySelection}
                     value={transaction.type}
                     onChange={(item) => setTransaction({ ...transaction, type: item.value })}
                   />
@@ -188,12 +186,12 @@ const TransactionModal = () => {
 
                 {/* Wallet */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16}>Wallet</Typo>
+                  <Typo color={colors.neutral200} size={16} fontWeight={"500"}>Wallet</Typo>
                   <Dropdown
                     style={[styles.dropdownContainer, { borderColor: colors.neutral300}]}
                     placeholder={"Select wallet"}
-                    placeholderStyle={{ color: colors.white }}
-                    selectedTextStyle={[styles.dropdownSelectedText, { color: colors.white}]}
+                    placeholderStyle={{ color: colors.text }}
+                    selectedTextStyle={[styles.dropdownSelectedText, { color: colors.text}]}
                     iconStyle={[styles.dropdownIcon,{tintColor: colors.neutral300}]}
                     data={wallets.map((wallet) => ({
                       label: `${wallet?.name} ($${wallet.amount})`,
@@ -202,10 +200,10 @@ const TransactionModal = () => {
                     maxHeight={300}
                     labelField="label"
                     valueField="value"
-                    itemTextStyle={{ color: colors.white }}
+                    itemTextStyle={{ color: colors.text }}
                     itemContainerStyle={styles.dropdownItemContainer}
                     containerStyle={[styles.dropdownListContainer, {borderColor: colors.neutral500,shadowColor: colors.black, backgroundColor: colors.neutral900,                      }]}
-                    activeColor={colors.neutral700}
+                    activeColor={colors.primarySelection}
                     value={transaction.walletId}
                     onChange={(item) => setTransaction({ ...transaction, walletId: item.value || "" })}
                   />
@@ -214,21 +212,21 @@ const TransactionModal = () => {
                 {/* Expense Category */}
                 {transaction.type === "expense" && (
                   <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16}>Expense Category</Typo>
+                    <Typo color={colors.neutral200} size={16} fontWeight={"500"}>Expense Category</Typo>
                     <Dropdown
                       style={[styles.dropdownContainer, { borderColor: colors.neutral300}]}
                       placeholder={"Select category"}
-                      placeholderStyle={{ color: colors.white }}
-                      selectedTextStyle={[styles.dropdownSelectedText, { color: colors.white}]}
+                      placeholderStyle={{ color: colors.text }}
+                      selectedTextStyle={[styles.dropdownSelectedText, { color: colors.text}]}
                       iconStyle={[styles.dropdownIcon,{tintColor: colors.neutral300}]}
                       data={Object.values(expenseCategories)}
                       maxHeight={300}
                       labelField="label"
                       valueField="value"
-                      itemTextStyle={{ color: colors.white }}
+                      itemTextStyle={{ color: colors.text }}
                       itemContainerStyle={styles.dropdownItemContainer}
                       containerStyle={[styles.dropdownListContainer, {borderColor: colors.neutral500,shadowColor: colors.black, backgroundColor: colors.neutral900,                      }]}
-                      activeColor={colors.neutral700}
+                      activeColor={colors.primarySelection}
                       value={transaction.category}
                       onChange={(item) => setTransaction({ ...transaction, category: item.value || "" })}
                     />
@@ -237,28 +235,27 @@ const TransactionModal = () => {
 
                 {/* Date Picker */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16} style={{marginBottom: spacingX._10}}>Date</Typo>
+                  <Typo color={colors.neutral200} size={16} fontWeight={"500"} style={{marginBottom: spacingX._10}}>Date</Typo>
                   {!showDatePicker && (
                     <Pressable style={[styles.dateInput, {borderColor: colors.neutral300}]} onPress={() => setShowDatePicker(true)}>
-                      <Typo size={15}>{(transaction.date as Date).toLocaleDateString()}</Typo>
+                      <Typo size={15} color={colors.text}>{(transaction.date as Date).toLocaleDateString()}</Typo>
                     </Pressable>
                   )}
                   {showDatePicker && (
                     <View style={Platform.OS === 'ios' && styles.iosDatePicker}>
                       <DateTimePicker
-                        themeVariant='dark'
                         value={transaction.date as Date}
-                        textColor={colors.white}
+                        textColor={colors.text}
                         mode="date"
                         display={Platform.OS === 'ios' ? "spinner" : "default"}
                         onChange={onDateChange}
                       />
                       {Platform.OS === 'ios' && (
                         <TouchableOpacity
-                          style={[styles.datePickerButton, { backgroundColor: colors.neutral700}]}
+                          style={[styles.datePickerButton, { backgroundColor: colors.primary}]}
                           onPress={() => setShowDatePicker(false)}
                         >
-                          <Typo size={15} fontWeight={"500"}>Change</Typo>
+                          <Typo size={15} fontWeight={"500"} color={colors.neutral900}>Change</Typo>
                         </TouchableOpacity>
                       )}
                     </View>
@@ -267,7 +264,7 @@ const TransactionModal = () => {
 
                 {/* Amount */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16} style={{marginBottom: spacingX._10}}>Amount</Typo>
+                  <Typo color={colors.neutral200} size={16} fontWeight={"500"} style={{marginBottom: spacingX._10}}>Amount</Typo>
                   <Input
                     keyboardType='numeric'
                     value={transaction?.amount.toString()}
@@ -280,8 +277,8 @@ const TransactionModal = () => {
                 {/* Description */}
                 <View style={styles.inputContainer}>
                   <View style={styles.flexRow}>
-                    <Typo color={colors.neutral200} size={16}>Description</Typo>
-                    <Typo color={colors.neutral500} size={14}>(optional)</Typo>
+                    <Typo color={colors.neutral200} fontWeight={"500"} size={16}>Description</Typo>
+                    <Typo color={colors.neutral400} size={14}>(optional)</Typo>
                   </View>
                   <Input
                     value={transaction?.description}
@@ -297,7 +294,7 @@ const TransactionModal = () => {
                 <View style={[styles.inputContainer, { marginBottom: 15 }]}>
                   <View style={styles.flexRow}>
                     <Typo color={colors.neutral200} size={16}>Receipt</Typo>
-                    <Typo color={colors.neutral500} size={14}>(optional)</Typo>
+                    <Typo color={colors.neutral400} size={14}>(optional)</Typo>
                   </View>
                   <ImageUpload
                     file={transaction.image}
@@ -309,7 +306,7 @@ const TransactionModal = () => {
               </ScrollView>
 
               {/* Footer */}
-              <View style={[styles.footer, { borderTopColor: colors.neutral700}]}>
+              <View style={[styles.footer, { borderTopColor: colors.neutral500}]}>
                 {oldTransaction?.id && !loading && (
                   <Button onPress={deletWalletAlert} style={{ backgroundColor: colors.redClose, paddingHorizontal: spacingX._15 }}>
                     <Icons.Trash color={colors.white} size={verticalScale(24)} weight='bold' />
