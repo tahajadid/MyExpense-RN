@@ -59,6 +59,7 @@ export const lightTheme = {
     white: "#fff",
     black: "#000",
     brightOrange: "#FFAC1C",
+    gold: "#fdbf00",
 
     // blue color
     blue100 :"#B6E8F2", 
@@ -111,6 +112,7 @@ export const lightTheme = {
     white: "#fff",
     black: "#000",
     brightOrange: "#FFAC1C",
+    gold: "#fdbf00",
 
     // blue color
     blue100 :"#136C87", 
