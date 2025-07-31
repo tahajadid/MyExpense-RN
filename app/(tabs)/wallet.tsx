@@ -55,13 +55,20 @@ const Wallet = () => {
             <Typo size={20} fontWeight={"500"} color={colors.text}>
               Wallets
             </Typo>
-            <TouchableOpacity onPress={()=> router.push("/(modals)/walletModal")}>
-              <Icons.PlusCircle 
-                  weight='fill'
-                  color={colors.primary}
-                  size={verticalScale(33)}
-                />
-            </TouchableOpacity>
+            <View style={[styles.buttonRow, {backgroundColor: colors.gold}]}>
+              <TouchableOpacity onPress={()=> router.push("/(modals)/walletModal")}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                <Icons.Plus
+                    weight="bold" 
+                    color={colors.text}
+                    size={verticalScale(14)}
+                  />
+                <Typo size={15} fontWeight={"300"} color={colors.text}>
+                  Add Wallets
+                </Typo>
+              </TouchableOpacity>
+            </View>
+
           </View>
 
           {/* wallet list */}
@@ -104,6 +111,14 @@ const styles = StyleSheet.create({
       alignContent: "center",
       marginBottom: spacingY._10,
   },
+  buttonRow: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    borderRadius: verticalScale(16),
+    borderCurve: 'continuous',
+    height: verticalScale(34),
+    paddingHorizontal: verticalScale(12)
+},
   wallets: {
     flex: 1,
     borderTopRightRadius: radius._30,

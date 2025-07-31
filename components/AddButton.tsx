@@ -3,11 +3,11 @@ import { CustomButtonProps } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import React from 'react';
 import {
-    Animated,
-    StyleProp,
-    StyleSheet,
-    TouchableOpacity,
-    ViewStyle
+  Animated,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle
 } from 'react-native';
 import Loading from './Loading';
 
