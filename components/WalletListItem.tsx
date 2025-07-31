@@ -1,4 +1,5 @@
 import { colors, radius, spacingX } from '@/constants/theme'
+import useThemeColors from '@/hooks/useThemeColors'
 import { WalletType } from '@/types'
 import { verticalScale } from '@/utils/styling'
 import { Image } from 'expo-image'
@@ -19,6 +20,9 @@ const WalletListItem = ({
     router: Router
 }) => {
 
+// colors hook
+    const colors = useThemeColors();
+    
     const openWallet = () => {
         router.push({
             pathname : "/(modals)/walletModal",
@@ -48,7 +52,7 @@ const WalletListItem = ({
         <Icons.CaretRight 
             size={verticalScale(20)}
             weight='bold'
-            color={colors.white}
+            color={colors.primary}
         />
       </TouchableOpacity>
     </Animated.View>
