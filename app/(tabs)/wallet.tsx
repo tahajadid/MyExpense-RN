@@ -2,9 +2,10 @@ import Loading from '@/components/Loading';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
 import WalletListItem from '@/components/WalletListItem';
-import { colors, radius, spacingX, spacingY } from '@/constants/theme';
+import { radius, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useFetchData from '@/hooks/useFetchData';
+import useThemeColors from '@/hooks/useThemeColors';
 import { WalletType } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
@@ -14,7 +15,9 @@ import React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Wallet = () => {
-
+  // colors hook
+  const colors = useThemeColors();
+  
   const router = useRouter();
   const {user} = useAuth();
 
@@ -32,25 +35,25 @@ const Wallet = () => {
   }
 
   return (
-    <ScreenWrapper style={{backgroundColor: colors.black}}>
+    <ScreenWrapper style={{backgroundColor: colors.primary}}>
       <View style={styles.container}>
         {/* balance view */}
-        <View style={styles.balanceView}>
+        <View style={[styles.balanceView, { backgroundColor: colors.primary }]}>
           <View style={{alignItems: "center"}}>
-            <Typo size={45} fontWeight={"500"}>
-              ${calculateTotalBalance().toFixed(2)}
-            </Typo>
-            <Typo size={16} color={colors.neutral300}>
+            <Typo size={16} color={colors.screenBackground}>
               Total Balance
+            </Typo>
+            <Typo size={45} fontWeight={"500"} color={colors.screenBackground}>
+              ${calculateTotalBalance().toFixed(2)}
             </Typo>
           </View>
         </View>
         {/* wallet view */}
-        <View style={styles.wallets}>
+        <View style={[styles.wallets, { backgroundColor: colors.screenBackground }]}>
           {/* header of wallet */}
           <View style={styles.flexRow}>
-            <Typo size={20} fontWeight={"500"}>
-              My Wallets
+            <Typo size={20} fontWeight={"500"} color={colors.text}>
+              Wallets
             </Typo>
             <TouchableOpacity onPress={()=> router.push("/(modals)/walletModal")}>
               <Icons.PlusCircle 
@@ -92,7 +95,6 @@ const styles = StyleSheet.create({
   },
   balanceView: {
     height: verticalScale(160),
-    backgroundColor: colors.black,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -104,7 +106,6 @@ const styles = StyleSheet.create({
   },
   wallets: {
     flex: 1,
-    backgroundColor: colors.neutral900,
     borderTopRightRadius: radius._30,
     borderTopLeftRadius: radius._30,
     padding: spacingX._20,
