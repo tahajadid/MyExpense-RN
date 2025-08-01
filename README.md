@@ -16,7 +16,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction)
+You can start developing by editing the files inside the **app** directory.
 
 ## Get a fresh project
 
