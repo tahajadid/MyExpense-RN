@@ -45,14 +45,14 @@ const WalletListItem = ({
             />
         </View>
         <View style={styles.nameContainer}>
-            <Typo size={16}>{item?.name}</Typo>
+            <Typo size={16} color={colors.text}>{item?.name}</Typo>
             <Typo size={14} color={colors.neutral400}>${item?.amount}</Typo>
         </View>
 
         <Icons.CaretRight 
             size={verticalScale(20)}
             weight='bold'
-            color={colors.primary}
+            color={colors.text}
         />
       </TouchableOpacity>
     </Animated.View>
