@@ -5,8 +5,9 @@ import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
 import ModalWrapper from '@/components/ModalWrapper';
 import Typo from '@/components/Typo';
-import { colors, spacingX, spacingY } from '@/constants/theme';
+import { spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
+import useThemeColors from '@/hooks/useThemeColors';
 import { createOrUpdateWallet, deleteWallet } from '@/services/walletService';
 import { WalletType } from '@/types';
 import { scale, verticalScale } from '@/utils/styling';
@@ -24,6 +25,9 @@ const walletModal = () => {
         name: "",
         image: null
     });
+    
+    // colors hook
+    const colors = useThemeColors();
 
     const router = useRouter();
     
@@ -108,7 +112,7 @@ const walletModal = () => {
                     <View style={styles.inputContainer}>
                         <Typo color={colors.neutral200}>Wallet Name</Typo>
                         <Input
-                            placeholder="Salary"
+                            placeholder="Name.."
                             value={wallet.name}
                             onChangeText={(value) => {
                                 setWallet({...wallet, name: value})
@@ -128,14 +132,14 @@ const walletModal = () => {
             </View>
         </TouchableWithoutFeedback>
 
-        <View style={styles.footer}>
+        <View style={[styles.footer, { borderTopColor: colors.neutral700}]}>
             {oldWallet?.id && !loading &&( 
-              <Button onPress={deletWalletAlert} style={styles.deleteIcon}>
+              <Button onPress={deletWalletAlert} style={{paddingHorizontal: spacingX._15 ,backgroundColor: colors.redClose}}>
                 <Icons.Trash color={colors.white} size={verticalScale(24)} weight='bold' />
               </Button>
             )}
             <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
-                <Typo color={colors.black} fontWeight={"700"}>{oldWallet?.id ? "Update" : "New Wallet"}</Typo>
+                <Typo color={colors.neutral900} fontWeight={"700"}>{oldWallet?.id ? "Update" : "New Wallet"}</Typo>
             </Button>
         </View>
     </ModalWrapper>
@@ -162,8 +166,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacingX._20,
         gap: scale(20),
         paddingTop: spacingY._15,
-        borderTopColor: colors.neutral700,
-        marginBottom: spacingY._5,
+        marginBottom: spacingY._15,
         borderTopWidth: 1,
     },
     form: {
@@ -174,33 +177,10 @@ const styles = StyleSheet.create({
         position: "relative",
         alignSelf: "center"
     },
-    avatar: {
-        alignSelf: "center",
-        backgroundColor: colors.neutral300,
-        height: verticalScale(135),
-        width: verticalScale(135),
-        borderRadius: 200,
-        borderWidth: 1,
-        borderColor: colors.neutral500
-    },
-    editIcon:{
-        position: "absolute",
-        bottom: spacingY._5,
-        right: spacingY._7,
-        borderRadius: 100,
-        backgroundColor: colors.neutral100,
-        shadowColor: colors.black,
-        shadowOffset: {width: 0, height: 0},
-        shadowOpacity: 0.25,
-        textShadowRadius: 10,
-        elevation: 4,
-        padding: spacingY._7
-    },
     inputContainer: {
         gap: spacingY._10
     },
     deleteIcon: {
-        backgroundColor: colors.redClose,
         paddingHorizontal: spacingX._15
     }
 })
