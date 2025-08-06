@@ -1,5 +1,6 @@
 import BackButton from '@/components/BackButton';
 import Button from '@/components/Button';
+import DeleteButton from '@/components/DeleteButton';
 import Header from '@/components/Header';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
@@ -308,9 +309,9 @@ const TransactionModal = () => {
               {/* Footer */}
               <View style={[styles.footer, { borderTopColor: colors.neutral500}]}>
                 {oldTransaction?.id && !loading && (
-                  <Button onPress={deletWalletAlert} style={{ backgroundColor: colors.redClose, paddingHorizontal: spacingX._15 }}>
-                    <Icons.Trash color={colors.white} size={verticalScale(24)} weight='bold' />
-                  </Button>
+                  <DeleteButton onPress={deletWalletAlert} style={{ paddingHorizontal: spacingX._15 }}>
+                    <Icons.Trash color={colors.screenBackground} size={verticalScale(24)} weight='bold' />
+                  </DeleteButton>
                 )}
                 <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
                   <Typo  color={colors.neutral900} fontWeight={"700"}>

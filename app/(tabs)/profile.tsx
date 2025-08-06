@@ -1,9 +1,10 @@
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
 import { auth } from '@/config/firebase';
-import { colors, radius, spacingX, spacingY } from '@/constants/theme';
+import { radius, spacingX, spacingY } from '@/constants/theme';
 import { useTheme } from '@/constants/ThemeContext';
 import { useAuth } from '@/contexts/authContext';
+import useThemeColors from '@/hooks/useThemeColors';
 import { getProfileImage } from '@/services/imageService';
 import { accountOptionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
@@ -21,9 +22,12 @@ const Profile = () => {
     const router = useRouter();
     const { mode, setMode } = useTheme();
     
+    // colors hook
+    const colors = useThemeColors();
+
     const accountOptions: accountOptionType[] = [
         {
-            title: "Edit Profile",
+            title: "Profile",
             icon: (<Icons.User size={26} color={colors.neutral900} weight="fill"/>),
             routeName:"./../ui/profile/updateProfile",
             bgColor:colors.primary
@@ -90,7 +94,7 @@ const Profile = () => {
                 <View>
                     <Image 
                         source={getProfileImage(user?.image)}
-                        style={styles.avatar}
+                        style={[styles.avatar, { backgroundColor: colors.neutral300}]}
                         contentFit="cover"
                         transition={100}
                     />
@@ -100,7 +104,7 @@ const Profile = () => {
                     <Typo size={24} fontWeight={"800"} color={colors.neutral200}>
                         {user?.name}
                     </Typo>
-                    <Typo size={16} fontWeight={"300"} color={colors.neutral400}>
+                    <Typo size={16} fontWeight={"300"} color={colors.text}>
                         {user?.email }
                     </Typo>
                 </View>
@@ -121,18 +125,18 @@ const Profile = () => {
                                 <View style={[
                                     styles.listIcon,
                                     {
-                                        backgroundColor: item?.bgColor
+                                        backgroundColor: item?.bgColor,
                                     }
                                 ]}>
                                     {item.icon && item.icon} 
                                 </View>
-                                <Typo size={16} style={{flex : 1}} fontWeight={"500"}>
+                                <Typo size={16} style={{flex : 1}} fontWeight={"500"} color={colors.text}>
                                     {item.title}
                                 </Typo>
                                 <Icons.CaretRight
                                 size={verticalScale(20)}
                                 weight="bold"
-                                color={colors.white}
+                                color={colors.primary}
                                 />
                             </TouchableOpacity>
                         </Animated.View>
@@ -180,24 +184,11 @@ const styles = StyleSheet.create({
     },
     avatar: {
         alignSelf: "center",
-        backgroundColor: colors.neutral300,
         height: verticalScale(135),
         width: verticalScale(135),
         borderRadius: 200,
         overflow: "hidden",
         // position: "relative",
-    },
-    editIcon: {
-        position: "absolute",
-        bottom: 5,
-        right: 8,
-        borderRadius: 50,
-        backgroundColor: colors.neutral100,
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.25,
-        shadowRadius: 10,
-        elevation: 4,
-        padding: 5,
     },
     nameContainer: {
         gap: verticalScale(4),
@@ -206,7 +197,6 @@ const styles = StyleSheet.create({
     listIcon: {
         height: verticalScale(44),
         width: verticalScale(44),
-        backgroundColor: colors.neutral500,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: radius._15,
@@ -231,13 +221,9 @@ const styles = StyleSheet.create({
         marginTop: spacingY._10,
     },
     themeButton: {
-        backgroundColor: colors.neutral800,
         paddingVertical: spacingY._15,
         paddingHorizontal: spacingX._20,
         borderRadius: radius._10,
-    },
-    activeThemeButton: {
-        backgroundColor: colors.primary,
     },
     themeButtonContent: {
         flexDirection: 'row',

@@ -9,13 +9,13 @@ const Settings = () => {
 
     return (
         <ScreenWrapper>
-        <View style={styles.container}> 
-            {/** Header */}
-            <Header title="Setings"
-                style={{marginVertical: spacingY._10}}
-            />
+            <View style={styles.container}> 
+                {/** Header */}
+                <Header title="Setings"
+                    style={{marginVertical: spacingY._10}}
+                />
 
-        </View>
+            </View>
         </ScreenWrapper>
     )
 }
