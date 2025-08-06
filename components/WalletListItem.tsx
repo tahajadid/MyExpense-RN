@@ -20,7 +20,7 @@ const WalletListItem = ({
     router: Router
 }) => {
 
-// colors hook
+    // colors hook
     const colors = useThemeColors();
     
     const openWallet = () => {

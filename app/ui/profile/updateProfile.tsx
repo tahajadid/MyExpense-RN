@@ -4,8 +4,9 @@ import Header from '@/components/Header';
 import Input from '@/components/Input';
 import ModalWrapper from '@/components/ModalWrapper';
 import Typo from '@/components/Typo';
-import { colors, spacingX, spacingY } from '@/constants/theme';
+import { spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
+import useThemeColors from '@/hooks/useThemeColors';
 import { getProfileImage } from '@/services/imageService';
 import { updateUser } from '@/services/userService';
 import { UserDataType } from '@/types';
@@ -15,7 +16,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import * as Icons from "phosphor-react-native";
 import React, { useEffect, useState } from 'react';
-import { Alert, Keyboard, ScrollView, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProfileModal = () => {
 
@@ -27,6 +29,9 @@ const ProfileModal = () => {
         image: null
     });
 
+    // colors hook
+    const colors = useThemeColors();
+    
     useEffect(()=>{
         setUserData({
             name : user?.name || "",
@@ -71,22 +76,31 @@ const ProfileModal = () => {
 
   return (
     <ModalWrapper>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={styles.container}>
-                <Header title="Update profile information"
-                leftIcon={<BackButton/>}
-                style={{ marginBottom: spacingY._10, marginTop: spacingY._15 }}/>
-
+      <SafeAreaView
+        style={{ flex: 1 }}
+        edges={Platform.OS === 'ios' ? ['top'] : []}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 30 : 0}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1 }}>
                 {/** Form */}
-                <ScrollView contentContainerStyle={styles.form}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: spacingX._20, paddingBottom: 20 }}>
+
+                    {/** Header */}
+                    <Header title="Edit information"
+                    leftIcon={<BackButton/>}
+                    style={{ marginBottom: spacingY._10, marginTop: spacingY._15 }}/>
+
                     <View style={styles.avatarContainer}>
-                        <Image style={styles.avatar}
+                        <Image style={[styles.avatar, {backgroundColor: colors.neutral300, borderColor: colors.neutral500}]}
                             source={getProfileImage(userData.image)}
                             contentFit="cover"
                             transition={100}
                         />
 
-                        <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
+                        <TouchableOpacity onPress={onPickImage} style={[styles.editIcon, {backgroundColor: colors.neutral100, shadowColor: colors.black}]}>
                             <Icons.Pencil
                                 size={verticalScale(20)}
                                 color={colors.neutral800}
@@ -105,14 +119,17 @@ const ProfileModal = () => {
                         />
                     </View>
                 </ScrollView>
-            </View>
-        </TouchableWithoutFeedback>
 
-        <View style={styles.footer}>
-            <Button onPress={onSubmit} loading={loading} style={{flex:1}}>
-                <Typo color={colors.black} fontWeight={"700"}>Update information</Typo>
-            </Button>
-        </View>
+                <View style={[styles.footer, { borderTopColor: colors.neutral500}]}>
+                    <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
+                        <Typo color={colors.neutral900} fontWeight={"700"}>Update information</Typo>
+                    </Button>
+                </View>
+            
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </ModalWrapper>
   )
 }
@@ -137,7 +154,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacingX._20,
         gap: scale(20),
         paddingTop: spacingY._15,
-        borderTopColor: colors.neutral700,
         marginBottom: spacingY._5,
         borderTopWidth: 1,
     },
@@ -151,20 +167,16 @@ const styles = StyleSheet.create({
     },
     avatar: {
         alignSelf: "center",
-        backgroundColor: colors.neutral300,
         height: verticalScale(135),
         width: verticalScale(135),
         borderRadius: 200,
-        borderWidth: 1,
-        borderColor: colors.neutral500
+        borderWidth: 1
     },
     editIcon:{
         position: "absolute",
         bottom: spacingY._5,
         right: spacingY._7,
         borderRadius: 100,
-        backgroundColor: colors.neutral100,
-        shadowColor: colors.black,
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.25,
         textShadowRadius: 10,
