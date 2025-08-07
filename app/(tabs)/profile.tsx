@@ -80,6 +80,7 @@ const Profile = () => {
         }
     }
 
+
     return (
         <ScreenWrapper>
             <View style={styles.container}> 

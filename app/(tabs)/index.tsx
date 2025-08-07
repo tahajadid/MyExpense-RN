@@ -20,6 +20,7 @@ import {
   View
 } from 'react-native';
 
+
 const Home = () => {
   const colors = useThemeColors();
   const { user } = useAuth();
@@ -51,7 +52,6 @@ const Home = () => {
     outputRange: [120, 48], // Full width to icon-only
     extrapolate: 'clamp',
   });
-
 
   return (
     <ScreenWrapper>
