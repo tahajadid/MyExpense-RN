@@ -175,3 +175,10 @@ export type LoadingProps = {
     sizeLoading?: "small" | "large";
     colorLoader?: string;
 };
+
+export type ToggleSwitchProps = {
+    label?: string;
+    value: boolean;
+    onValueChange: (value: boolean) => void;
+    disabled?: boolean;
+  };
