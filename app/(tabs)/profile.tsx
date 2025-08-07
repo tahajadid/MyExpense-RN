@@ -8,7 +8,6 @@ import useThemeColors from '@/hooks/useThemeColors';
 import { getProfileImage } from '@/services/imageService';
 import { accountOptionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
-import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { Image } from "expo-image";
 import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
@@ -28,13 +27,19 @@ const Profile = () => {
     const accountOptions: accountOptionType[] = [
         {
             title: "Profile",
-            icon: (<Icons.User size={26} color={colors.neutral900} weight="fill"/>),
+            icon: (<Icons.User size={26} color={colors.white} weight="fill"/>),
             routeName:"./../ui/profile/updateProfile",
             bgColor:colors.primary
         },
         {
-            title: "Settings",
-            icon: (<Icons.GearSix size={26} color={colors.neutral900} weight="fill"/>),
+            title: "Policy",
+            icon: (<Icons.GearSix size={26} color={colors.white} weight="fill"/>),
+            routeName:"./../ui/profile/settings",
+            bgColor:colors.primary
+        },
+        {
+            title: "Light / Dark Mode",
+            icon: (<Icons.Sun size={26} color={colors.white} weight="fill"/>),
             routeName:"./../ui/profile/settings",
             bgColor:colors.primary
         },
@@ -75,93 +80,67 @@ const Profile = () => {
         }
     }
 
-    const getSegmentIndex = () => {
-        switch (mode) {
-            case 'light': return 0;
-            case 'dark': return 1;
-            case 'system': return 2;
-            default: return 2;
-        }
-    };
-
     return (
         <ScreenWrapper>
-        <View style={styles.container}> 
+            <View style={styles.container}> 
 
-            {/** User Info */}
-            <View style={styles.userInfo}>
-                {/** Avatar */}
-                <View>
-                    <Image 
-                        source={getProfileImage(user?.image)}
-                        style={[styles.avatar, { backgroundColor: colors.neutral300}]}
-                        contentFit="cover"
-                        transition={100}
-                    />
+                {/** User Info */}
+                <View style={styles.userInfo}>
+                    {/** Avatar */}
+                    <View>
+                        <Image 
+                            source={getProfileImage(user?.image)}
+                            style={[styles.avatar, { backgroundColor: colors.neutral300}]}
+                            contentFit="cover"
+                            transition={100}
+                        />
+                    </View>
+                    {/** Name & Mail */}
+                    <View style={styles.nameContainer}>
+                        <Typo size={24} fontWeight={"800"} color={colors.neutral200}>
+                            {user?.name}
+                        </Typo>
+                        <Typo size={16} fontWeight={"300"} color={colors.text}>
+                            {user?.email }
+                        </Typo>
+                    </View>
+
                 </View>
-                {/** Name & Mail */}
-                <View style={styles.nameContainer}>
-                    <Typo size={24} fontWeight={"800"} color={colors.neutral200}>
-                        {user?.name}
-                    </Typo>
-                    <Typo size={16} fontWeight={"300"} color={colors.text}>
-                        {user?.email }
-                    </Typo>
+
+                {/** Account options */}
+                <View style={styles.accountOptions}>
+                    {accountOptions.map((item, index) => {
+                        return(
+                            <Animated.View
+                            key={index.toString()}
+                            entering={
+                                FadeInUp.delay(index * 50).springify().damping(14)}
+                            style={styles.listItem}>
+                                <TouchableOpacity style={styles.flexRow} onPress={()=>handlePress(item)}>
+                                    {/** icon */}
+                                    <View style={[
+                                        styles.listIcon,
+                                        {
+                                            backgroundColor: item?.bgColor,
+                                        }
+                                    ]}>
+                                        {item.icon && item.icon} 
+                                    </View>
+                                    <Typo size={16} style={{flex : 1}} fontWeight={"500"} color={colors.text}>
+                                        {item.title}
+                                    </Typo>
+                                    <Icons.CaretRight
+                                    size={verticalScale(20)}
+                                    weight="bold"
+                                    color={colors.primary}
+                                    />
+                                </TouchableOpacity>
+                            </Animated.View>
+                        )
+                        })
+                    }
                 </View>
-
             </View>
-
-            {/** Account options */}
-            <View style={styles.accountOptions}>
-                {accountOptions.map((item, index) => {
-                    return(
-                        <Animated.View
-                        key={index.toString()}
-                        entering={
-                            FadeInUp.delay(index * 50).springify().damping(14)}
-                        style={styles.listItem}>
-                            <TouchableOpacity style={styles.flexRow} onPress={()=>handlePress(item)}>
-                                {/** icon */}
-                                <View style={[
-                                    styles.listIcon,
-                                    {
-                                        backgroundColor: item?.bgColor,
-                                    }
-                                ]}>
-                                    {item.icon && item.icon} 
-                                </View>
-                                <Typo size={16} style={{flex : 1}} fontWeight={"500"} color={colors.text}>
-                                    {item.title}
-                                </Typo>
-                                <Icons.CaretRight
-                                size={verticalScale(20)}
-                                weight="bold"
-                                color={colors.primary}
-                                />
-                            </TouchableOpacity>
-                        </Animated.View>
-                    )
-                    })
-                }
-            </View>
-
-            <View style={styles.themeSection}>
-                <Typo size={18} fontWeight="600">Theme</Typo>
-                <SegmentedControl
-                    values={["Light", "Dark", "System"]}
-                    selectedIndex={getSegmentIndex()}
-                    onChange={(event) => {
-                        const index = event.nativeEvent.selectedSegmentIndex;
-                        const modes = ['light', 'dark', 'system'] as const;
-                        setMode(modes[index]);
-                    }}
-                    tintColor={colors.primary}
-                    backgroundColor={colors.neutral800}
-                    appearance='dark'
-                    style={styles.segmentStyle}
-                />
-            </View>
-        </View>
         </ScreenWrapper>
     )
 }
