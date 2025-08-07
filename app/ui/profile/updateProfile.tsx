@@ -90,8 +90,8 @@ const ProfileModal = () => {
 
                     {/** Header */}
                     <Header title="Edit information"
-                    leftIcon={<BackButton/>}
-                    style={{ marginBottom: spacingY._10, marginTop: spacingY._15 }}/>
+                        leftIcon={<BackButton/>}
+                        style={{ marginBottom: spacingY._10}}/>
 
                     <View style={styles.avatarContainer}>
                         <Image style={[styles.avatar, {backgroundColor: colors.neutral300, borderColor: colors.neutral500}]}
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacingX._20,
         gap: scale(20),
         paddingTop: spacingY._15,
-        marginBottom: spacingY._5,
+        marginBottom: spacingY._15,
         borderTopWidth: 1,
     },
     form: {
@@ -163,7 +163,8 @@ const styles = StyleSheet.create({
     },
     avatarContainer: {
         position: "relative",
-        alignSelf: "center"
+        alignSelf: "center",
+        marginTop: spacingX._20
     },
     avatar: {
         alignSelf: "center",
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
         padding: spacingY._7
     },
     inputContainer: {
-        gap: spacingY._10
+        gap: spacingY._10,
+        marginTop: spacingX._20
     }
 })
