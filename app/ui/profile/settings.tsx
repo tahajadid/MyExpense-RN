@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import ToggleSwitch from '@/components/ToogleSwitch';
 import Typo from '@/components/Typo';
+import { useTheme } from '@/constants/ThemeContext';
 import { spacingX, spacingY } from '@/constants/theme';
 import useThemeColors from '@/hooks/useThemeColors';
 import React, { useState } from 'react';
@@ -11,17 +12,18 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Settings = () => {
 
-    const darkImage =  require('./../../../assets/images/mock_up_dark.png')
-    const lightImage =  require('./../../../assets/images/mock_up_light.png')
-    const sunMoonImage =  require('./../../../assets/images/sun_moon.png')
+  // image sources
+  const darkImage =  require('./../../../assets/images/mock_up_dark.png')
+  const lightImage =  require('./../../../assets/images/mock_up_light.png')
+  const sunMoonImage =  require('./../../../assets/images/sun_moon.png')
 
-    const [selectedTheme, setSelectedTheme] = useState("light");
-    const [current, setCurrent] = useState<string | number>('one');
-    const [isSystem, setSystem] = useState(true);
+  const { mode, setMode } = useTheme();
 
-    // colors hook
-    const colors = useThemeColors();
-    
+  const [current, setCurrent] = useState<string | number>('one');
+  const [isSystem, setSystem] = useState(false);
+
+  // colors hook
+  const colors = useThemeColors();
       
     return (
         <ScreenWrapper style={{paddingHorizontal: spacingX._20}}>
@@ -43,7 +45,10 @@ const Settings = () => {
                 {/* Light Mode */}
                 <View style={styles.themeOption}>
                   <TouchableOpacity onPress={() => {
+                      setMode("light")
                       setCurrent("light")
+                      // desactivate switch
+                      setSystem(false)
                       }}>
                       <Image source={lightImage} style={styles.phoneImage} />
                   </TouchableOpacity>
@@ -52,7 +57,10 @@ const Settings = () => {
                 {/* Dark Mode */}
                 <View style={styles.themeOption}>
                     <TouchableOpacity onPress={() => {
+                        setMode("dark")
                         setCurrent("dark")
+                        // desactivate switch
+                        setSystem(false)
                         }}>
                         <Image source={darkImage} style={styles.phoneImage} />
                     </TouchableOpacity>
@@ -62,18 +70,36 @@ const Settings = () => {
               containerStyle={styles.radioButtonContainer}
               optionContainerStyle={styles.radioButtonOption}
               options={[
-                { label: '', value: 'light' },
-                { label: '', value: 'dark' },
+                { label: '', value: "light" },
+                { label: '', value: "dark" },
               ]}
               selectedValue={current}
-              onValueChange={(value) => setCurrent(value)}
+              onValueChange={(value) =>{
+                setCurrent(value)
+                if(value == "light") setMode("light");
+                else if(value == "dark") setMode("dark");
+                else setMode("system");
+                // desactivate switch
+                setSystem(false)
+              }}
             />
             {/* Automatic Toggle */}
             <View style={[styles.automaticContainer, {backgroundColor: colors.neutral800}]}>
                 <Typo style={styles.automaticText} color={colors.text}>Automatic</Typo>
                 <ToggleSwitch
                   value={isSystem}
-                  onValueChange={setSystem}
+                  onValueChange={(value) => {
+                    if(value){
+                      // in case of switch is on we reset the radio buttons
+                      setCurrent("")
+                    } else {
+                      setCurrent("light")
+                    }
+                    
+                    setMode("system")
+                    setSystem(value)
+                  }
+                  }
                 />
             </View>
         </ScreenWrapper>
