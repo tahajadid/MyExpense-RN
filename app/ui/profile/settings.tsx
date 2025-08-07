@@ -2,6 +2,7 @@ import BackButton from '@/components/BackButton';
 import { CustomRadioButtonGroup } from '@/components/CustomRadioButton';
 import Header from '@/components/Header';
 import ScreenWrapper from '@/components/ScreenWrapper';
+import ToggleSwitch from '@/components/ToogleSwitch';
 import Typo from '@/components/Typo';
 import { spacingX, spacingY } from '@/constants/theme';
 import useThemeColors from '@/hooks/useThemeColors';
@@ -16,7 +17,8 @@ const Settings = () => {
 
     const [selectedTheme, setSelectedTheme] = useState("light");
     const [current, setCurrent] = useState<string | number>('one');
-    
+    const [isSystem, setSystem] = useState(true);
+
     // colors hook
     const colors = useThemeColors();
     
@@ -30,7 +32,7 @@ const Settings = () => {
 
             <View style={styles.header}>
                 <Image source={sunMoonImage} style={styles.sunImage} />
-                <Typo style={styles.title} color={colors.text}>Light Mode / Dark Mode</Typo>
+                <Typo style={styles.title} color={colors.text}>Light / Dark Mode</Typo>
                 <Typo style={styles.subtitle} color={colors.descriptionText}>
                     Choose a theme to optimize your visual comfort
                 </Typo>
@@ -58,7 +60,7 @@ const Settings = () => {
             </View>
             <CustomRadioButtonGroup
               containerStyle={styles.radioButtonContainer}
-              optionContainerStyle={styles.radioButtonOption} // ✅ add this
+              optionContainerStyle={styles.radioButtonOption}
               options={[
                 { label: '', value: 'light' },
                 { label: '', value: 'dark' },
@@ -67,9 +69,12 @@ const Settings = () => {
               onValueChange={(value) => setCurrent(value)}
             />
             {/* Automatic Toggle */}
-            <View style={styles.automaticContainer}>
-                <Typo style={styles.automaticText}>Automatic</Typo>
-
+            <View style={[styles.automaticContainer, {backgroundColor: colors.neutral800}]}>
+                <Typo style={styles.automaticText} color={colors.text}>Automatic</Typo>
+                <ToggleSwitch
+                  value={isSystem}
+                  onValueChange={setSystem}
+                />
             </View>
         </ScreenWrapper>
     )
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     paddingTop: 20,
-    paddingBottom: 40,
+    paddingBottom: 20,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -149,8 +154,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   radioButtonOption: {
-    paddingVertical: 0, // ✅ override default padding in CustomRadioButton
-    marginTop: -8,       // ✅ optional fine-tuning
+    paddingVertical: 0,
+    marginTop: -20,
   },
   radioButtonSelected: {
     backgroundColor: '#D63384',
@@ -162,40 +167,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   automaticContainer: {
+    height:54,
+    marginTop: spacingY._50,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent:"space-between",
     alignItems: 'center',
-    paddingVertical: 20,
-    paddingBottom: 40,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius:14
   },
   automaticText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333333',
-  },
-  toggle: {
-    width: 50,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#E5E7EB',
-    padding: 2,
-    justifyContent: 'center',
-  },
-  toggleActive: {
-    backgroundColor: '#D63384',
-  },
-  toggleThumb: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  toggleThumbActive: {
-    transform: [{ translateX: 20 }],
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
