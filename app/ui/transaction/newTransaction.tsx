@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacingX._20,
     gap: scale(20),
     paddingTop: spacingY._15,
-    marginBottom: spacingY._5,
+    marginBottom: spacingY._15,
     borderTopWidth: 1,
   },
   inputContainer: {
