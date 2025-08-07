@@ -47,6 +47,8 @@ const Settings = () => {
                   <TouchableOpacity onPress={() => {
                       setMode("light")
                       setCurrent("light")
+                      // desactivate switch
+                      setSystem(false)
                       }}>
                       <Image source={lightImage} style={styles.phoneImage} />
                   </TouchableOpacity>
@@ -57,6 +59,8 @@ const Settings = () => {
                     <TouchableOpacity onPress={() => {
                         setMode("dark")
                         setCurrent("dark")
+                        // desactivate switch
+                        setSystem(false)
                         }}>
                         <Image source={darkImage} style={styles.phoneImage} />
                     </TouchableOpacity>
@@ -75,6 +79,8 @@ const Settings = () => {
                 if(value == "light") setMode("light");
                 else if(value == "dark") setMode("dark");
                 else setMode("system");
+                // desactivate switch
+                setSystem(false)
               }}
             />
             {/* Automatic Toggle */}
@@ -82,7 +88,18 @@ const Settings = () => {
                 <Typo style={styles.automaticText} color={colors.text}>Automatic</Typo>
                 <ToggleSwitch
                   value={isSystem}
-                  onValueChange={setSystem}
+                  onValueChange={(value) => {
+                    if(value){
+                      // in case of switch is on we reset the radio buttons
+                      setCurrent("")
+                    } else {
+                      setCurrent("light")
+                    }
+                    
+                    setMode("system")
+                    setSystem(value)
+                  }
+                  }
                 />
             </View>
         </ScreenWrapper>
