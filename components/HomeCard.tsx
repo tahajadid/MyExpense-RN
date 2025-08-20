@@ -10,8 +10,6 @@ import { orderBy, where } from 'firebase/firestore'
 import * as Icons from 'phosphor-react-native'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
-import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
 import Loading from './Loading'
 import Typo from './Typo'
 
@@ -44,8 +42,6 @@ const HomeCard = () => {
             return totals;
         }, {balance: 0, income: 0, expenses: 0} );
     };
-
-    const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
     return (
     <ImageBackground 

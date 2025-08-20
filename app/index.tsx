@@ -13,6 +13,7 @@ const index = () => {
         },2000)
     },[])
     */
+   
 
     return (
         <View style={styles.conatiner}>
