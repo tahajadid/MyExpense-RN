@@ -7,12 +7,14 @@ import { spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useFetchData from '@/hooks/useFetchData';
 import useThemeColors from '@/hooks/useThemeColors';
+import "@/i18n";
 import { TransactionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import { limit, orderBy, where } from 'firebase/firestore';
 import * as Icons from 'phosphor-react-native';
 import React, { useRef } from 'react';
+import { useTranslation } from "react-i18next";
 import {
   Animated,
   StyleSheet,
@@ -20,11 +22,15 @@ import {
   View
 } from 'react-native';
 
+
 const Home = () => {
   const colors = useThemeColors();
   const { user } = useAuth();
   const router = useRouter();
-
+  
+  const { t, i18n } = useTranslation();
+  console.log("useTranslation language:", i18n.language);
+  
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const TransactionsConstrainnts = [
@@ -52,7 +58,6 @@ const Home = () => {
     extrapolate: 'clamp',
   });
 
-
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -60,7 +65,7 @@ const Home = () => {
         <View style={styles.header}>
           <View style={{ gap: 4 }}>
             <Typo size={16} color={colors.descriptionText}>
-              Hello,
+              {t("welcome_001")}
             </Typo>
             <Typo size={20} fontWeight={"500"} color={colors.text}>
               {user?.name}

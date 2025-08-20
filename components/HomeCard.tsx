@@ -10,6 +10,7 @@ import { orderBy, where } from 'firebase/firestore'
 import * as Icons from 'phosphor-react-native'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import Loading from './Loading'
 import Typo from './Typo'
 
 const HomeCard = () => {
@@ -41,7 +42,7 @@ const HomeCard = () => {
             return totals;
         }, {balance: 0, income: 0, expenses: 0} );
     };
-    
+
     return (
     <ImageBackground 
         source={cardImage}
@@ -60,10 +61,17 @@ const HomeCard = () => {
                     color={colors.black}
                     weight='fill' />
                 </View>
+
+                {walletLoading && (
+                    <View style={{alignItems:"flex-start", marginTop: spacingY._20, marginStart: spacingY._35}}>
+                        <Loading colorLoader={colors.primary} sizeLoading='small'/>
+                    </View>
+                    )
+                }
                 <Typo 
-                color={colors.black}
-                size={30} fontWeight={"bold"}>
-                    ${walletLoading ? "" : getTotals()?.balance?.toFixed(2)}
+                    color={"#000"}
+                    size={30} fontWeight={"bold"}>
+                    {walletLoading ? "" : "$"+getTotals()?.balance?.toFixed(2)}
                 </Typo>
             </View>
 
@@ -85,7 +93,7 @@ const HomeCard = () => {
                     </View>
                     <View style={{alignSelf: "center"}}>
                         <Typo size={17} color={colors.green} fontWeight={"600"}>
-                            ${walletLoading ? "" : getTotals()?.income?.toFixed(2)}
+                            {walletLoading ? "" : "$"+getTotals()?.income?.toFixed(2)}
                         </Typo>
                     </View>
                 </View>
@@ -106,7 +114,7 @@ const HomeCard = () => {
                     </View>
                     <View style={{alignSelf: "center"}}>
                         <Typo size={17} color={colors.rose} fontWeight={"600"}>
-                            ${walletLoading ? "" : getTotals()?.expenses?.toFixed(2)}
+                            {walletLoading ? "" : "$"+getTotals()?.expenses?.toFixed(2)}
                         </Typo>
                     </View>
                 </View>
