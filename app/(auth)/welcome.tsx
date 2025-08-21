@@ -21,7 +21,7 @@ const welcome = () => {
                 {/* login image & btn */}
                 <View>
                     <TouchableOpacity onPress={()=> router.push("/(auth)/login")} style={styles.loginButton}>
-                        <Typo fontWeight={"700"}  color={colors.blueText}>Sign in</Typo>
+                        <Typo fontWeight={"700"}  color={colors.blueText}> Sign in</Typo>
                     </TouchableOpacity>
 
                     <Animated.Image
@@ -38,10 +38,10 @@ const welcome = () => {
                     entering={FadeInDown.duration(1000).springify().damping(12)}
                     style={{ alignItems: "center" }}>
                         <Typo size={30} fontWeight={"800"} color={colors.blueText}>
-                            Always take control
+                            Prenez toujours le controle
                         </Typo>
                         <Typo size={30} fontWeight={"800"} color={colors.blueText}>
-                            of your outgo
+                            de vos depenses
                         </Typo>
                     </Animated.View>
 

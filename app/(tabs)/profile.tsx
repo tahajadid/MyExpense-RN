@@ -5,6 +5,7 @@ import { radius, spacingX, spacingY } from '@/constants/theme';
 import { useTheme } from '@/constants/ThemeContext';
 import { useAuth } from '@/contexts/authContext';
 import useThemeColors from '@/hooks/useThemeColors';
+import "@/i18n";
 import { getProfileImage } from '@/services/imageService';
 import { accountOptionType } from '@/types';
 import { verticalScale } from '@/utils/styling';
@@ -13,6 +14,7 @@ import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import * as Icons from "phosphor-react-native";
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 
@@ -20,6 +22,8 @@ const Profile = () => {
     const {user} = useAuth()
     const router = useRouter();
     const { mode, setMode } = useTheme();
+    const { t, i18n } = useTranslation();
+
     
     // colors hook
     const colors = useThemeColors();
@@ -104,8 +108,41 @@ const Profile = () => {
                         <Typo size={16} fontWeight={"300"} color={colors.text}>
                             {user?.email }
                         </Typo>
+                        <Typo size={16} color={colors.descriptionText}>
+                            {t("welcome_002")}
+                        </Typo>
                     </View>
 
+                </View>
+
+                {/* Language Switcher */}
+                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, marginBottom: 10, gap: 12 }}>
+                    <TouchableOpacity
+                        onPress={() => i18n.changeLanguage('fr')}
+                        style={{
+                            paddingVertical: 8,
+                            paddingHorizontal: 18,
+                            borderRadius: 8,
+                            backgroundColor: i18n.language === 'fr' ? colors.primary : colors.neutral300,
+                        }}
+                    >
+                        <Typo size={16} color={i18n.language === 'fr' ? colors.white : colors.text}>
+                            Français
+                        </Typo>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => i18n.changeLanguage('ar')}
+                        style={{
+                            paddingVertical: 8,
+                            paddingHorizontal: 18,
+                            borderRadius: 8,
+                            backgroundColor: i18n.language === 'ar' ? colors.primary : colors.neutral300,
+                        }}
+                    >
+                        <Typo size={16} color={i18n.language === 'ar' ? colors.white : colors.text}>
+                            العربية
+                        </Typo>
+                    </TouchableOpacity>
                 </View>
 
                 {/** Account options */}
