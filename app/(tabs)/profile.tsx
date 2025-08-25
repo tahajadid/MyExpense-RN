@@ -36,7 +36,7 @@ const Profile = () => {
             bgColor:colors.primary
         },
         {
-            title: "Policy",
+            title: "Settings",
             icon: (<Icons.GearSix size={26} color={colors.white} weight="fill"/>),
             routeName:"./../ui/profile/settings",
             bgColor:colors.primary
@@ -44,7 +44,7 @@ const Profile = () => {
         {
             title: "Light / Dark Mode",
             icon: (<Icons.Sun size={26} color={colors.white} weight="fill"/>),
-            routeName:"./../ui/profile/settings",
+            routeName:"./../ui/profile/themeSettings",
             bgColor:colors.primary
         },
         {
