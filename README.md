@@ -1,4 +1,4 @@
-# MyExpense app
+# MyExpense
 
 
 ## Get started
