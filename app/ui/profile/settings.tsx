@@ -1,6 +1,7 @@
 import BackButton from '@/components/BackButton';
 import Header from '@/components/Header';
 import ScreenWrapper from '@/components/ScreenWrapper';
+import ToggleSwitch from '@/components/ToogleSwitch';
 import Typo from '@/components/Typo';
 import { spacingX, spacingY } from '@/constants/theme';
 import useThemeColors from '@/hooks/useThemeColors';
@@ -14,6 +15,8 @@ const Settings = () => {
   const { t, i18n } = useTranslation();
   const colors = useThemeColors();
   const [expanded, setExpanded] = useState(false);
+  const [notificationActive, setNotification] = useState(false);
+  const [isFaceIdActive, setFaceId] = useState(false);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -34,6 +37,45 @@ const Settings = () => {
         leftIcon={<BackButton />}
         style={{ marginBottom: spacingY._10, marginTop: spacingY._15 }}
       />
+
+      {/* FaceId Section */}
+      <Typo
+        style={{ justifyContent: "flex-end", marginTop: spacingX._20 }}
+        size={16}
+        color={colors.descriptionText}
+      >
+        Activer la connexion avec FaceId
+      </Typo>
+
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={[styles.notificationSection, { backgroundColor: colors.neutral800 }]}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Icons.ScanSmiley
+            size={verticalScale(22)}
+            color={colors.primary}
+            weight="regular"
+          />
+          <Typo
+            style={{ marginStart: spacingX._7 }}
+            size={14}
+            color={colors.text}
+          >
+            FaceId
+          </Typo>
+        </View>
+        {/* Automatic Toggle */}
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <ToggleSwitch
+            value={isFaceIdActive}
+            onValueChange={(value) => {
+              setFaceId(value)
+              }
+            }
+          />
+        </View>
+      </TouchableOpacity>
 
       {/* Language Section */}
       <Typo
@@ -96,13 +138,10 @@ const Settings = () => {
       {/* Language Options Dropdown */}
       {expanded && (
         <View
-          style={{
-            backgroundColor: colors.neutral800,
-            borderRadius: 10,
-            marginTop: 6,
-            marginBottom: spacingY._10,
-            overflow: "hidden",
-          }}
+          style={[
+            styles.dropDownContainer, 
+            { backgroundColor: colors.neutral800}
+          ]}
         >
           <TouchableOpacity
             onPress={() => changeLanguage("fr")}
@@ -139,7 +178,7 @@ const Settings = () => {
 
       <TouchableOpacity
         activeOpacity={0.7}
-        style={[styles.languageSection, { backgroundColor: colors.neutral800 }]}
+        style={[styles.notificationSection, { backgroundColor: colors.neutral800 }]}
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Icons.Bell
@@ -155,7 +194,18 @@ const Settings = () => {
             Notifications
           </Typo>
         </View>
+        {/* Automatic Toggle */}
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <ToggleSwitch
+            value={notificationActive}
+            onValueChange={(value) => {
+              setNotification(value)
+              }
+            }
+          />
+        </View>
       </TouchableOpacity>
+
     </ScreenWrapper>
   );
 };
@@ -189,4 +239,19 @@ const styles = StyleSheet.create({
     marginBottom: spacingX._10,
     marginTop: spacingX._15,
   },
+  dropDownContainer:{
+    borderRadius: 10,
+    marginBottom: spacingY._10,
+    overflow: "hidden",
+  },
+  notificationSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderRadius: spacingX._10,
+    paddingVertical: spacingX._3,
+    paddingHorizontal: spacingX._15,
+    marginBottom: spacingX._10,
+    marginTop: spacingX._15,
+  }
 });
