@@ -7,7 +7,7 @@ import Typo from '@/components/Typo';
 import { useTheme } from '@/constants/ThemeContext';
 import { spacingX, spacingY } from '@/constants/theme';
 import useThemeColors from '@/hooks/useThemeColors';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const ThemeSettings = () => {
@@ -25,6 +25,17 @@ const ThemeSettings = () => {
   // colors hook
   const colors = useThemeColors();
       
+  // Sync UI state with the stored theme when screen loads
+  useEffect(() => {
+    if (mode === 'system') {
+      setSystem(true);
+      setCurrent('');
+    } else {
+      setSystem(false);
+      setCurrent(mode); // "light" or "dark"
+    }
+  }, [mode]);
+  
     return (
         <ScreenWrapper style={{paddingHorizontal: spacingX._20}}>
             {/* Header */}
