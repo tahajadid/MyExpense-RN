@@ -1,5 +1,5 @@
 # MyExpense
-
+The UI of this applicagtion inspired by : https://www.youtube.com/watch?v=SLLLGF3PwUA&t=3993s&ab_channel=CodeWithNomi
 
 ## Get started
 
