@@ -9,7 +9,7 @@ const Input = (props: InputProps) => {
     // colors hook
     const colors = useThemeColors();
     return (
-      <View style={[styles.container,{ borderColor: colors.neutral300 }, props.containerStyle && props.containerStyle ]} >
+      <View style={[styles.container,{ borderColor: colors.inputBorder }, props.containerStyle && props.containerStyle ]} >
 
           {props.icon && props.icon}
 

@@ -9,7 +9,7 @@ import { verticalScale } from '@/utils/styling';
 import * as Icons from 'phosphor-react-native';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Settings = () => {
   const { t, i18n } = useTranslation();
@@ -17,6 +17,8 @@ const Settings = () => {
   const [expanded, setExpanded] = useState(false);
   const [notificationActive, setNotification] = useState(false);
   const [isFaceIdActive, setFaceId] = useState(false);
+
+  const isIos = Platform.OS === "ios";
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -38,44 +40,49 @@ const Settings = () => {
         style={{ marginBottom: spacingY._10, marginTop: spacingY._15 }}
       />
 
-      {/* FaceId Section */}
-      <Typo
-        style={{ justifyContent: "flex-end", marginTop: spacingX._20 }}
-        size={16}
-        color={colors.descriptionText}
-      >
-        Activer la connexion avec FaceId
-      </Typo>
+      { isIos && 
+      <View>
 
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={[styles.notificationSection, { backgroundColor: colors.neutral800 }]}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Icons.ScanSmiley
-            size={verticalScale(22)}
-            color={colors.primary}
-            weight="regular"
-          />
-          <Typo
-            style={{ marginStart: spacingX._7 }}
-            size={14}
-            color={colors.text}
-          >
-            FaceId
-          </Typo>
-        </View>
-        {/* Automatic Toggle */}
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <ToggleSwitch
-            value={isFaceIdActive}
-            onValueChange={(value) => {
-              setFaceId(value)
+        {/* FaceId Section */}
+        <Typo
+          style={{ justifyContent: "flex-end", marginTop: spacingX._20 }}
+          size={16}
+          color={colors.descriptionText}
+        >
+          Activer la connexion avec FaceId
+        </Typo>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={[styles.notificationSection, { backgroundColor: colors.neutral800 }]}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Icons.ScanSmiley
+              size={verticalScale(22)}
+              color={colors.primary}
+              weight="regular"
+            />
+            <Typo
+              style={{ marginStart: spacingX._7 }}
+              size={14}
+              color={colors.text}
+            >
+              FaceId
+            </Typo>
+          </View>
+          {/* Automatic Toggle */}
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <ToggleSwitch
+              value={isFaceIdActive}
+              onValueChange={(value) => {
+                setFaceId(value)
+                }
               }
-            }
-          />
-        </View>
-      </TouchableOpacity>
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+      }
 
       {/* Language Section */}
       <Typo

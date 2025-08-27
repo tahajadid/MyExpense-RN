@@ -75,7 +75,10 @@ export const lightTheme = {
     searchIconBackground: "#a3a3a3",
     greenAdd: "#008000",
     greenAddHover: "#8efa8e",
-    tabBarBackground: "#404040"
+    tabBarBackground: "#404040",
+    faceIdBackground: "#1982A133",
+    inputBorder:"#52525233"
+
   };
   
   export const darkTheme = {
@@ -128,7 +131,9 @@ export const lightTheme = {
     searchIconBackground: "#404040",
     greenAdd: "#008000",
     greenAddHover: "#8efa8e",
-    tabBarBackground: "#737373"
+    tabBarBackground: "#737373",
+    faceIdBackground: "#30AEC733",
+    inputBorder:"#d4d4d444"
   };
 
 
