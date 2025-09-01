@@ -43,10 +43,7 @@ const login = () => {
             <BackButton/>
 
             {/** Top label */}
-            <View style={{gap:5, marginTop: spacingY._20}}>
-                <Typo size={30} fontWeight={"800"} color={colors.text}>
-                    Hey,
-                </Typo>
+            <View style={{gap:5, marginTop: spacingY._40}}>
                 <Typo size={30} fontWeight={"800"} color={colors.text}>
                     Welcome Back
                 </Typo>
@@ -56,7 +53,7 @@ const login = () => {
 
             <View style={styles.form}>
                 <Typo color={colors.text}>
-                    Login now to track every expenses
+                    Login to your account
                 </Typo>
 
 
@@ -88,17 +85,27 @@ const login = () => {
                     }
                 />
 
-                <Pressable>
-                    <Typo style={styles.forgetPassword} color={colors.primary}>
-                        Forget Password ?
-                    </Typo>
-                </Pressable>
-
                 <Button loading={isLoading} onPress={handleSubmit}>
                     <Typo style={styles.submitButton} color={colors.neutral900}>
                         Login
                     </Typo>
                 </Button>
+
+                <Pressable>
+                    <Typo style={styles.forgetPassword} color={colors.primary} >
+                        Forget Password ?
+                    </Typo>
+                </Pressable>
+
+                <Pressable style={[styles.faceIdContainer,{backgroundColor: colors.faceIdBackground, marginTop:-20}]}>
+                    <Icons.ScanSmiley
+                        size={verticalScale(32)}
+                        color={colors.primary}
+                        style={styles.iconFaceId}
+                        weight="regular"
+                        />
+                </Pressable>
+
 
             </View>
 
@@ -138,7 +145,8 @@ const styles = StyleSheet.create({
         gap: spacingY._20
     },
     forgetPassword:{
-        fontSize: 14,
+        marginTop:-spacingY._5,
+        fontSize: 16,
         textDecorationLine: 'underline',
         alignSelf:"flex-end",
     },
@@ -148,13 +156,23 @@ const styles = StyleSheet.create({
         gap: 5,
         alignItems: "center",
     },
+    iconFaceId :{
+        justifyContent: "center",
+        alignSelf: "center",
+    },
+    faceIdContainer: {
+        borderRadius: spacingY._10,
+        padding: spacingY._10,
+        alignSelf: "center",
+        width:"16%"
+    },
     footerText: {
         textAlign:"center",
-        fontSize: 14
+        fontSize: 16
     },
     underlinedText: {
         textDecorationLine: 'underline',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: "700"
       },
     submitButton: {

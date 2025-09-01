@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/constants/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageProvider";
 import { AuthProvider } from '@/contexts/authContext';
 import { Stack } from 'expo-router';
 import React from 'react';
@@ -32,10 +33,13 @@ const StackLayout= () =>{
 // This is the root layout file
 export default function RootLayout() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <StackLayout />
-      </AuthProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <StackLayout />
+        </AuthProvider>
+      </ThemeProvider>
+    </LanguageProvider>
+
   );
 }

@@ -37,10 +37,10 @@ const welcome = () => {
                     <Animated.View 
                     entering={FadeInDown.duration(1000).springify().damping(12)}
                     style={{ alignItems: "center" }}>
-                        <Typo size={30} fontWeight={"800"} color={colors.blueText}>
+                        <Typo size={28} fontWeight={"800"} color={colors.text}>
                             Prenez toujours le controle
                         </Typo>
-                        <Typo size={30} fontWeight={"800"} color={colors.blueText}>
+                        <Typo size={28} fontWeight={"800"} color={colors.text}>
                             de vos depenses
                         </Typo>
                     </Animated.View>
@@ -48,7 +48,7 @@ const welcome = () => {
                     <Animated.View 
                     entering={FadeInDown.duration(1000).delay(100).springify().damping(12)}
                     style={{alignItems: "center" , gap: 2}}>
-                        <Typo size={17} color={colors.blueText}>
+                        <Typo size={17} color={colors.text}>
                             Finance must be arranged
                         </Typo>
                     </Animated.View>
@@ -57,7 +57,7 @@ const welcome = () => {
                     entering={FadeInDown.duration(1000).delay(200).springify().damping(12)}
                     style={styles.buttomContainer}>
                         <Button onPress={()=> router.push("/(auth)/registerUser")}>
-                            <Typo size={22} fontWeight={"700"} color={colors.neutral900}>Start</Typo>
+                            <Typo size={22} fontWeight={"700"} color={colors.neutral800}>Start</Typo>
                         </Button>
                     </Animated.View>
                 </View>
