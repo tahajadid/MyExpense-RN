@@ -43,10 +43,7 @@ const login = () => {
             <BackButton/>
 
             {/** Top label */}
-            <View style={{gap:5, marginTop: spacingY._20}}>
-                <Typo size={30} fontWeight={"800"} color={colors.text}>
-                    Hey,
-                </Typo>
+            <View style={{gap:5, marginTop: spacingY._40}}>
                 <Typo size={30} fontWeight={"800"} color={colors.text}>
                     Welcome Back
                 </Typo>
@@ -56,7 +53,7 @@ const login = () => {
 
             <View style={styles.form}>
                 <Typo color={colors.text}>
-                    Login now to track every expenses
+                    Login to your account
                 </Typo>
 
 

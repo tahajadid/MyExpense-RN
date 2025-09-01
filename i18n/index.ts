@@ -1,6 +1,7 @@
 import i18next, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 import { I18nManager, Platform } from "react-native";
+import RNRestart from "react-native-restart";
 
 import translationAr from "./locales/arabic.json";
 import translationFr from "./locales/french.json";
@@ -13,23 +14,26 @@ const resources = {
 const RTL_LANGUAGES = ["ar"];
 const defaultLanguage = "fr";
 
-// Configure RTL (only for RN, not web)
-if (Platform.OS !== "web") {
-  const isRTL = RTL_LANGUAGES.includes(defaultLanguage);
-  try {
-    I18nManager.allowRTL(isRTL);
-    I18nManager.forceRTL(isRTL);
-  } catch (e) {
-    console.warn("⚠️ RTL not applied:", e);
-  }
-}
+// ⚡ Helper to handle RTL + restart
+const handleDirection = (lng: string) => {
+  if (Platform.OS !== "web") {
+    const isRTL = RTL_LANGUAGES.includes(lng);
 
-// Options typed explicitly to avoid overload error
+    if (I18nManager.isRTL !== isRTL) {
+      I18nManager.allowRTL(isRTL);
+      I18nManager.forceRTL(isRTL);
+      // restart is needed to apply changes
+      RNRestart.Restart();
+    }
+  }
+};
+
+// Options typed explicitly
 const options: InitOptions = {
   resources,
   lng: defaultLanguage,
   fallbackLng: "fr",
-  compatibilityJSON: "v4", // ✅ correct for i18next >= 23
+  compatibilityJSON: "v4",
   interpolation: {
     escapeValue: false,
   },
@@ -40,5 +44,11 @@ const options: InitOptions = {
 
 // Initialize i18n
 i18next.use(initReactI18next).init(options);
+
+// 🔄 Change language + apply RTL if needed
+export const changeLanguage = async (lng: string) => {
+  await i18next.changeLanguage(lng);
+  handleDirection(lng);
+};
 
 export default i18next;

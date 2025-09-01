@@ -9,7 +9,7 @@ import { verticalScale } from '@/utils/styling';
 import * as Icons from 'phosphor-react-native';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { I18nManager, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Settings = () => {
   const { t, i18n } = useTranslation();
@@ -22,6 +22,10 @@ const Settings = () => {
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    I18nManager.allowRTL(lng === "ar");
+    I18nManager.forceRTL(lng === "ar");
+
+    console.log("I18nManager.isRTL "+I18nManager.isRTL )
     setExpanded(false); // collapse list after selection
   };
 
@@ -32,7 +36,7 @@ const Settings = () => {
   };
 
   return (
-    <ScreenWrapper style={{ paddingHorizontal: spacingX._20 }}>
+    <ScreenWrapper style={{ paddingHorizontal: spacingX._20, }}>
       {/* Header */}
       <Header
         title={t("settings_001")}
@@ -40,49 +44,50 @@ const Settings = () => {
         style={{ marginBottom: spacingY._10, marginTop: spacingY._15 }}
       />
 
-      { isIos && 
-      <View>
+{isIos && (
+  <>
+    {/* FaceId Label */}
+    <Typo
+      style={{ marginTop: spacingX._20 }}
+      size={16}
+      color={colors.descriptionText}
+    >
+      Activer la connexion avec FaceId
+    </Typo>
 
-        {/* FaceId Section */}
+    {/* FaceId Row */}
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={[styles.notificationSection, { backgroundColor: colors.neutral800 }]}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Icons.ScanSmiley
+          size={verticalScale(22)}
+          color={colors.primary}
+          weight="regular"
+        />
         <Typo
-          style={{ justifyContent: "flex-end", marginTop: spacingX._20 }}
-          size={16}
-          color={colors.descriptionText}
+          style={{ marginStart: spacingX._7 }}
+          size={14}
+          color={colors.text}
         >
-          Activer la connexion avec FaceId
+          FaceId
         </Typo>
-
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={[styles.notificationSection, { backgroundColor: colors.neutral800 }]}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icons.ScanSmiley
-              size={verticalScale(22)}
-              color={colors.primary}
-              weight="regular"
-            />
-            <Typo
-              style={{ marginStart: spacingX._7 }}
-              size={14}
-              color={colors.text}
-            >
-              FaceId
-            </Typo>
-          </View>
-          {/* Automatic Toggle */}
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <ToggleSwitch
-              value={isFaceIdActive}
-              onValueChange={(value) => {
-                setFaceId(value)
-                }
-              }
-            />
-          </View>
-        </TouchableOpacity>
       </View>
-      }
+
+      {/* Toggle */}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <ToggleSwitch
+          value={isFaceIdActive}
+          onValueChange={(value) => {
+            setFaceId(value);
+          }}
+        />
+      </View>
+    </TouchableOpacity>
+  </>
+)}
+
 
       {/* Language Section */}
       <Typo
@@ -252,7 +257,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   notificationSection: {
-    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: spacingX._10,
@@ -260,5 +264,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacingX._15,
     marginBottom: spacingX._10,
     marginTop: spacingX._15,
+    flexDirection: I18nManager.isRTL ? "row-reverse" : "row",
   }
 });
