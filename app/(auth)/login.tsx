@@ -10,7 +10,7 @@ import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React, { useRef, useState } from 'react';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 const login = () => {
 
@@ -19,6 +19,8 @@ const login = () => {
     const router = useRouter();
     const [password, setPassword] = useState('');
     const {login: loginUser} = useAuth();
+
+    const isIos = Platform.OS === "ios";
 
     // colors hook
     const colors = useThemeColors();
@@ -69,7 +71,8 @@ const login = () => {
                         />
                     }
                 />
-
+                
+                
                 {/** password Input */}
                 <Input
                     placeholder='Password'
@@ -97,15 +100,16 @@ const login = () => {
                     </Typo>
                 </Pressable>
 
-                <Pressable style={[styles.faceIdContainer,{backgroundColor: colors.faceIdBackground, marginTop:-20}]}>
-                    <Icons.ScanSmiley
-                        size={verticalScale(32)}
-                        color={colors.primary}
-                        style={styles.iconFaceId}
-                        weight="regular"
-                        />
-                </Pressable>
-
+                { isIos && (
+                    <Pressable style={[styles.faceIdContainer,{backgroundColor: colors.faceIdBackground, marginTop:-20}]}>
+                        <Icons.ScanSmiley
+                            size={verticalScale(32)}
+                            color={colors.primary}
+                            style={styles.iconFaceId}
+                            weight="regular"
+                            />
+                    </Pressable>
+                )}
 
             </View>
 
