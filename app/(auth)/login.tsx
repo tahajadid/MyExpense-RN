@@ -10,7 +10,7 @@ import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React, { useRef, useState } from 'react';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 const login = () => {
 
@@ -19,6 +19,8 @@ const login = () => {
     const router = useRouter();
     const [password, setPassword] = useState('');
     const {login: loginUser} = useAuth();
+
+    const isIos = Platform.OS === "ios";
 
     // colors hook
     const colors = useThemeColors();
@@ -69,21 +71,23 @@ const login = () => {
                         />
                     }
                 />
-
-                {/** password Input */}
-                <Input
-                    placeholder='Password'
-                    secureTextEntry={true} // 🔒 This hides the input
-                    value={password}
-                    onChangeText={setPassword}
-                    icon={
-                        <Icons.Lock
-                            size={verticalScale(26)}
-                            color={colors.primary}
-                            weight='fill'
+                
+                {isIos && (
+                    <Input
+                        placeholder='Password'
+                        secureTextEntry={true} // 🔒 This hides the input
+                        value={password}
+                        onChangeText={setPassword}
+                            icon={
+                                <Icons.Lock
+                                    size={verticalScale(26)}
+                                    color={colors.primary}
+                                    weight='fill'
+                                />
+                            }
                         />
-                    }
-                />
+                )}
+
 
                 <Button loading={isLoading} onPress={handleSubmit}>
                     <Typo style={styles.submitButton} color={colors.neutral900}>
