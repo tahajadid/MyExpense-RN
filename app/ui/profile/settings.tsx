@@ -31,7 +31,7 @@ const Settings = () => {
 
   const getLanguageLabel = (lng: string) => {
     if (lng === 'fr') return 'Français';
-    if (lng === 'ar') return 'العربية';
+    if (lng === 'en') return 'English';
     return 'Automatic';
   };
 
@@ -171,10 +171,10 @@ const Settings = () => {
           }}
         />
           <TouchableOpacity
-            onPress={() => changeLanguage("ar")}
+            onPress={() => changeLanguage("en")}
             style={{ paddingVertical: 12, paddingHorizontal: 16 }}
           >
-            <Typo size={14} color={colors.text}>العربية</Typo>
+            <Typo size={14} color={colors.text}>English</Typo>
           </TouchableOpacity>
         </View>
       )}
