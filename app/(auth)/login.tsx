@@ -75,7 +75,7 @@ const login = () => {
                 {isIos && (
                     <Input
                         placeholder='Password'
-                        secureTextEntry={true} // 🔒 This hides the input
+                        secureTextEntry={true}
                         value={password}
                         onChangeText={setPassword}
                             icon={
