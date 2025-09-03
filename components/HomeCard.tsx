@@ -130,7 +130,7 @@ export default HomeCard
 
 const styles = StyleSheet.create({
     bgImage: {
-        height: scale(220),
+        height: scale(200),
         width: "100%"
     },
     container: {

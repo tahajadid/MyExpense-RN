@@ -72,22 +72,21 @@ const login = () => {
                     }
                 />
                 
-                {isIos && (
-                    <Input
-                        placeholder='Password'
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={setPassword}
-                            icon={
-                                <Icons.Lock
-                                    size={verticalScale(26)}
-                                    color={colors.primary}
-                                    weight='fill'
-                                />
-                            }
+                
+                {/** password Input */}
+                <Input
+                    placeholder='Password'
+                    secureTextEntry={true} // 🔒 This hides the input
+                    value={password}
+                    onChangeText={setPassword}
+                    icon={
+                        <Icons.Lock
+                            size={verticalScale(26)}
+                            color={colors.primary}
+                            weight='fill'
                         />
-                )}
-
+                    }
+                />
 
                 <Button loading={isLoading} onPress={handleSubmit}>
                     <Typo style={styles.submitButton} color={colors.neutral900}>
@@ -101,15 +100,16 @@ const login = () => {
                     </Typo>
                 </Pressable>
 
-                <Pressable style={[styles.faceIdContainer,{backgroundColor: colors.faceIdBackground, marginTop:-20}]}>
-                    <Icons.ScanSmiley
-                        size={verticalScale(32)}
-                        color={colors.primary}
-                        style={styles.iconFaceId}
-                        weight="regular"
-                        />
-                </Pressable>
-
+                { isIos && (
+                    <Pressable style={[styles.faceIdContainer,{backgroundColor: colors.faceIdBackground, marginTop:-20}]}>
+                        <Icons.ScanSmiley
+                            size={verticalScale(32)}
+                            color={colors.primary}
+                            style={styles.iconFaceId}
+                            weight="regular"
+                            />
+                    </Pressable>
+                )}
 
             </View>
 
