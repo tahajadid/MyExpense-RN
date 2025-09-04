@@ -3,15 +3,15 @@ import { initReactI18next } from "react-i18next";
 import { I18nManager, Platform } from "react-native";
 import RNRestart from "react-native-restart";
 
-import translationAr from "./locales/arabic.json";
+import translationEn from "./locales/english.json";
 import translationFr from "./locales/french.json";
 
 const resources = {
   fr: { translation: translationFr },
-  ar: { translation: translationAr },
+  en: { translation: translationEn },
 };
 
-const RTL_LANGUAGES = ["ar"];
+const RTL_LANGUAGES = ["en"];
 const defaultLanguage = "fr";
 
 // ⚡ Helper to handle RTL + restart
