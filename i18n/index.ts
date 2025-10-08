@@ -1,7 +1,6 @@
 import i18next, { InitOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 import { I18nManager, Platform } from "react-native";
-import RNRestart from "react-native-restart";
 
 import translationEn from "./locales/english.json";
 import translationFr from "./locales/french.json";
@@ -23,7 +22,6 @@ const handleDirection = (lng: string) => {
       I18nManager.allowRTL(isRTL);
       I18nManager.forceRTL(isRTL);
       // restart is needed to apply changes
-      RNRestart.Restart();
     }
   }
 };

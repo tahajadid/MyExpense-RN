@@ -1,20 +1,24 @@
 {
   "expo": {
-    "name": "MyExpense",
-    "slug": "MyExpense",
+    "name": "Money Tracker",
+    "slug": "myexpense",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
     "scheme": "myexpense",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tahajad.MyExpense"
+      "bundleIdentifier": "com.tahajad.MyExpense",
+      "icon" : {
+        "dark" : "./assets/icons/ios-dark.png",
+        "light" : "./assets/icons/ios-light.png",
+        "tinted" : "./assets/icons/ios-tinted.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.tahajad.MyExpense"
