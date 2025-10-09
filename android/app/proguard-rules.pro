@@ -1,14 +1,49 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /usr/local/Cellar/android-sdk/24.3.3/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Keep class names for native modules and React
+-keep class com.facebook.react.** { *; }
+-keepclassmembers class * { @com.facebook.react.uimanager.annotations.ReactProp <methods>; }
+-keepclassmembers class * { @com.facebook.react.uimanager.annotations.ReactPropGroup <methods>; }
 
-# react-native-reanimated
--keep class com.swmansion.reanimated.** { *; }
--keep class com.facebook.react.turbomodule.** { *; }
+# Keep necessary classes for React Native
+-keep public class com.facebook.react.bridge.** { *; }
+-keep public class com.facebook.react.modules.** { *; }
+-keep public class com.facebook.react.views.** { *; }
 
-# Add any project specific keep options here:
+# Keep JNI (native) method names
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# Keep line numbers for crash reports
+-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+# Keep required Gson components (if you use Gson)
+-keep class com.google.gson.** { *; }
+-keepattributes Signature
+  
+# (OPTIONAL: if you use Expo, Firebase, or other libraries, you may need to add rules for those. Examples below:)
+
+# For Expo (if ejected)
+#-keep class expo.modules.** { *; }
+
+# For Firebase (add only if using Firebase)
+#-keep class com.google.firebase.** { *; }
+#-dontwarn com.google.firebase.**
+
+# Remove loggers in release
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+}
+
+# Keep annotations (important for some libraries)
+-keepattributes *Annotation*
+
+# General optimization
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+
+# (OPTIONAL: If you have native libraries or dynamically loaded code, more rules may be needed)
