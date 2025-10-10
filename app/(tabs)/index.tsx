@@ -73,6 +73,7 @@ const Home = () => {
           </View>
           <TouchableOpacity
             style={[styles.searchIcon, { backgroundColor: colors.searchIconBackground }]}
+            onPress={() => router.push("./../ui/transaction/searchTransactionModal")}
           >
             <Icons.MagnifyingGlass
               size={verticalScale(22)}
