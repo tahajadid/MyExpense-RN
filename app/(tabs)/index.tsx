@@ -131,7 +131,7 @@ const Home = () => {
           ]}>
             <Icons.Plus size={verticalScale(14)} color={colors.white} weight="bold" />
             <Typo size={14} color={colors.white} style={{ marginLeft: 8 }}>
-              Transaction
+            {t("welcome_003")}
             </Typo>
           </Animated.View>
         </AddButton>
