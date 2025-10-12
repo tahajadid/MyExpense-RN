@@ -17,14 +17,14 @@ import * as Icons from 'phosphor-react-native';
 import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    StyleSheet,
-    TextInput,
-    TouchableWithoutFeedback,
-    View
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  TouchableWithoutFeedback,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
