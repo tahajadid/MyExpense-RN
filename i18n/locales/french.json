@@ -1,7 +1,12 @@
 {
-    "welcome_001": "Bonjour",
-    "welcome_002": "Comment allez-vous ?",
-    "welcome_003": "Transaction",
+    "home_001": "Bonjour",
+    "home_002": "Transaction",
     "settings_001": "Paramètres",
-    "settings_002": "Choisissez la langue de l'application"
+    "settings_002": "Choisissez la langue de l'application",
+    "statistics_001": "Statistiques",
+    "statistics_002": "Hebdomadaire",
+    "statistics_003": "Mensuel",
+    "statistics_004": "Annuel",
+    "statistics_005": "Transactions",
+    "statistics_006": "Aucune transaction trouvée"
 }
