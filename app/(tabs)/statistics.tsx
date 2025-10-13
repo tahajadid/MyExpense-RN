@@ -5,13 +5,14 @@ import TransactionList from '@/components/TransactionList';
 import { radius, spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useThemeColors from '@/hooks/useThemeColors';
+import "@/i18n";
 import { fetchMonthlyStats, fetchWeeklyStats, fetchYearlyStats } from '@/services/transactionService';
 import { scale, verticalScale } from '@/utils/styling';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { BarChart } from "react-native-gifted-charts";
-
 
 const Statistics = () => {
   // colors hook
@@ -23,6 +24,8 @@ const Statistics = () => {
   const [chartLoading, setChartLoading] = useState(false);
   const [transactions, setTransactions] = useState([])
 
+  const { t, i18n } = useTranslation();
+  
   useEffect(()=> {
     if(activeIndex==0){
       getWeeklyStats();
@@ -111,7 +114,7 @@ const Statistics = () => {
     <ScreenWrapper>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TabHeader title='Statistics'/>
+          <TabHeader title={t("statistics_001")}/>
         </View>
 
         <ScrollView
@@ -124,7 +127,7 @@ const Statistics = () => {
           showsVerticalScrollIndicator={false}
         >
           <SegmentedControl 
-            values={["Weekly","Monthly","Yearly"]}
+            values={[t("statistics_002"),t("statistics_003"), t("statistics_004")]}
             selectedIndex={activeIndex}
             onChange={(event) => {
               setActiveIndex(event.nativeEvent.selectedSegmentIndex);
@@ -175,8 +178,8 @@ const Statistics = () => {
             {/** transaction list */}
             <View>
               <TransactionList 
-                title='Transactions'
-                emptyListMessage='No transactions found'
+                title={t("statistics_005")}
+                emptyListMessage={t("statistics_006")}
                 data={transactions}
               />
             </View>

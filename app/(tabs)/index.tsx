@@ -65,7 +65,7 @@ const Home = () => {
         <View style={styles.header}>
           <View style={{ gap: 4 }}>
             <Typo size={16} color={colors.descriptionText}>
-              {t("welcome_001")}
+              {t("home_001")}
             </Typo>
             <Typo size={20} fontWeight={"500"} color={colors.text}>
               {user?.name}
@@ -131,7 +131,7 @@ const Home = () => {
           ]}>
             <Icons.Plus size={verticalScale(14)} color={colors.white} weight="bold" />
             <Typo size={14} color={colors.white} style={{ marginLeft: 8 }}>
-            {t("welcome_003")}
+            {t("home_002")}
             </Typo>
           </Animated.View>
         </AddButton>
