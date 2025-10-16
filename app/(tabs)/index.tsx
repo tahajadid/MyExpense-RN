@@ -97,8 +97,8 @@ const Home = () => {
           <TransactionList
             data={recentTransactions}
             loading={transactionsLoading}
-            emptyListMessage="No transactions added yet"
-            title="Recent transactions"
+            emptyListMessage={t("home_004")}
+            title={t("home_003")}
           />
         </Animated.ScrollView>
 
