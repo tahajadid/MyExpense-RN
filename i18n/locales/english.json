@@ -1,6 +1,8 @@
 {
     "home_001": "Hello",
     "home_002": "Transaction",
+    "home_003": "Recent transactions",
+    "home_004": "No transactions added yet",
     "settings_001": "Parameters",
     "settings_002": "Choose the application language",
     "statistics_001": "Statistics",
