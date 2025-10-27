@@ -3,6 +3,9 @@
     "home_002": "Transaction",
     "home_003": "Recent transactions",
     "home_004": "No transactions added yet",
+    "wallet_001": "Total Balance",
+    "wallet_002": "Wallets",
+    "wallet_003": "Add Wallet",
     "settings_001": "Parameters",
     "settings_002": "Choose the application language",
     "statistics_001": "Statistics",
@@ -10,5 +13,13 @@
     "statistics_003": "Monthly",
     "statistics_004": "Yearly",
     "statistics_005": "Transactions",
-    "statistics_006": "No transactions found"
+    "statistics_006": "No transactions found",
+    "profile_001": "Profile",
+    "profile_002": "Settings",
+    "profile_003": "Light / Dark Mode",
+    "profile_004": "Logout",
+    "profile_005": "Confirm",
+    "profile_006": "Are you sure you want to logout?",
+    "profile_007": "Cancel",
+    "profile_008": "Logout"
 }

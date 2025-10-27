@@ -30,25 +30,25 @@ const Profile = () => {
 
     const accountOptions: accountOptionType[] = [
         {
-            title: "Profile",
+            title: t("profile_001"),
             icon: (<Icons.User size={26} color={colors.white} weight="fill"/>),
             routeName:"./../ui/profile/updateProfile",
             bgColor:colors.primary
         },
         {
-            title: "Settings",
+            title: t("profile_002"),
             icon: (<Icons.GearSix size={26} color={colors.white} weight="fill"/>),
             routeName:"./../ui/profile/settings",
             bgColor:colors.primary
         },
         {
-            title: "Light / Dark Mode",
+            title: t("profile_003"),
             icon: (<Icons.Sun size={26} color={colors.white} weight="fill"/>),
             routeName:"./../ui/profile/themeSettings",
             bgColor:colors.primary
         },
         {
-            title: "Logout",
+            title: t("profile_004"),
             icon: (<Icons.Power size={26} color={colors.white} weight="fill"/>),
             //routeName:"/(modals)/profileModal",
             bgColor:"#e11d48"
@@ -60,14 +60,14 @@ const Profile = () => {
     };
 
     const showLogoutAlert = () => {
-        Alert.alert("Confirm", "Are you sure you want to logout?", [
+        Alert.alert(t("profile_005"), t("profile_006"), [
             {
-                text: "Cancel",
+                text: t("profile_007"),
                 onPress: ()=> console.log("cancel logout"),
                 style: "cancel"
             },
             {
-                text: "Logout",
+                text: t("profile_008"),
                 onPress: () => handleLogout(),
                 style: "destructive"
             }
@@ -75,9 +75,9 @@ const Profile = () => {
     }
 
     const handlePress = (item: accountOptionType) => {
-        if(item.title == "Logout"){
+        if(item.title == t("profile_008")){
             showLogoutAlert()
-        } else if(item.title == "Settings"){
+        } else if(item.title == t("profile_002")){
             router.push('./../ui/profile/settings');
         }else {
             router.push(item.routeName)

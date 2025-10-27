@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 import { orderBy, where } from 'firebase/firestore';
 import * as Icons from 'phosphor-react-native';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Wallet = () => {
@@ -20,6 +21,8 @@ const Wallet = () => {
   
   const router = useRouter();
   const {user} = useAuth();
+
+  const { t, i18n } = useTranslation();
 
   const {data: wallets, error, loading} = useFetchData<WalletType>("wallets",[
       where("uid","==", user?.uid), 
@@ -41,7 +44,7 @@ const Wallet = () => {
         <View style={[styles.balanceView, { backgroundColor: colors.primary }]}>
           <View style={{alignItems: "center"}}>
             <Typo size={16} color={colors.screenBackground}>
-              Total Balance
+              {t("wallet_001")}
             </Typo>
             <Typo size={45} fontWeight={"500"} color={colors.screenBackground}>
               ${calculateTotalBalance().toFixed(2)}
@@ -53,7 +56,7 @@ const Wallet = () => {
           {/* header of wallet */}
           <View style={styles.flexRow}>
             <Typo size={20} fontWeight={"500"} color={colors.text}>
-              Wallets
+            {t("wallet_002")}
             </Typo>
             <View style={[styles.buttonRow, {backgroundColor: colors.gold}]}>
               <TouchableOpacity onPress={()=> router.push("/(modals)/walletModal")}
@@ -64,7 +67,7 @@ const Wallet = () => {
                     size={verticalScale(14)}
                   />
                 <Typo size={15} fontWeight={"300"} color={colors.text}>
-                  Add Wallets
+                {t("wallet_003")}
                 </Typo>
               </TouchableOpacity>
             </View>
