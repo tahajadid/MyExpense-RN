@@ -8,6 +8,7 @@ import { useTheme } from '@/constants/ThemeContext';
 import { spacingX, spacingY } from '@/constants/theme';
 import useThemeColors from '@/hooks/useThemeColors';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const ThemeSettings = () => {
@@ -25,6 +26,8 @@ const ThemeSettings = () => {
   // colors hook
   const colors = useThemeColors();
       
+  const { t, i18n } = useTranslation();
+
   // Sync UI state with the stored theme when screen loads
   useEffect(() => {
     if (mode === 'system') {
@@ -45,9 +48,9 @@ const ThemeSettings = () => {
 
             <View style={styles.header}>
                 <Image source={sunMoonImage} style={styles.sunImage} />
-                <Typo style={styles.title} color={colors.text}>Light / Dark Mode</Typo>
+                <Typo style={styles.title} color={colors.text}>{t("profile_003")}</Typo>
                 <Typo style={styles.subtitle} color={colors.descriptionText}>
-                    Choose a theme to optimize your visual comfort
+                  {t("settings_002")}
                 </Typo>
             </View>
 
@@ -96,7 +99,7 @@ const ThemeSettings = () => {
             />
             {/* Automatic Toggle */}
             <View style={[styles.automaticContainer, {backgroundColor: colors.neutral800}]}>
-                <Typo style={styles.automaticText} color={colors.text}>Automatic</Typo>
+                <Typo style={styles.automaticText} color={colors.text}>{t("settings_006")}</Typo>
                 <ToggleSwitch
                   value={isSystem}
                   onValueChange={(value) => {
