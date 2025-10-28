@@ -52,7 +52,7 @@ const Settings = () => {
       size={16}
       color={colors.descriptionText}
     >
-      Activer la connexion avec FaceId
+      {t("settings_003")}
     </Typo>
 
     {/* FaceId Row */}
@@ -185,7 +185,7 @@ const Settings = () => {
         size={16}
         color={colors.descriptionText}
       >
-        Activer les Notifications
+        {t("settings_004")}
       </Typo>
 
       <TouchableOpacity
@@ -235,11 +235,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 22,
   },
   languageSection: {
     flexDirection: "row",
