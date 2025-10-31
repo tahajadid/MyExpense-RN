@@ -79,7 +79,7 @@ const SearchTransactionModal = () => {
     <ModalWrapper>
       <SafeAreaView
         style={{ flex: 1 }}
-        edges={Platform.OS === 'ios' ? ['top'] : []}>
+        edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}

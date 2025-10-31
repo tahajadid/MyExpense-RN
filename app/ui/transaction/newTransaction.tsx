@@ -19,6 +19,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { orderBy, where } from 'firebase/firestore';
 import * as Icons from 'phosphor-react-native';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Alert,
   Keyboard,
@@ -28,7 +29,6 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -41,6 +41,8 @@ const TransactionModal = () => {
   // colors hook
   const colors = useThemeColors();
   const router = useRouter();
+
+  const { t, i18n } = useTranslation();
 
   const [transaction, setTransaction] = useState<TransactionType>({
     type: 'expense',
@@ -94,8 +96,8 @@ const TransactionModal = () => {
 
   const onSubmit = async () => {
     const { type, amount, description, category, date, walletId, image } = transaction;
-    if (!walletId || !date || !amount || (type === "expense" && !category)) {
-      Alert.alert("Transaction", "Please fill all the fields");
+    if (!walletId || !date || !amount || amount <= 0 || (type === "expense" && !category)) {
+      Alert.alert(t("transaction_001"), t("transaction_002"));
       return;
     }
 
@@ -119,7 +121,7 @@ const TransactionModal = () => {
     if (resp.success) {
       router.back();
     } else {
-      Alert.alert("Transaction", resp.msg);
+      Alert.alert(t("transaction_001"), resp.msg);
     }
   };
 
@@ -132,14 +134,14 @@ const TransactionModal = () => {
     if (res.success) {
       router.back();
     } else {
-      Alert.alert("Wallet", res.msg);
+      Alert.alert(t("transaction_010"), res.msg);
     }
   };
 
   const deletWalletAlert = () => {
-    Alert.alert("Confirm", "Delete Transaction\nThis action will remove your transaction from the wallet", [
-      { text: "Cancel", style: 'cancel' },
-      { text: "Delete", onPress: onTransactionDelete, style: 'destructive' }
+    Alert.alert(t("transaction_003"), t("transaction_004") , [
+      { text: t("transaction_005"), style: 'cancel' },
+      { text: t("transaction_006"), onPress: onTransactionDelete, style: 'destructive' }
     ]);
   };
 
@@ -147,27 +149,36 @@ const TransactionModal = () => {
     <ModalWrapper>
       <SafeAreaView
       style={{ flex: 1 }}
-      edges={Platform.OS === 'ios' ? ['top'] : []}>
+      edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
           keyboardVerticalOffset={Platform.OS === "ios" ? 30 : 0}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={{ flex: 1 }}>
-              <ScrollView
-                contentContainerStyle={{ flexGrow: 1, paddingHorizontal: spacingX._20, paddingBottom: 20 }}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled">
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              contentContainerStyle={{ 
+                paddingHorizontal: spacingX._20, 
+                paddingBottom: spacingY._30,
+                paddingTop: spacingY._10
+              }}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              nestedScrollEnabled={true}
+              scrollEnabled={true}
+              bounces={true}
+              alwaysBounceVertical={false}
+              onScrollBeginDrag={Keyboard.dismiss}
+              scrollEventThrottle={16}>
 
                 <Header
-                  title={oldTransaction?.id ? "Update Transaction" : "New Transaction"}
+                  title={oldTransaction?.id ? t("transaction_007") : t("transaction_008")}
                   leftIcon={<BackButton />}
                   style={{ marginBottom: spacingY._10 }}
                 />
 
                 {/* Transaction Type */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral100} size={16} fontWeight={"500"}>Type</Typo>
+                  <Typo color={colors.neutral100} size={16} fontWeight={"500"}>{t("transaction_009")}</Typo>
                   <Dropdown
                     style={[styles.dropdownContainer, { borderColor: colors.neutral300}]}
                     selectedTextStyle={[styles.dropdownSelectedText, { color: colors.text}]}
@@ -187,7 +198,7 @@ const TransactionModal = () => {
 
                 {/* Wallet */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16} fontWeight={"500"}>Wallet</Typo>
+                  <Typo color={colors.neutral200} size={16} fontWeight={"500"}>{t("transaction_010")}</Typo>
                   <Dropdown
                     style={[styles.dropdownContainer, { borderColor: colors.neutral300}]}
                     placeholder={"Select wallet"}
@@ -213,7 +224,7 @@ const TransactionModal = () => {
                 {/* Expense Category */}
                 {transaction.type === "expense" && (
                   <View style={styles.inputContainer}>
-                    <Typo color={colors.neutral200} size={16} fontWeight={"500"}>Expense Category</Typo>
+                    <Typo color={colors.neutral200} size={16} fontWeight={"500"}>{t("transaction_011")}</Typo>
                     <Dropdown
                       style={[styles.dropdownContainer, { borderColor: colors.neutral300}]}
                       placeholder={"Select category"}
@@ -236,7 +247,7 @@ const TransactionModal = () => {
 
                 {/* Date Picker */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16} fontWeight={"500"} style={{marginBottom: spacingX._10}}>Date</Typo>
+                  <Typo color={colors.neutral200} size={16} fontWeight={"500"} style={{marginBottom: spacingX._10}}>{t("transaction_012")}</Typo>
                   {!showDatePicker && (
                     <Pressable style={[styles.dateInput, {borderColor: colors.neutral300}]} onPress={() => setShowDatePicker(true)}>
                       <Typo size={15} color={colors.text}>{(transaction.date as Date).toLocaleDateString()}</Typo>
@@ -256,7 +267,7 @@ const TransactionModal = () => {
                           style={[styles.datePickerButton, { backgroundColor: colors.primary}]}
                           onPress={() => setShowDatePicker(false)}
                         >
-                          <Typo size={15} fontWeight={"500"} color={colors.neutral900}>Change</Typo>
+                          <Typo size={15} fontWeight={"500"} color={colors.neutral900}>{t("transaction_019")}</Typo>
                         </TouchableOpacity>
                       )}
                     </View>
@@ -265,21 +276,25 @@ const TransactionModal = () => {
 
                 {/* Amount */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16} fontWeight={"500"} style={{marginBottom: spacingX._10}}>Amount</Typo>
+                  <Typo color={colors.neutral200} size={16} fontWeight={"500"} style={{marginBottom: spacingX._10}}>{t("transaction_013")}</Typo>
                   <Input
                     keyboardType='numeric'
-                    value={transaction?.amount.toString()}
-                    onChangeText={(value) =>
-                      setTransaction({ ...transaction, amount: Number(value.replace(/[^0-9]/g, "")) })
-                    }
+                    value={transaction?.amount === 0 ? "" : transaction?.amount.toString()}
+                    onChangeText={(value) => {
+                      const numericValue = value.replace(/[^0-9]/g, "");
+                      setTransaction({ 
+                        ...transaction, 
+                        amount: numericValue === "" ? 0 : Number(numericValue) 
+                      });
+                    }}
                   />
                 </View>
 
                 {/* Description */}
                 <View style={styles.inputContainer}>
                   <View style={styles.flexRow}>
-                    <Typo color={colors.neutral200} fontWeight={"500"} size={16}>Description</Typo>
-                    <Typo color={colors.neutral400} size={14}>(optional)</Typo>
+                    <Typo color={colors.neutral200} fontWeight={"500"} size={16}>{t("transaction_014")}</Typo>
+                    <Typo color={colors.neutral400} size={14}>{t("transaction_015")}</Typo>
                   </View>
                   <Input
                     value={transaction?.description}
@@ -292,10 +307,10 @@ const TransactionModal = () => {
                 </View>
 
                 {/* Image Upload */}
-                <View style={[styles.inputContainer, { marginBottom: 15 }]}>
+                <View style={[styles.inputContainer, { marginBottom: spacingY._30 }]}>
                   <View style={styles.flexRow}>
-                    <Typo color={colors.neutral200} size={16}>Receipt</Typo>
-                    <Typo color={colors.neutral400} size={14}>(optional)</Typo>
+                    <Typo color={colors.neutral200} size={16}>{t("transaction_016")}</Typo>
+                    <Typo color={colors.neutral400} size={14}>{t("transaction_015")}</Typo>
                   </View>
                   <ImageUpload
                     file={transaction.image}
@@ -315,13 +330,12 @@ const TransactionModal = () => {
                 )}
                 <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
                   <Typo  color={colors.neutral900} fontWeight={"700"}>
-                    {oldTransaction?.id ? "Update" : "Submit"}
+                    {oldTransaction?.id ? t("transaction_017") : t("transaction_018")}
                   </Typo>
                 </Button>
               </View>
               
             </View>
-          </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </ModalWrapper>
@@ -333,7 +347,6 @@ export default TransactionModal;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
     paddingHorizontal: spacingX._20,
   },
   footer: {
@@ -343,7 +356,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacingX._20,
     gap: scale(20),
     paddingTop: spacingY._15,
-    marginBottom: spacingY._15,
+    marginBottom: Platform.OS === 'ios' ? spacingY._15 : 0,
     borderTopWidth: 1,
   },
   inputContainer: {

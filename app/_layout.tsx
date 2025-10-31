@@ -3,6 +3,7 @@ import { LanguageProvider } from "@/contexts/LanguageProvider";
 import { AuthProvider } from '@/contexts/authContext';
 import { Stack } from 'expo-router';
 import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 const StackLayout= () =>{
@@ -33,13 +34,15 @@ const StackLayout= () =>{
 // This is the root layout file
 export default function RootLayout() {
   return (
-    <LanguageProvider>
-      <ThemeProvider>
-        <AuthProvider>
-          <StackLayout />
-        </AuthProvider>
-      </ThemeProvider>
-    </LanguageProvider>
+    <SafeAreaProvider>
+      <LanguageProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <StackLayout />
+          </AuthProvider>
+        </ThemeProvider>
+      </LanguageProvider>
+    </SafeAreaProvider>
 
   );
 }
