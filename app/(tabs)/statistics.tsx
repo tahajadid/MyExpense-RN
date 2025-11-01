@@ -133,7 +133,7 @@ const Statistics = () => {
               setActiveIndex(event.nativeEvent.selectedSegmentIndex);
             }}
             tintColor={colors.primary}
-            backgroundColor={colors.screenBackground}
+            backgroundColor={colors.neutral600}
             appearance='dark'
             activeFontStyle={{...styles.segmentFontStyle, color: colors.screenBackground}}
             style={styles.segmentStyle}

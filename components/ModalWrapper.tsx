@@ -15,7 +15,11 @@ const ModalWrapper = ({
     const colors = useThemeColors();
   
     return (
-    <View style={[styles.container, {backgroundColor: colors.screenBackground}, style && style ]}>
+    <View style={[
+        styles.container, 
+        {backgroundColor: colors.screenBackground},
+        style && style 
+    ]}>
         {children}
     </View>
   )

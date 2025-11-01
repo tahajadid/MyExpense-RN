@@ -16,6 +16,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import * as Icons from "phosphor-react-native";
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -28,6 +29,8 @@ const ProfileModal = () => {
         name: "",
         image: null
     });
+
+    const { t, i18n } = useTranslation();
 
     // colors hook
     const colors = useThemeColors();
@@ -57,7 +60,7 @@ const ProfileModal = () => {
     const onSubmit = async () => {
         let {name, image} = userData;
         if(!name.trim()){
-            Alert.alert("User","Please enter the new name")
+            Alert.alert(t("update_profile_001"),t("update_profile_002"))
             return;
         }
 
@@ -70,7 +73,7 @@ const ProfileModal = () => {
             updateUserData(user?.uid as string)
             router.back();
         } else {
-            Alert.alert("User","There is a probleme")
+            Alert.alert(t("update_profile_001"),t("update_profile_003"))
         }
     };
 
@@ -78,7 +81,7 @@ const ProfileModal = () => {
     <ModalWrapper>
       <SafeAreaView
         style={{ flex: 1 }}
-        edges={Platform.OS === 'ios' ? ['top'] : []}>
+        edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -89,7 +92,7 @@ const ProfileModal = () => {
                 <ScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: spacingX._20, paddingBottom: 20 }}>
 
                     {/** Header */}
-                    <Header title="Edit information"
+                    <Header title={t("update_profile_004")}
                         leftIcon={<BackButton/>}
                         style={{ marginBottom: spacingY._10}}/>
 
@@ -109,7 +112,7 @@ const ProfileModal = () => {
                     </View>
 
                     <View style={styles.inputContainer}>
-                        <Typo color={colors.neutral200}>Name</Typo>
+                        <Typo color={colors.neutral200}>{t("update_profile_005")}</Typo>
                         <Input
                             placeholder="name"
                             value={userData.name}
@@ -122,7 +125,7 @@ const ProfileModal = () => {
 
                 <View style={[styles.footer, { borderTopColor: colors.neutral500}]}>
                     <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
-                        <Typo color={colors.neutral900} fontWeight={"700"}>Update information</Typo>
+                        <Typo color={colors.neutral900} fontWeight={"700"}>{t("update_profile_006")}</Typo>
                     </Button>
                 </View>
             
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: spacingX._20,
         gap: scale(20),
         paddingTop: spacingY._15,
-        marginBottom: spacingY._15,
+        marginBottom: Platform.OS === 'ios' ? spacingY._15 : 0,
         borderTopWidth: 1,
     },
     form: {

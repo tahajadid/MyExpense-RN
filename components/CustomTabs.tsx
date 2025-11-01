@@ -4,6 +4,7 @@ import { verticalScale } from '@/utils/styling';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import * as Icons from "phosphor-react-native";
 import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function CustomTabs({ 
     state,
@@ -13,6 +14,9 @@ export default function CustomTabs({
 
     // colors hook
     const colors = useThemeColors();
+    
+    // Get safe area insets to handle Android system navigation bar
+    const insets = useSafeAreaInsets();
 
     const tabbarIcons: any = {
         index: (isFocused: Boolean) => (
@@ -45,7 +49,11 @@ export default function CustomTabs({
         )
     } 
   return (
-        <View style={[styles.tabbarWrapper, {backgroundColor: colors.screenBackground}]}>
+        <View style={[
+            styles.tabbarWrapper, 
+            {backgroundColor: colors.screenBackground},
+            Platform.OS === 'android' && { paddingBottom: insets.bottom }
+        ]}>
             <View style={[styles.tabbar, {backgroundColor: colors.tabBarBackground}]}>
                 {state.routes
                     .filter(route => Object.keys(tabbarIcons).includes(route.name))
