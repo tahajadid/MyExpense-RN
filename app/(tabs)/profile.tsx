@@ -120,7 +120,7 @@ const Profile = () => {
                             <Animated.View
                             key={index.toString()}
                             entering={
-                                FadeInUp.delay(index * 50).springify().damping(14)}
+                                FadeInUp.delay(index * 20).springify().damping(20).stiffness(200)}
                             style={styles.listItem}>
                                 <TouchableOpacity style={styles.flexRow} onPress={()=>handlePress(item)}>
                                     {/** icon */}
