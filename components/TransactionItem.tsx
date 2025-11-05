@@ -23,9 +23,8 @@ const TransactionItem = ({
         month: "short",
 
     })
-
   return (
-    <Animated.View entering={FadeInDown.delay(index * 50).springify().damping(14)}>
+    <Animated.View entering={FadeInDown.delay(index * 20).springify().damping(20).stiffness(100)}>
         <TouchableOpacity style={[styles.row, {backgroundColor: colors.transactionItemBackground}]} onPress={() => handleClick(item)}>
             <View style={[styles.icon, {backgroundColor: category.bgColor}]}>
                 { ComponentIcon && (

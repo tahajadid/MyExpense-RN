@@ -34,7 +34,7 @@ const WalletListItem = ({
         })
     }
   return (
-    <Animated.View entering={FadeInDown.delay(index*200).springify().damping(13)}>
+    <Animated.View entering={FadeInDown.delay(index*20).springify().damping(20).stiffness(200)}>
       <TouchableOpacity style={styles.container} onPress={openWallet}>
         <View style={styles.immageContainer}>
             <Image 
