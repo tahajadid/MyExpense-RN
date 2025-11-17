@@ -20,7 +20,7 @@ export default function CustomTabs({
 
     const tabbarIcons: any = {
         index: (isFocused: Boolean) => (
-            <Icons.House 
+            <Icons.HouseSimple 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
             color={isFocused? colors.white : colors.neutral400}
@@ -34,14 +34,14 @@ export default function CustomTabs({
             />
         ),
         wallet: (isFocused: Boolean) => (
-            <Icons.Wallet 
+            <Icons.CardsThree 
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
             color={isFocused? colors.white : colors.neutral400}
             />
         ),
         profile: (isFocused: Boolean) => (
-            <Icons.User 
+            <Icons.UserCircle
             size={verticalScale(30)}
             weight={isFocused? "fill" : "regular"}
             color={isFocused? colors.white : colors.neutral400}
