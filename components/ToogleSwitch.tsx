@@ -16,7 +16,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ label, value, onValueChange
         onValueChange={onValueChange}
         disabled={disabled}
         thumbColor={value ? colors.white: colors.white}
-        trackColor={{ false: colors.brightOrange, true: colors.primary }} // iOS green toggle color
+        trackColor={{ false: colors.neutral400, true: colors.primary }} // iOS green toggle color
       />
     </View>
   );
