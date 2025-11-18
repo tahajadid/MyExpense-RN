@@ -352,8 +352,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   form: {
-    gap: spacingY._30,
-    marginTop: spacingY._15
+    gap: spacingY._7,
+    marginTop: spacingY._15,
+    paddingHorizontal: spacingX._20,
   },
   inputContainer: {
     marginTop: spacingY._20

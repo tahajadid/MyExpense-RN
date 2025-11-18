@@ -87,7 +87,7 @@ const ProfileModal = () => {
                         />
 
                         <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
-                            <Icons.Pencil
+                            <Icons.PencilSimple
                                 size={verticalScale(20)}
                                 color={colors.neutral800}
                             />
