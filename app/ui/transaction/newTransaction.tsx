@@ -156,11 +156,7 @@ const TransactionModal = () => {
           keyboardVerticalOffset={Platform.OS === "ios" ? 30 : 0}>
           <View style={{ flex: 1 }}>
             <ScrollView
-              contentContainerStyle={{ 
-                paddingHorizontal: spacingX._20, 
-                paddingBottom: spacingY._30,
-                paddingTop: spacingY._10
-              }}
+              contentContainerStyle={styles.form} 
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
               nestedScrollEnabled={true}
@@ -319,7 +315,7 @@ const TransactionModal = () => {
                     onClear={() => setTransaction({ ...transaction, image: null })}
                   />
                 </View>
-              </ScrollView>
+            </ScrollView>
 
               {/* Footer */}
               <View style={[styles.footer, { borderTopColor: colors.neutral500}]}>
@@ -345,10 +341,6 @@ const TransactionModal = () => {
 export default TransactionModal;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: spacingX._20,
-  },
   footer: {
     alignItems: "center",
     flexDirection: "row",
@@ -358,6 +350,11 @@ const styles = StyleSheet.create({
     paddingTop: spacingY._15,
     marginBottom: Platform.OS === 'ios' ? spacingY._15 : 0,
     borderTopWidth: 1,
+  },
+  form: {
+    gap: spacingY._7,
+    marginTop: spacingY._15,
+    paddingHorizontal: spacingX._20,
   },
   inputContainer: {
     marginTop: spacingY._20

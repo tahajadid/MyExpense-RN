@@ -13,6 +13,8 @@ import Loading from './Loading';
 
 interface AnimatedButtonProps extends CustomButtonProps {
   animatedWidth?: Animated.AnimatedInterpolation<number>;
+  animatedHeight?: Animated.AnimatedInterpolation<number>;
+  animatedBorderRadius?: Animated.AnimatedInterpolation<number>;
 }
 
 const AddButton = ({
@@ -21,6 +23,8 @@ const AddButton = ({
   loading = false,
   children,
   animatedWidth,
+  animatedHeight,
+  animatedBorderRadius,
 }: AnimatedButtonProps) => {
   const colors = useThemeColors();
 
@@ -32,6 +36,8 @@ const AddButton = ({
     {
       backgroundColor: colors.primary,
       width: animatedWidth ?? verticalScale(120),
+      height: animatedHeight ?? verticalScale(44),
+      borderRadius: animatedBorderRadius ?? verticalScale(22),
     },
   ];
 

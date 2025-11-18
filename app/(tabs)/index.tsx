@@ -58,6 +58,18 @@ const Home = () => {
     extrapolate: 'clamp',
   });
 
+  const buttonHeight = scrollY.interpolate({
+    inputRange: [0, 20],
+    outputRange: [44, 48], // Match height to width when icon-only for perfect circle
+    extrapolate: 'clamp',
+  });
+
+  const buttonBorderRadius = scrollY.interpolate({
+    inputRange: [0, 20],
+    outputRange: [22, 24], // Half of width/height to maintain circle
+    extrapolate: 'clamp',
+  });
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -107,6 +119,8 @@ const Home = () => {
           style={styles.floatingButton}
           onPress={() => router.push("./../ui/transaction/newTransaction")}
           animatedWidth={buttonWidth}
+          animatedHeight={buttonHeight}
+          animatedBorderRadius={buttonBorderRadius}
         >
           {/* Icon-only view (visible when scrolled) */}
           <Animated.View style={[
@@ -119,7 +133,7 @@ const Home = () => {
               }),
             }
           ]}>
-            <Icons.Plus size={verticalScale(16)} color={colors.white} weight="bold" />
+            <Icons.Plus size={verticalScale(18)} color={colors.white} weight="bold" />
           </Animated.View>
 
           {/* Full view with text (visible when not scrolled) */}
@@ -159,9 +173,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   floatingButton: {
-    height: verticalScale(44),
-    width: verticalScale(120),
-    borderRadius: 24,
     position: "absolute",
     bottom: verticalScale(30),
     right: verticalScale(20),
