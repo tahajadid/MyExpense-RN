@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1,
         gap: spacingY._30,
-        paddingHorizontal: spacingY._20
+        paddingHorizontal: spacingY._20,
+        marginVertical: spacingY._20
     },
     welcomeText: {
         fontSize: verticalScale(20),
