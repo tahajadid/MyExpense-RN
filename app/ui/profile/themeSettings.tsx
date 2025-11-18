@@ -50,7 +50,7 @@ const ThemeSettings = () => {
                 <Image source={sunMoonImage} style={styles.sunImage} />
                 <Typo style={styles.title} color={colors.text}>{t("profile_003")}</Typo>
                 <Typo style={styles.subtitle} color={colors.descriptionText}>
-                  {t("settings_002")}
+                  {t("settings_005")}
                 </Typo>
             </View>
 
