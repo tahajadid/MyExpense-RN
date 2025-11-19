@@ -10,6 +10,7 @@ import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 
 const RegisterUser = () => {
@@ -20,6 +21,7 @@ const RegisterUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const [password, setPassword] = useState('');
+    const { t } = useTranslation();
 
     const {register : registerUser} = useAuth();
 
@@ -28,7 +30,7 @@ const RegisterUser = () => {
 
     const handleSubmit = async () => {
         if(!password || !emailRef.current || !profileNameRef.current){
-            Alert.alert("Register","Please fill the fields !")
+            Alert.alert(t("auth_register_001"), t("auth_register_002"))
             return;
         }
         
@@ -54,10 +56,10 @@ const RegisterUser = () => {
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._20}}>
                 <Typo size={30} fontWeight={"800"}  color={colors.text}>
-                    Create,
+                    {t("auth_register_003")}
                 </Typo>
                 <Typo size={30} fontWeight={"800"}  color={colors.text}>
-                    Your Profile
+                    {t("auth_register_004")}
                 </Typo>
             </View>
 
@@ -65,12 +67,12 @@ const RegisterUser = () => {
 
             <View style={styles.form}>
                 <Typo  color={colors.text}>
-                    Create an account track every expense
+                    {t("auth_register_005")}
                 </Typo>
 
                 {/** profile Input */}
                 <Input
-                    placeholder='Enter your profile id'
+                    placeholder={t("auth_register_006")}
                     onChangeText={(value) => (profileNameRef.current = value)}
                     icon={
                         <Icons.User
@@ -84,7 +86,7 @@ const RegisterUser = () => {
 
                 {/** email adress Input */}
                 <Input
-                    placeholder='Enter your email'
+                    placeholder={t("auth_register_007")}
                     onChangeText={(value) => (emailRef.current = value)}
                     icon={
                         <Icons.At
@@ -97,7 +99,7 @@ const RegisterUser = () => {
 
                 {/** password Input */}
                 <Input
-                    placeholder='Enter your password'
+                    placeholder={t("auth_register_008")}
                     secureTextEntry={true} // 🔒 This hides the input
                     value={password}
                     onChangeText={setPassword}
@@ -112,7 +114,7 @@ const RegisterUser = () => {
 
                 <Button loading={isLoading} onPress={handleSubmit}>
                     <Typo style={styles.submitButton} color={colors.neutral900}>
-                        Sign Up
+                        {t("auth_register_009")}
                     </Typo>
                 </Button>
 
@@ -121,11 +123,11 @@ const RegisterUser = () => {
             {/** footer */}
             <View style={styles.footer}>
                 <Typo style={styles.footerText} color={colors.text}>
-                    Already have an account?
+                    {t("auth_register_010")}
                 </Typo>
                 <Pressable onPress={() => router.push("/(auth)/login")}>
                     <Typo style={styles.underlinedText} color={colors.primary}>
-                        Login
+                        {t("auth_register_011")}
                     </Typo>
                 </Pressable>
             </View>

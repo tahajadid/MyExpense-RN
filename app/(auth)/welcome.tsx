@@ -6,10 +6,12 @@ import useThemeColors from '@/hooks/useThemeColors'
 import { verticalScale } from '@/utils/styling'
 import { useRouter } from 'expo-router'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
 
 const welcome = () => {
+    const { t } = useTranslation();
     const router = useRouter();
 
     // colors hook
@@ -21,12 +23,12 @@ const welcome = () => {
                 {/* login image & btn */}
                 <View>
                     <TouchableOpacity onPress={()=> router.push("/(auth)/login")} style={styles.loginButton}>
-                        <Typo fontWeight={"700"}  color={colors.blueText}> Sign in</Typo>
+                        <Typo fontWeight={"700"}  color={colors.blueText}>{t("welcome_001")}</Typo>
                     </TouchableOpacity>
 
                     <Animated.Image
                         entering={FadeIn.duration(1500)} 
-                        source={require('../../assets/images/onboardingTwo.png')}
+                        source={require('../../assets/images/welcome_icon.png')}
                         style={styles.welcomeImage}
                         resizeMode="contain"
                     />
@@ -38,10 +40,10 @@ const welcome = () => {
                     entering={FadeInDown.duration(500).springify().damping(40)}
                     style={{ alignItems: "center" }}>
                         <Typo size={28} fontWeight={"800"} color={colors.text}>
-                            Prenez toujours le controle
+                            {t("welcome_002")}
                         </Typo>
                         <Typo size={28} fontWeight={"800"} color={colors.text}>
-                            de vos depenses
+                            {t("welcome_003")}
                         </Typo>
                     </Animated.View>
 
@@ -49,15 +51,15 @@ const welcome = () => {
                     entering={FadeInDown.duration(500).delay(100).springify().damping(40)}
                     style={{alignItems: "center" , gap: 2}}>
                         <Typo size={17} color={colors.text}>
-                            Finance must be arranged
+                            {t("welcome_004")}
                         </Typo>
                     </Animated.View>
 
                     <Animated.View 
                     entering={FadeInDown.duration(500).delay(200).springify().damping(40)}
                     style={styles.buttomContainer}>
-                        <Button onPress={()=> router.push("/(auth)/registerUser")}>
-                            <Typo size={22} fontWeight={"700"} color={colors.neutral800}>Start</Typo>
+                        <Button onPress={()=> router.push("/(auth)/registerUser")}> 
+                            <Typo size={22} fontWeight={"700"} color={colors.neutral800}>{t("welcome_005")}</Typo>
                         </Button>
                     </Animated.View>
                 </View>
