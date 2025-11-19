@@ -129,9 +129,7 @@ const RegisterUser = () => {
                     </Typo>
                 </Pressable>
             </View>
-
         </View>
-
     </ScreenWrapper>
   )
 };
@@ -171,8 +169,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "700"
       },
-    submitButton: {
-        fontSize: 20,
-        fontWeight: "700"
+      submitButton: {
+        fontSize: 18,
+        fontWeight: "600"
     },
 });
