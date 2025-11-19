@@ -95,7 +95,7 @@ const SearchTransactionModal = () => {
 
               {/* Search Input */}
               <View style={[styles.searchContainer, { backgroundColor: colors.screenBackground }]}>
-                <Pressable style={[styles.searchInputContainer, { backgroundColor: colors.searchIconBackground }]}>
+                <Pressable style={[styles.searchInputContainer, { backgroundColor: colors.neutral600 }]}>
                   <Icons.MagnifyingGlass
                     size={verticalScale(20)}
                     color={colors.neutral300}
@@ -130,7 +130,7 @@ const SearchTransactionModal = () => {
                 <Pressable
                   style={[
                     styles.filterButton,
-                    { backgroundColor: selectedType === 'all' ? colors.primary : colors.searchIconBackground }
+                    { backgroundColor: selectedType === 'all' ? colors.primary : colors.neutral600 }
                   ]}
                   onPress={() => setSelectedType('all')}
                 >
@@ -146,7 +146,7 @@ const SearchTransactionModal = () => {
                 <Pressable
                   style={[
                     styles.filterButton,
-                    { backgroundColor: selectedType === 'expense' ? '#EF4444' : colors.searchIconBackground }
+                    { backgroundColor: selectedType === 'expense' ? '#EF4444' : colors.neutral600 }
                   ]}
                   onPress={() => setSelectedType('expense')}
                 >
@@ -162,7 +162,7 @@ const SearchTransactionModal = () => {
                 <Pressable
                   style={[
                     styles.filterButton,
-                    { backgroundColor: selectedType === 'income' ? '#10B981' : colors.searchIconBackground }
+                    { backgroundColor: selectedType === 'income' ? '#10B981' : colors.neutral600 }
                   ]}
                   onPress={() => setSelectedType('income')}
                 >

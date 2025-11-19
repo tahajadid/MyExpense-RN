@@ -128,7 +128,7 @@ export const lightTheme = {
     incomeLabelColor: "#404040",
     incomeIconColor: "#CCCCCC",
     searchIcon: "#e5e5e5",
-    searchIconBackground: "#404040",
+    searchIconBackground: "#a3a3a3",
     greenAdd: "#008000",
     greenAddHover: "#8efa8e",
     tabBarBackground: "#737373",

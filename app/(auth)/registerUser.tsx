@@ -129,9 +129,7 @@ const RegisterUser = () => {
                     </Typo>
                 </Pressable>
             </View>
-
         </View>
-
     </ScreenWrapper>
   )
 };
@@ -142,7 +140,8 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1,
         gap: spacingY._30,
-        paddingHorizontal: spacingY._20
+        paddingHorizontal: spacingY._20,
+        marginVertical: spacingY._20
     },
     welcomeText: {
         fontSize: verticalScale(20),
@@ -170,8 +169,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "700"
       },
-    submitButton: {
-        fontSize: 20,
-        fontWeight: "700"
+      submitButton: {
+        fontSize: 18,
+        fontWeight: "600"
     },
 });

@@ -11,7 +11,7 @@ export const expenseCategories: ExpenseCategoriesType = {
     rent: {
         label: "Rent",
         value: "rent",
-        icon: Icons.House,
+        icon: Icons.HouseLine,
         bgColor: "#075563"
     },
     utilities: {
@@ -80,7 +80,7 @@ export const expenseCategories: ExpenseCategoriesType = {
 export const incomeCategory: CategoryType = {
     label: "Income",
     value: "income",
-    icon: Icons.CurrencyDollarSimple,
+    icon: Icons.CurrencyDollar,
     bgColor: "#16a34a"
 }
 

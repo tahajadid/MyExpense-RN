@@ -52,7 +52,7 @@ const walletModal = () => {
     const onSubmit = async () => {
         let {name, image} = wallet;
         if(!name.trim() || !image){
-            Alert.alert("Wallet","Please enter the new name")
+            Alert.alert(t("wallet_016"),t("wallet_017"))
             return;
         }
 
@@ -72,7 +72,7 @@ const walletModal = () => {
             // data is updated
             router.back();
         } else {
-            Alert.alert("User","There is a probleme");
+            Alert.alert(t("wallet_016"),t("wallet_018"));
         }
     };
 
@@ -89,15 +89,15 @@ const walletModal = () => {
 
     }
     const deletWalletAlert = () => {
-        Alert.alert("Confirm","Delete Wallet\nThis action will remove all the related transactions of this wallet",
+        Alert.alert(t("wallet_012"),t("wallet_013"),
         [
             {
-                text: "Cancel",
+                text: t("wallet_014"),
                 onPress: ()=> console.log("camcel action"),
                 style: 'cancel'
             },
             {
-                text: "Delete",
+                text: t("wallet_015"),
                 onPress: ()=> onWalletDelete(),
                 style: 'destructive'
             }
@@ -125,15 +125,15 @@ const walletModal = () => {
               onScrollBeginDrag={Keyboard.dismiss}
               scrollEventThrottle={16}>
                 <Header 
-                  title={oldWallet?.id ? "Update" : "New Wallet"}
+                  title={oldWallet?.id ? t("wallet_005") : t("wallet_004")}
                   leftIcon={<BackButton/>}
                   style={{ marginBottom: spacingY._10 }}/>
 
                 {/** Form */}
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200}>Wallet Name</Typo>
+                  <Typo color={colors.neutral200}>{t("wallet_006")}</Typo>
                   <Input
-                    placeholder="Name.."
+                    placeholder={t("wallet_007")}
                     value={wallet.name}
                     onChangeText={(value) => {
                       setWallet({...wallet, name: value})
@@ -141,11 +141,11 @@ const walletModal = () => {
                   />
                 </View>
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200}>Wallet Icon</Typo>
+                  <Typo color={colors.neutral200}>{t("wallet_008")}</Typo>
                   {/* image input */}
                   <ImageUpload
                     file={wallet.image}
-                    placeholder="Upload Image" 
+                    placeholder={t("wallet_009")}
                     onSelect={(file) => setWallet({...wallet, image: file})}
                     onClear={() => setWallet({...wallet, image: null})}/>
                 </View>
@@ -178,7 +178,7 @@ const walletModal = () => {
                 )}
                 <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
                   <Typo  color={colors.neutral900} fontWeight={"700"}>
-                    {oldWallet?.id ? t("transaction_017") : t("transaction_018")}
+                    {oldWallet?.id ? t("wallet_010") : t("wallet_011")}
                   </Typo>
                 </Button>
               </View>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
     },
     form: {
-        gap: spacingY._7,
+        gap: spacingY._10,
         marginTop: spacingY._15,
         paddingHorizontal: spacingX._20,
     },
@@ -222,7 +222,8 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     inputContainer: {
-        gap: spacingY._10
+        gap: spacingY._10,
+        marginTop: spacingY._10
     },
     deleteIcon: {
         paddingHorizontal: spacingX._15

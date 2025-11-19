@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import Typo from '@/components/Typo';
-import { spacingY } from '@/constants/theme';
+import { spacingX, spacingY } from '@/constants/theme';
 import { useAuth } from '@/contexts/authContext';
 import useThemeColors from '@/hooks/useThemeColors';
 import { verticalScale } from '@/utils/styling';
@@ -19,6 +19,7 @@ const login = () => {
     const router = useRouter();
     const [password, setPassword] = useState('');
     const {login: loginUser} = useAuth();
+    const {forgotPassword: forgotPassword} = useAuth();
 
     const isIos = Platform.OS === "ios";
 
@@ -37,6 +38,41 @@ const login = () => {
             Alert.alert("Login : ", res.msg)
         }
     };
+
+    const handleForgetPassword = async () =>{
+        if(!emailRef.current){
+            Alert.alert("Forgot Password","Please enter your email address")
+            return;
+        }
+        
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(emailRef.current)){
+            Alert.alert("Invalid Email","Please enter a valid email address")
+            return;
+        }
+        
+        setIsLoading(true);
+        console.log("📧 Initiating forgot password for:", emailRef.current);
+        
+        const res = await forgotPassword(emailRef.current);
+        setIsLoading(false);
+        
+        if(res.success){
+            Alert.alert(
+                "Email Sent", 
+                res.msg || "Password reset email has been sent. Please check your inbox and spam folder.",
+                [{ text: "OK" }]
+            );
+        } else {
+            console.error("❌ Forgot password failed:", res.msg);
+            Alert.alert(
+                "Error", 
+                res.msg || "Failed to send password reset email. Please try again.",
+                [{ text: "OK" }]
+            );
+        }
+    }
 
   return (
     <ScreenWrapper>
@@ -94,7 +130,7 @@ const login = () => {
                     </Typo>
                 </Button>
 
-                <Pressable>
+                <Pressable  onPress={() => router.push("/(auth)/forgetPassword")}>
                     <Typo style={styles.forgetPassword} color={colors.primary} >
                         Forget Password ?
                     </Typo>
@@ -139,7 +175,8 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1,
         gap: spacingY._30,
-        paddingHorizontal: spacingY._20
+        paddingHorizontal: spacingY._20,
+        marginVertical: spacingY._20
     },
     welcomeText: {
         fontSize: verticalScale(20),
@@ -149,6 +186,7 @@ const styles = StyleSheet.create({
         gap: spacingY._20
     },
     forgetPassword:{
+        padding:spacingX._5,
         marginTop:-spacingY._5,
         fontSize: 16,
         textDecorationLine: 'underline',
@@ -179,8 +217,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "700"
       },
-    submitButton: {
-        fontSize: 20,
-        fontWeight: "700"
+      submitButton: {
+        fontSize: 18,
+        fontWeight: "600"
     },
 });

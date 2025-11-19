@@ -35,7 +35,7 @@ const welcome = () => {
                 {/* footer */}
                 <View style={[styles.footer, {backgroundColor: colors.neutral800}]}>
                     <Animated.View 
-                    entering={FadeInDown.duration(1000).springify().damping(12)}
+                    entering={FadeInDown.duration(500).springify().damping(40)}
                     style={{ alignItems: "center" }}>
                         <Typo size={28} fontWeight={"800"} color={colors.text}>
                             Prenez toujours le controle
@@ -46,7 +46,7 @@ const welcome = () => {
                     </Animated.View>
 
                     <Animated.View 
-                    entering={FadeInDown.duration(1000).delay(100).springify().damping(12)}
+                    entering={FadeInDown.duration(500).delay(100).springify().damping(40)}
                     style={{alignItems: "center" , gap: 2}}>
                         <Typo size={17} color={colors.text}>
                             Finance must be arranged
@@ -54,7 +54,7 @@ const welcome = () => {
                     </Animated.View>
 
                     <Animated.View 
-                    entering={FadeInDown.duration(1000).delay(200).springify().damping(12)}
+                    entering={FadeInDown.duration(500).delay(200).springify().damping(40)}
                     style={styles.buttomContainer}>
                         <Button onPress={()=> router.push("/(auth)/registerUser")}>
                             <Typo size={22} fontWeight={"700"} color={colors.neutral800}>Start</Typo>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "space-between",
         paddingTop: spacingY._7,
+        marginVertical: spacingY._20
     },
     welcomeImage: {
         width: "80%",
@@ -80,10 +81,10 @@ const styles = StyleSheet.create({
         marginRight: spacingX._40,
         marginLeft: spacingX._40
     },
-        loginButton: {
+    loginButton: {
         alignSelf: "flex-end",
         marginRight: spacingX._20,
-        },
+    },
     footer: { 
         alignItems: "center",
         paddingTop: verticalScale (30),
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     },
     buttomContainer:{
         width: "100%",
-        paddingHorizontal: spacingX._20
+        paddingHorizontal: spacingX._20,
     }
 });
 
