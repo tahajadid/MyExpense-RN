@@ -10,6 +10,7 @@ import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 const login = () => {
@@ -20,6 +21,7 @@ const login = () => {
     const [password, setPassword] = useState('');
     const {login: loginUser} = useAuth();
     const {forgotPassword: forgotPassword} = useAuth();
+    const { t } = useTranslation();
 
     const isIos = Platform.OS === "ios";
 
@@ -28,27 +30,27 @@ const login = () => {
     
     const handleSubmit = async () => {
         if(!password || !emailRef.current){
-            Alert.alert("Login","Please fill the fields !")
+            Alert.alert(t("auth_login_alert_001"), t("auth_login_alert_002"));
             return;
         }
         setIsLoading(true);
         const res = await loginUser(emailRef.current, password);
         setIsLoading(false);
         if(!res.success){
-            Alert.alert("Login : ", res.msg)
+            Alert.alert(t("auth_login_alert_003"), res.msg)
         }
     };
 
     const handleForgetPassword = async () =>{
         if(!emailRef.current){
-            Alert.alert("Forgot Password","Please enter your email address")
+            Alert.alert(t("auth_login_alert_004"), t("auth_login_alert_005"));
             return;
         }
         
         // Basic email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if(!emailRegex.test(emailRef.current)){
-            Alert.alert("Invalid Email","Please enter a valid email address")
+            Alert.alert(t("auth_login_alert_006"), t("auth_login_alert_007"));
             return;
         }
         
@@ -60,16 +62,16 @@ const login = () => {
         
         if(res.success){
             Alert.alert(
-                "Email Sent", 
-                res.msg || "Password reset email has been sent. Please check your inbox and spam folder.",
-                [{ text: "OK" }]
+                t("auth_login_alert_008"), 
+                res.msg || t("auth_login_alert_009"),
+                [{ text: t("auth_login_alert_010") }]
             );
         } else {
-            console.error("❌ Forgot password failed:", res.msg);
+            console.error("Forgot password failed:", res.msg);
             Alert.alert(
-                "Error", 
-                res.msg || "Failed to send password reset email. Please try again.",
-                [{ text: "OK" }]
+                t("auth_login_alert_011"), 
+                res.msg || t("auth_login_alert_012"),
+                [{ text: t("auth_login_alert_013") }]
             );
         }
     }
@@ -83,7 +85,7 @@ const login = () => {
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._40}}>
                 <Typo size={30} fontWeight={"800"} color={colors.text}>
-                    Welcome Back
+                    {t("auth_login_001")}
                 </Typo>
             </View>
 
@@ -91,13 +93,13 @@ const login = () => {
 
             <View style={styles.form}>
                 <Typo color={colors.text}>
-                    Login to your account
+                    {t("auth_login_002")}
                 </Typo>
 
 
                 {/** email adress Input */}
                 <Input
-                    placeholder='Email'
+                    placeholder={t("auth_login_003")}
                     onChangeText={(value) => (emailRef.current = value)}
                     icon={
                         <Icons.At
@@ -111,7 +113,7 @@ const login = () => {
                 
                 {/** password Input */}
                 <Input
-                    placeholder='Password'
+                    placeholder={t("auth_login_004")}
                     secureTextEntry={true} // 🔒 This hides the input
                     value={password}
                     onChangeText={setPassword}
@@ -126,13 +128,13 @@ const login = () => {
 
                 <Button loading={isLoading} onPress={handleSubmit}>
                     <Typo style={styles.submitButton} color={colors.neutral900}>
-                        Login
+                        {t("auth_login_005")}
                     </Typo>
                 </Button>
 
                 <Pressable  onPress={() => router.push("/(auth)/forgetPassword")}>
                     <Typo style={styles.forgetPassword} color={colors.primary} >
-                        Forget Password ?
+                        {t("auth_login_006")}
                     </Typo>
                 </Pressable>
 
@@ -152,11 +154,11 @@ const login = () => {
             {/** footer */}
             <View style={styles.footer}>
                 <Typo style={styles.footerText} color={colors.text}>
-                    Don't have an account?
+                    {t("auth_login_007")}
                 </Typo>
                 <Pressable onPress={() => router.push("/(auth)/registerUser")}>
                     <Typo style={styles.underlinedText} color={colors.primary}>
-                        Sign up
+                        {t("auth_login_008")}
                     </Typo>
                 </Pressable>
             </View>

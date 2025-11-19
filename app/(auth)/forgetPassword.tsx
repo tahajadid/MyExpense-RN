@@ -10,6 +10,7 @@ import { verticalScale } from '@/utils/styling';
 import { useRouter } from 'expo-router';
 import * as Icons from 'phosphor-react-native';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, Platform, StyleSheet, View } from 'react-native';
 
 const forgetPassword = () => {
@@ -18,6 +19,7 @@ const forgetPassword = () => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const {forgotPassword: forgotPassword} = useAuth();
+    const { t } = useTranslation();
 
     const isIos = Platform.OS === "ios";
 
@@ -27,14 +29,14 @@ const forgetPassword = () => {
 
     const handleForgetPassword = async () =>{
         if(!emailRef.current){
-            Alert.alert("Forgot Password","Please enter your email address")
+            Alert.alert(t("forget_password_001"), t("forget_password_002"))
             return;
         }
         
         // Basic email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if(!emailRegex.test(emailRef.current)){
-            Alert.alert("Invalid Email","Please enter a valid email address")
+            Alert.alert(t("forget_password_003"), t("forget_password_004"))
             return;
         }
         
@@ -46,20 +48,20 @@ const forgetPassword = () => {
         
         if(res.success){
             Alert.alert(
-                "Email Sent", 
-                res.msg || "Password reset email has been sent. Please check your inbox and spam folder.",
+                t("forget_password_005"), 
+                res.msg || t("forget_password_006"),
                 [
                     { 
-                        text: "OK",
+                        text: t("forget_password_007"),
                         onPress: ()=> {router.push("/(auth)/login")}
                     }]
             );
         } else {
             console.error("Forgot password failed:", res.msg);
             Alert.alert(
-                "Error", 
-                res.msg || "Failed to send password reset email. Please try again.",
-                [{ text: "OK" }]
+                t("forget_password_008"), 
+                res.msg || t("forget_password_009"),
+                [{ text: t("forget_password_010") }]
             );
         }
     }
@@ -73,7 +75,7 @@ const forgetPassword = () => {
             {/** Top label */}
             <View style={{gap:5, marginTop: spacingY._40}}>
                 <Typo size={30} fontWeight={"800"} color={colors.text}>
-                    Reset password
+                    {t("forget_password_011")}
                 </Typo>
             </View>
 
@@ -81,13 +83,13 @@ const forgetPassword = () => {
 
             <View style={styles.form}>
                 <Typo color={colors.text}>
-                    Enter youe email adress to reset your password
+                    {t("forget_password_012")}
                 </Typo>
 
 
                 {/** email adress Input */}
                 <Input
-                    placeholder='Email'
+                    placeholder={t("forget_password_013")}
                     onChangeText={(value) => (emailRef.current = value)}
                     icon={
                         <Icons.At
@@ -101,7 +103,7 @@ const forgetPassword = () => {
 
                 <Button loading={isLoading} onPress={handleForgetPassword}>
                     <Typo style={styles.submitButton} color={colors.neutral900}>
-                        Send
+                        {t("forget_password_014")}
                     </Typo>
                 </Button>
 
