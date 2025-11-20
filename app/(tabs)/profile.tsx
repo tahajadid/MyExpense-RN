@@ -8,7 +8,7 @@ import useThemeColors from '@/hooks/useThemeColors';
 import "@/i18n";
 import { getProfileImage } from '@/services/imageService';
 import { accountOptionType } from '@/types';
-import { verticalScale } from '@/utils/styling';
+import { scale, verticalScale } from '@/utils/styling';
 import { Image } from "expo-image";
 import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
@@ -92,10 +92,14 @@ const Profile = () => {
                 {/** User Info */}
                 <View style={styles.userInfo}>
                     {/** Avatar */}
-                    <View>
+                    <View style={{backgroundColor: colors.blue400, borderRadius: 30}}>
                         <Image 
                             source={getProfileImage(user?.image)}
-                            style={[styles.avatar, { backgroundColor: colors.neutral300}]}
+                            style={[styles.avatar,
+                                 {  margin: scale(3),
+                                    borderColor: colors.screenBackground,
+                                    borderWidth: scale(3)
+                                 }]}
                             contentFit="cover"
                             transition={100}
                         />
@@ -171,7 +175,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         height: verticalScale(135),
         width: verticalScale(135),
-        borderRadius: 200,
+        borderRadius: 30,
         overflow: "hidden",
         // position: "relative",
     },
