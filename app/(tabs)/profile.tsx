@@ -167,10 +167,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: spacingY._15
     },
-    avatarContainer: {
-        position: "relative",
-        alignSelf: "center",
-    },
     avatar: {
         alignSelf: "center",
         height: verticalScale(135),
@@ -201,26 +197,5 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: spacingX._10,
-    },
-    themeSection: {
-        marginTop: spacingY._20,
-        gap: spacingY._10,
-    },
-    segmentStyle: {
-        marginTop: spacingY._10,
-    },
-    themeButton: {
-        paddingVertical: spacingY._15,
-        paddingHorizontal: spacingX._20,
-        borderRadius: radius._10,
-    },
-    themeButtonContent: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: spacingX._10,
-    },
-    themeButtons: {
-        flexDirection: 'row',
-        gap: spacingX._10,
-    },
+    }
 });
