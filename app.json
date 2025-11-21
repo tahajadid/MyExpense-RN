@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Money Tracker",
-    "slug": "myexpense",
-    "version": "1.0.0",
+    "slug": "MyExpense",
+    "version": "0.1.0",
     "orientation": "portrait",
     "scheme": "myexpense",
     "userInterfaceStyle": "automatic",

@@ -17,11 +17,11 @@ const index = () => {
 
     return (
         <View style={styles.conatiner}>
-        <Image
-            source={require('../assets/images/onboardingTwo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-        />
+            <Image
+                source={require('../assets/icons/MoneyTrackerOnlyIcon.png')}
+                style={styles.logo}
+                resizeMode="contain"
+            />
         </View>
   )
 }
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: colors.neutral900,
+        backgroundColor: colors.primary,
     },
     logo: {
         aspectRatio: 1,
