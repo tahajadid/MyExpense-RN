@@ -6,7 +6,7 @@
 <a href="https://play.google.com/store/apps/details?id=com.tahajad.MyExpense"><img src="/storeImages/play_store_icon.png" width="180" height="70"/></a>
 </center>
 
-The UI of this applicagtion inspired by : [Youtube Video](https://www.youtube.com/watch?v=SLLLGF3PwUA&t=3993s&ab_channel=CodeWithNomi)
+The UI of this applicagtion inspired from : [Youtube Video](https://www.youtube.com/watch?v=SLLLGF3PwUA&t=3993s&ab_channel=CodeWithNomi)
 
 ## Get started
 
