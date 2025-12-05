@@ -8,6 +8,18 @@
 
 The UI of this applicagtion inspired from : [Youtube Video](https://www.youtube.com/watch?v=SLLLGF3PwUA&t=3993s&ab_channel=CodeWithNomi)
 
+## Screens
+Screens from the application 
+<div>
+  <img src="/storeImages/1.png" width="160" height="300"/>
+  <img src="/storeImages/2.png" width="160" height="300"/>
+  <img src="/storeImages/3.png" width="160" height="300"/>
+</div>
+</br>
+<div>
+  <img src="/storeImages/4.png" width="160" height="300"/>
+</div>
+
 ## Get started
 
 1. Install dependencies
