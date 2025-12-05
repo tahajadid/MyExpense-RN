@@ -15,9 +15,6 @@ Screens from the application
   <img src="/storeImages/2.png" width="160" height="300"/>
   <img src="/storeImages/3.png" width="160" height="300"/>
   <img src="/storeImages/4.png" width="160" height="300"/>
-</div>
-</br>
-<div>
   <img src="/storeImages/5.png" width="160" height="300"/>
 </div>
 
